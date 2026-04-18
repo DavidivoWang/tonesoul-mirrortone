@@ -1,0 +1,10 @@
+{
+    "name": "tonesoul-architecture-engine",
+    "version": "1.0.0",
+    "description": "ToneSoul Architecture Engine",
+    "scripts": {
+        "test": "python -m pytest tests/ -q"
+    },
+    "author": "黃梵威 (Fan-Wei Huang)",
+    "license": "Apache-2.0"
+}
