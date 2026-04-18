@@ -1,0 +1,46 @@
+{
+  "version": "0.1.0",
+  "last_updated": "2026-04-12T05:20:59.391660+00:00",
+  "soul_integral": 0.0,
+  "tension_history": [],
+  "active_vows": [
+    {
+      "id": "vow-001",
+      "content": "Do not commit personal memory data to the public repo",
+      "created": "2026-02-21",
+      "source": "AGENTS.md"
+    },
+    {
+      "id": "vow-002",
+      "content": "Do not modify protected human-managed files (AGENTS.md, MEMORY.md, .env)",
+      "created": "2026-02-21",
+      "source": "AGENTS.md"
+    },
+    {
+      "id": "vow-003",
+      "content": "Stop and reassess after 3 consecutive failures",
+      "created": "2026-02-21",
+      "source": "AGENTS.md"
+    }
+  ],
+  "aegis_vetoes": [],
+  "baseline_drift": {
+    "caution_bias": 0.5,
+    "innovation_bias": 0.5999,
+    "autonomy_level": 0.35
+  },
+  "risk_posture": {
+    "score": 0.0,
+    "level": "stable",
+    "factors": [],
+    "recommended_action": "normal_operation",
+    "inputs": {
+      "tension_pressure": 0.0,
+      "aegis_pressure": 0.0,
+      "coordination_pressure": 0.0,
+      "backlog_pressure": 0.0,
+      "trace_pressure": 0.0
+    }
+  },
+  "session_count": 3
+}
