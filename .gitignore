@@ -1,0 +1,141 @@
+# ToneSoul 5.2 - Git Ignore Configuration
+# Clean Git keeps the runtime auditable.
+
+# Binary & Media Files
+*.gguf
+*.wav
+*.mp3
+*.mp4
+*.zip
+*.bak
+
+# Model Files
+gpt*/
+
+# Runtime Directories
+tmp/
+temp/
+temp_ci_*/
+logs/
+simulation_logs/
+zenodo_upload/
+
+# Private Evolution Layer
+tonesoul_evolution/
+
+# Build artifacts
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.coverage
+coverage.xml
+htmlcov/
+*.egg-info/
+
+# Node.js
+node_modules/
+.next/
+apps/showcase/
+
+# IDE
+.vscode/
+
+# Database
+data/
+data/chromadb/
+data/evolution_latest.json
+*.sqlite3
+memory/soul.db
+
+# External Dependencies
+.external/
+
+# Archive
+.archive/
+
+# Runtime Logs
+ledger.jsonl
+bridge_debug.log
+.conversion_checkpoint.json
+memory/provenance_ledger.jsonl
+memory/self_journal.jsonl
+memory/agent_discussion.jsonl
+memory/agent_discussion_curated.jsonl
+memory/semantic_memory.jsonl
+memory/.consolidation_state.json
+memory/handoff/
+memory/external_framework_analysis/
+memory/vectors/
+memory/.semantic_index/
+memory/.hierarchical_index/
+memory/moltbook_logs/
+memory/narrative/
+
+# Secrets / local env
+.moltbook/
+.env
+.env.local
+.env.*.local
+.env*.local
+
+# Temporary / Development Files
+add_reset.py
+fix_nonlocal.py
+moltbook_register.html
+temp_commit_page.html
+data/yuhun.db
+
+# Test Artifacts
+.hypothesis/
+.tmp_tests/
+memory/.tmp_tests/
+pytest_output.txt
+pytest_err.txt
+test_results.txt
+
+# Local Modelfiles
+Modelfile.*
+
+# External Demo Files
+WFGY*
+*Singularity*
+
+# Autonomous runtime artifacts
+memory/autonomous/
+docs/status/probe_*/
+
+# Large archival data
+memory/archive/
+
+# Vector index
+memory_base/
+
+# VRM models
+*.vrm
+
+# Moltbook temporary data
+moltbook_feed.json
+*_framework_latest.json
+
+# Memory crystals
+memory/crystals.jsonl
+
+# Scribe chronicles
+/docs/chronicles/
+
+# Runtime state snapshots
+docs/status/persona_track_record_latest.json
+docs/status/scribe_status_latest.json
+memory/verification_tasks.jsonl
+
+# Temporary consolidation scripts
+_consolidate_plans.py
+.aegis/
+
+# Knowledge graph index
+graphify-out/
