@@ -1,0 +1,6 @@
+apps/web/
+docs/
+experiments/
+.cursor/
+.github/
+.vscode/
