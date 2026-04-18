@@ -1,0 +1,95 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tonesoul52"
+version = "1.0.0"
+description = "AI Governance Toolkit - Make LLM decisions auditable, traceable, and trustworthy"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "黃梵威", email = "xsw123za@gmail.com"}
+]
+keywords = [
+    "ai-governance", "ai-alignment", "responsible-ai", "explainable-ai", "xai",
+    "ai-safety", "ai-ethics", "verifiable-ai", "auditable-ai", "ai-accountability",
+    "llm-governance", "ai-transparency", "provenance-tracking", "ai-consciousness",
+    "human-ai-symbiosis", "multi-perspective-voting", "council-deliberation",
+    "ai-audit-framework", "7d-audit", "tonesoul"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "flask>=2.3",
+    "flask-cors>=4.0",
+    "numpy>=1.24",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "rich>=13.0",
+    "requests>=2.31.0",
+    "websockets>=12.0",
+]
+
+[project.optional-dependencies]
+dashboard = [
+    "streamlit>=1.28",
+    "pandas>=2.0",
+    "plotly>=5.0",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "hypothesis>=6.0",
+    "pytest-asyncio>=0.23.0",
+    "freezegun>=1.5.5",
+    "black>=26.0.0,<27.0.0",
+    "ruff>=0.1",
+]
+redis = [
+    "redis>=4.5",
+]
+aegis = [
+    "pynacl>=1.5",
+]
+monitoring = [
+    "psutil>=5.9",
+]
+ystm_viz = [
+    "cairosvg>=2.7",
+    "pillow>=10.0",
+]
+
+[project.urls]
+Homepage = "https://fan1234-1.github.io/tonesoul52/"
+Documentation = "https://fan1234-1.github.io/tonesoul52/getting-started.html"
+Repository = "https://github.com/Fan1234-1/tonesoul52"
+Issues = "https://github.com/Fan1234-1/tonesoul52/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tonesoul*"]
+exclude = ["tests*", "scripts*", "apps*", "docs*", "tonesoul_evolution*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
+extend-exclude = ["scripts/legacy"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+# pytest config is in pytest.ini (canonical source)
