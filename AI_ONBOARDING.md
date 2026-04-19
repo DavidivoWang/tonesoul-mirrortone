@@ -1,7 +1,7 @@
 # AI Onboarding Guide
 
 > Purpose: route later AI agents into the right entry lane without making them bulk-read the repo.
-> Last Updated: 2026-04-14
+> Last Updated: 2026-04-19
 > Status: active AI routing map. Operational work starts in `docs/AI_QUICKSTART.md`; deeper lanes open only after session start and the bounded project packet.
 
 ---
@@ -38,6 +38,11 @@ Do not:
 | Design Center | `DESIGN.md` | you need the architectural why and non-drift invariants | not runtime truth |
 | Curated Docs Gateway | `docs/README.md` | the lane is still unclear after first hop | not exhaustive browsing |
 | Full Registry | `docs/INDEX.md` | you intentionally need wider inventory coverage | not a first-hop packet |
+
+## Current Collaboration Boundary
+
+If you need the current scope and success criteria for the landing-layer cleanup wave, open `docs/plans/tonesoul_collaboration_boundary_and_success_criteria_2026-04-19.md`.
+Treat it as a bounded collaboration note for the current repo/docs/onboarding/workflow cleanup, not as a new architecture lane or a rewrite of ToneSoul's core center.
 
 ## Canonical Questions And Next Surface
 
@@ -89,6 +94,7 @@ If you claimed a task, release it after the handoff path is complete.
 - `DESIGN.md`
 - `docs/README.md`
 - `docs/INDEX.md`
+- `docs/plans/tonesoul_collaboration_boundary_and_success_criteria_2026-04-19.md`
 
 ## Canonical Handoff Line
 
