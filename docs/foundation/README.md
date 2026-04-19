@@ -49,6 +49,12 @@
 - Formula-like notation in entry docs is orientation unless an executable owner is named; check `docs/GLOSSARY.md` and `docs/MATH_FOUNDATIONS.md` when formula posture matters.
 - If Windows terminal output renders paths noisily, use [FILENAME_AND_ENTRY_INDEX.md](FILENAME_AND_ENTRY_INDEX.md) instead of trusting shell echoes.
 
+## Current Collaboration Boundary
+
+- If you need the current scope of this cleanup wave, open [docs/plans/tonesoul_collaboration_boundary_and_success_criteria_2026-04-19.md](../plans/tonesoul_collaboration_boundary_and_success_criteria_2026-04-19.md).
+- Treat that note as a collaboration-boundary aid for the current landing-layer work, not as a new architecture lane or a rewrite of ToneSoul's core center.
+- The current delivery focus remains: entry, routing, onboarding, authority order, task continuity, workflow clarity, and evidence-bounded wording.
+
 ## Reading Order
 
 1. [SYSTEM_OVERVIEW.md](SYSTEM_OVERVIEW.md)
@@ -81,6 +87,7 @@
 - [docs/AI_QUICKSTART.md](../AI_QUICKSTART.md)
 - [docs/README.md](../README.md)
 - [docs/INDEX.md](../INDEX.md)
+- [docs/plans/tonesoul_collaboration_boundary_and_success_criteria_2026-04-19.md](../plans/tonesoul_collaboration_boundary_and_success_criteria_2026-04-19.md)
 - [FILENAME_AND_ENTRY_INDEX.md](FILENAME_AND_ENTRY_INDEX.md)
 - [docs/7D_AUDIT_FRAMEWORK.md](../7D_AUDIT_FRAMEWORK.md)
 - [docs/FILE_PURPOSE_MAP.md](../FILE_PURPOSE_MAP.md)
