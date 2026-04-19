@@ -1,7 +1,7 @@
 # ToneSoul AI Quickstart
 
 > Purpose: give later AI agents the minimum operational entry surface before they read the repo in bulk.
-> Last Updated: 2026-04-14
+> Last Updated: 2026-04-19
 > Status: operational first-hop owner; subordinate to `AXIOMS.json`, executable code, tests, `task.md`, and canonical architecture contracts.
 > Use When: first minute of a session, before touching code or making architecture claims.
 
@@ -39,10 +39,13 @@ Use them like this:
 - `mutation_preflight`
 - `subsystem_parity`
 
-Then open:
+## Next Owner Surfaces
 
-- `docs/foundation/README.md`
-- `task.md`
+After the operational handshake, continue in this order:
+
+1. `AI_ONBOARDING.md`
+2. `docs/foundation/README.md`
+3. `task.md`
 
 If the task touches compaction, handoff survival, or what may be compressed, open `docs/architecture/TONESOUL_HOT_MEMORY_DECAY_AND_COMPRESSION_MAP.md` before inferring a new compression story from observer prose.
 
@@ -64,7 +67,7 @@ Use them narrowly:
 
 ## Stop Line
 
-Do not widen into `DESIGN.md`, `docs/README.md`, `docs/INDEX.md`, `docs/architecture/`, or code until you know which concrete question you are trying to answer.
+Do not widen into `DESIGN.md`, `docs/README.md`, `docs/INDEX.md`, `docs/architecture/`, or code until you know which concrete question you are trying to answer and have finished the bounded packet (`AI_ONBOARDING.md` -> `docs/foundation/README.md` -> `task.md`).
 
 ## Session End
 
@@ -78,9 +81,10 @@ If you claimed a task, release it after the handoff path is complete.
 
 - `AI_ONBOARDING.md` = routing map after the operational handshake
 - `docs/foundation/README.md` = thin project packet
+- `task.md` = current accepted short board and live program center
 - `docs/README.md` = curated docs gateway
 - `docs/INDEX.md` = exhaustive registry only when needed
 
 ## Canonical Handoff Line
 
-This file owns the operational first hop. If a later AI instance reads bulk architecture before finishing this block, it is widening too early.
+This file owns the operational first hop. If a later AI instance reads bulk architecture before finishing this block and the bounded packet, it is widening too early.
