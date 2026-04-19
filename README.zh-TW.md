@@ -6,7 +6,7 @@
 > ToneSoul 是一套外部化認知治理架構，關心的是可挑戰、可追溯、可稽核的 AI，而不是只追求更順的回答。
 >
 > Purpose: 語魂公開倉庫中文入口，說明整體架構、治理姿態與實作入口。
-> Last Updated: 2026-04-14
+> Last Updated: 2026-04-19
 
 [English](README.md)
 
@@ -25,24 +25,14 @@
 ### 1) 安裝
 
 ```bash
-pip install tonesoul52
-```
-
-或從原始碼安裝：
-
-```bash
-git clone --depth 1 https://github.com/Fan1234-1/tonesoul52.git
-cd tonesoul52
+git clone --depth 1 https://github.com/DavidivoWang/tonesoul-mirrortone.git
+cd tonesoul-mirrortone
+python -m venv .venv
+.venv/Scripts/activate
 pip install -e .
 ```
 
-### 2) 跑 demo
-
-```bash
-python examples/quickstart.py
-```
-
-### 3) 驗證治理狀態有載入
+### 2) 驗證治理狀態有載入
 
 ```python
 from tonesoul.runtime_adapter import load
@@ -52,18 +42,22 @@ print(f"Soul Integral: {posture.soul_integral}")
 print(f"Active Vows: {len(posture.active_vows)}")
 ```
 
-### 4) 啟動儀表板（選用）
+### 3) 跑 session-start bundle
 
 ```bash
-pip install tonesoul52[dashboard]
-python scripts/tension_dashboard.py --work-category research
+python scripts/start_agent_session.py --agent <your-id>
 ```
 
-### 5) 跑測試
+### 4) 跑測試
 
 ```bash
-pip install tonesoul52[dev]
 pytest tests/ -v
+```
+
+### 5) 啟動儀表板（選用）
+
+```bash
+python scripts/tension_dashboard.py --work-category research
 ```
 
 ## 30 秒系統地圖
@@ -97,7 +91,7 @@ ToneSoul 不是單一 prompt，也不是單純的記憶外掛。
 |---|---|---|---|
 | 開發者 | [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md) | [docs/foundation/README.md](docs/foundation/README.md) -> [docs/README.md](docs/README.md) | 先安裝，再讀薄 packet，還不清楚時才進 curated docs gateway |
 | 研究者 | [DESIGN.md](DESIGN.md) | [docs/foundation/README.md](docs/foundation/README.md) -> [docs/architecture/TONESOUL_SYSTEM_OVERVIEW_AND_SUBSYSTEM_GUIDE.md](docs/architecture/TONESOUL_SYSTEM_OVERVIEW_AND_SUBSYSTEM_GUIDE.md) | 先抓設計中心，再補 bounded packet，最後看整體地圖 |
-| AI 代理 | [docs/AI_QUICKSTART.md](docs/AI_QUICKSTART.md) | `python scripts/start_agent_session.py --agent <your-id>` -> [AI_ONBOARDING.md](AI_ONBOARDING.md) | 先走 operational first hop，再做 session handshake，最後才進 routing map |
+| AI 代理 | [docs/AI_QUICKSTART.md](docs/AI_QUICKSTART.md) | `python scripts/start_agent_session.py --agent <your-id>` -> [AI_ONBOARDING.md](AI_ONBOARDING.md) -> [docs/foundation/README.md](docs/foundation/README.md) -> [task.md](task.md) | 先走 operational first hop，再做 session handshake，然後 routing map、bounded packet、short board |
 | 一般讀者 | [README.md](README.md) | [SOUL.md](SOUL.md) -> [LETTER_TO_AI.md](LETTER_TO_AI.md) | 先看公共入口，再看身份與意圖層 |
 
 一次只先開一個 owner surface，不要整列一起讀。
