@@ -1,9 +1,16 @@
-﻿# ToneSoul Documentation Index
+# ToneSoul Documentation Index
 
 > Purpose: top-level documentation index for ToneSoul authority surfaces, operational packets, and convergence maps.
-> Last Updated: 2026-04-18
+> Last Updated: 2026-04-20
 > Status: full registry, not the default first-hop gateway.
 > Use When: `docs/README.md` was not enough, or you need broader inventory coverage instead of guided routing.
+
+> Registry honesty note:
+> this file is an inventory surface, not a canonical lane owner.
+> its upper routing stack and authority sections are the maintained entry logic.
+> some lower registry blocks still preserve older historical tables and mixed-encoding text from earlier doc waves.
+> treat those lower blocks as inventory residue unless they are separately normalized or confirmed against the stronger owner surfaces.
+
 ---
 
 ## AI Reading Stack
