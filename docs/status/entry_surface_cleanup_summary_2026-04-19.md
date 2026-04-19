@@ -1,31 +1,35 @@
 # Entry Surface Cleanup Summary (2026-04-19)
 
 > Purpose: short reviewable summary of what the current cleanup wave changed across ToneSoul's first-hop entry surfaces.
-> Last Updated: 2026-04-19
+> Last Updated: 2026-04-20
 > Status: review snapshot for the current landing-layer cleanup wave.
 
 ---
 
-## What This Wave Focused On
+## What This Reviewable Wave Focused On
 
 This wave did **not** try to rewrite ToneSoul's core center.
 It focused on making the repo easier to enter, route, continue, and inspect.
 
-The work concentrated on:
+The reviewable landing-layer set in this pass is:
 
-- `README.md`
-- `README.zh-TW.md`
 - `docs/AI_QUICKSTART.md`
 - `AI_ONBOARDING.md`
 - `docs/foundation/README.md`
 - `docs/README.md`
-- the collaboration-boundary note for the current cleanup wave
+- `docs/plans/tonesoul_collaboration_boundary_and_success_criteria_2026-04-19.md`
+- `docs/status/entry_surface_cleanup_summary_2026-04-19.md`
+
+## Deliberate Scope Boundary
+
+`README.md` and `README.zh-TW.md` are **not** part of this reviewable docs-alignment set.
+Those root entry surfaces still contain mirror-repo-specific install-source edits and should stay on a separate line until any later manual port is reviewed on its own merits.
 
 ## What Was Fixed
 
 ### 1. First-Hop Route Was Aligned
 
-The AI first-hop route now reads consistently across the main entry surfaces:
+The AI first-hop route now reads consistently across the main reviewable entry surfaces:
 
 1. `docs/AI_QUICKSTART.md`
 2. `python scripts/start_agent_session.py --agent <your-id>`
@@ -47,9 +51,10 @@ It now clearly differs from `docs/INDEX.md`, which remains the **full registry**
 
 This prevents the foundation packet from silently becoming a second task board.
 
-### 4. Public Entry Surfaces Were Brought Closer Together
+### 4. Reviewable Scope Was Made Honest
 
-`README.md` and `README.zh-TW.md` now point AI readers toward the same first-hop chain instead of diverging after session-start.
+The current landing-layer reviewable set is now explicit about what it includes and what it excludes.
+That means reviewers can inspect the docs-alignment pass without accidentally treating the mirror-specific root README edits as canonical-ready cleanup.
 
 ### 5. Current Collaboration Scope Was Made Explicit
 
@@ -67,6 +72,7 @@ This wave did **not**:
 - replace its identity vocabulary
 - upgrade interpretive prose into canonical runtime truth
 - widen maturity claims beyond the evidence ladder
+- silently treat mirror-specific root README edits as part of the reviewable docs-only pass
 
 ## Current Result
 
@@ -87,8 +93,9 @@ Remaining work is still likely to include:
 - deeper docs consistency checks
 - broader cross-link validation
 - selective cleanup of downstream workflow surfaces
-- later review by the project owner for wording and emphasis
+- later owner review of wording and emphasis
+- any separate handling of root `README.md` / `README.zh-TW.md` if a canonical-safe manual port is ever wanted
 
 ## Compressed Verdict
 
-This wave should be read as a landing-layer cleanup and alignment pass, not as a philosophical rewrite and not as a full-repo completion claim.
+This wave should be read as a landing-layer cleanup and alignment pass, not as a philosophical rewrite, not as a full-repo completion claim, and not as approval to bulk-merge mirror-specific root README edits into canonical surfaces.
