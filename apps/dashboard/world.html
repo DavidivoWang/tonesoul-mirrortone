@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToneSoul World</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #0d0d18;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: monospace;
+  }
+
+  /* ── HUD bar ── */
+  .hud {
+    flex: 0 0 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 14px;
+    background: #000;
+    border-bottom: 2px solid #2a2a3e;
+    z-index: 10;
+    font-size: 11px;
+    color: #aaa;
+  }
+  .hud-left { display: flex; gap: 12px; align-items: center; }
+  .hud-title { color: #7c5cfc; font-weight: bold; letter-spacing: 2px; font-size: 11px; }
+  .hud-mood { padding: 1px 6px; border: 1px solid; font-size: 9px; letter-spacing: 1px; }
+  .m-calm  { color:#4ecdc4; border-color:#4ecdc4; }
+  .m-alert { color:#ffd93d; border-color:#ffd93d; }
+  .m-tense { color:#ff6b6b; border-color:#ff6b6b; }
+  .m-serene{ color:#6bcb77; border-color:#6bcb77; }
+  .hud b { color: #fff; }
+
+  /* ── Speech bubble ── */
+  .bubble {
+    display: none;
+    position: absolute;
+    background: rgba(255,255,255,0.93);
+    color: #1a1a2e;
+    font: bold 11px monospace;
+    padding: 5px 9px;
+    border-radius: 6px;
+    border: 2px solid #7c5cfc;
+    max-width: 180px;
+    line-height: 1.4;
+    pointer-events: none;
+    z-index: 5;
+    white-space: nowrap;
+  }
+  .bubble.show { display: block; }
+  .bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: #7c5cfc;
+  }
+  .bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -5px; left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: rgba(255,255,255,0.93);
+    z-index: 1;
+  }
+
+  /* ── Main layout: world + panel ── */
+  .main {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  /* ── Canvas area ── */
+  .world-area {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  canvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+  /* ── Status panel (Princess Maker style) ── */
+  .status-panel {
+    flex: 1;
+    min-width: 0;
+    background: #0a0a18;
+    border-left: 2px solid #2a2a3e;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Portrait area */
+  .portrait-area {
+    background: #111128;
+    border-bottom: 2px solid #2a2a3e;
+    padding: 20px 16px 14px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .portrait-canvas {
+    display: block;
+    flex: 0 0 auto;
+    image-rendering: pixelated;
+    border: 2px solid #3a3a5e;
+  }
+  .portrait-info { flex: 1; }
+  .portrait-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #c0c0e0;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .portrait-title {
+    font-size: 11px;
+    color: #606080;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .portrait-session {
+    font-size: 10px;
+    color: #505068;
+  }
+  .portrait-session b { color: #8080a8; }
+
+  /* Stat rows */
+  .stats-area {
+    padding: 14px 20px;
+    border-bottom: 2px solid #2a2a3e;
+  }
+  .stat-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: #808098;
+    width: 72px;
+    flex: 0 0 72px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .stat-bar {
+    flex: 1;
+    height: 10px;
+    background: #1a1a2e;
+    border: 1px solid #2a2a4e;
+    overflow: hidden;
+  }
+  .stat-bar-fill {
+    height: 100%;
+    transition: width 0.5s ease;
+  }
+  .stat-value {
+    font-size: 11px;
+    color: #c0c0e0;
+    width: 36px;
+    text-align: right;
+  }
+
+  /* Section headers */
+  .section-head {
+    font-size: 10px;
+    color: #505070;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 20px 4px;
+    border-bottom: 1px solid #1a1a2e;
+  }
+
+  /* Vows */
+  .vows-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 0;
+  }
+  .vow-item {
+    padding: 8px 20px;
+    font-size: 12px;
+    color: #8080a8;
+    border-bottom: 1px solid #12121e;
+    line-height: 1.5;
+    cursor: default;
+  }
+  .vow-item:hover { background: #111128; color: #b0b0d0; }
+  .vow-id {
+    font-size: 10px;
+    color: #4ecdc4;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* Tensions */
+  .tensions-area {
+    border-top: 2px solid #2a2a3e;
+    max-height: 160px;
+    overflow-y: auto;
+  }
+  .tension-item {
+    padding: 6px 20px;
+    font-size: 11px;
+    color: #706070;
+    border-bottom: 1px solid #12121e;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .tension-sev {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    flex: 0 0 auto;
+    font-weight: bold;
+  }
+  .t-hi { background: #3a1010; color: #ff6b6b; }
+  .t-md { background: #3a2a10; color: #ffd93d; }
+  .t-lo { background: #102020; color: #4ecdc4; }
+  .tension-topic { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* Visitors */
+  .visitors-area {
+    max-height: 100px;
+    overflow-y: auto;
+  }
+  .visitor-item {
+    padding: 4px 20px;
+    font-size: 11px;
+    color: #606080;
+    border-bottom: 1px solid #12121e;
+    display: flex;
+    justify-content: space-between;
+  }
+  .visitor-agent { color: #4ecdc4; }
+  .visitor-time { color: #404060; font-size: 10px; }
+
+  /* Aegis */
+  .aegis-area {
+    padding: 8px 20px;
+  }
+  .aegis-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .aegis-icon {
+    font-size: 14px;
+    width: 20px;
+    text-align: center;
+  }
+  .aegis-intact { color: #6bcb77; }
+  .aegis-compromised { color: #ffd93d; }
+  .aegis-detail {
+    font-size: 10px;
+    color: #505068;
+    margin-top: 4px;
+  }
+
+  /* Tooltip */
+  #tip {
+    display: none; position: fixed;
+    background: rgba(10,10,20,0.95); border: 1px solid #555;
+    padding: 8px 12px; z-index: 20;
+    font: 11px monospace; color: #ddd; pointer-events: none;
+    max-width: 200px;
+  }
+  #tip.show { display: block; }
+  #tip b { display: block; font-size: 12px; margin-bottom: 3px; }
+  #tip .meta { color: #999; font-size: 10px; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #0a0a18; }
+  ::-webkit-scrollbar-thumb { background: #2a2a4e; }
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="hud-left">
+    <span class="hud-title">TONESOUL WORLD</span>
+    <span class="hud-mood m-calm" id="hMood">CALM</span>
+  </div>
+  <div class="hud-right" style="font-size:10px;gap:10px;">
+    <span>靈魂積分 <b id="hPsi">0</b></span>
+    <span>對話 <b id="hSes">0</b></span>
+    <span>區域 <b id="hZn">0</b></span>
+  </div>
+</div>
+
+<div class="main">
+  <div class="world-area" style="position:relative;">
+    <canvas id="c"></canvas>
+    <div class="bubble" id="bubble"></div>
+  </div>
+
+  <!-- Status Panel -->
+  <div class="status-panel">
+    <!-- Portrait -->
+    <div class="portrait-area">
+      <canvas id="portrait" class="portrait-canvas" width="80" height="80" style="width:120px;height:120px;"></canvas>
+      <div class="portrait-info">
+        <div class="portrait-name">TONESOUL</div>
+        <div class="portrait-title" id="portraitTitle">WANDERER · CALM</div>
+        <div class="portrait-session">對話 <b id="spSes">0</b> &nbsp;|&nbsp; 區域 <b id="spZn">0</b></div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-area">
+      <div class="stat-row">
+        <div class="stat-label">靈魂積分 Ψ</div>
+        <div class="stat-bar"><div class="stat-bar-fill" id="barPsi" style="background:#7c5cfc;width:0%"></div></div>
+        <div class="stat-value" id="valPsi">0</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-label">謹慎 Caution</div>
+        <div class="stat-bar"><div class="stat-bar-fill" id="barCaution" style="background:#ffd93d;width:50%"></div></div>
+        <div class="stat-value" id="valCaution">0.5</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-label">創新 Innovate</div>
+        <div class="stat-bar"><div class="stat-bar-fill" id="barInno" style="background:#6bcb77;width:60%"></div></div>
+        <div class="stat-value" id="valInno">0.6</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-label">自主 Autonomy</div>
+        <div class="stat-bar"><div class="stat-bar-fill" id="barAuto" style="background:#4d96ff;width:35%"></div></div>
+        <div class="stat-value" id="valAuto">0.35</div>
+      </div>
+    </div>
+
+    <!-- Vows -->
+    <div class="section-head">承諾 VOWS</div>
+    <div class="vows-area" id="vowsList"></div>
+
+    <!-- Visitors -->
+    <div class="section-head" style="border-top:2px solid #2a2a3e;">訪客 VISITORS</div>
+    <div class="visitors-area" id="visitorsList"></div>
+
+    <!-- Aegis -->
+    <div class="section-head" style="border-top:2px solid #2a2a3e;">防禦 AEGIS SHIELD</div>
+    <div class="aegis-area" id="aegisStatus"></div>
+
+    <!-- Tensions -->
+    <div class="section-head" style="border-top:2px solid #2a2a3e;">近期張力 TENSIONS</div>
+    <div class="tensions-area" id="tensionsList"></div>
+  </div>
+</div>
+
+<div id="tip"><b id="tN"></b><span class="meta" id="tM"></span></div>
+
+<script>
+// ============================================================
+//  CONFIG
+// ============================================================
+const T = 16;           // base tile size in pixels
+const MW = 20, MH = 15; // map tiles
+let S = 1;              // render scale (computed)
+
+// ============================================================
+//  COLOR PALETTES  (GBC-inspired)
+// ============================================================
+const C = {
+  // Ground
+  grass1: '#5a8f3c', grass2: '#4a7a30', grass3: '#6ba548',
+  path:   '#c8b07a', pathDk: '#a89060',
+  water1: '#3070b0', water2: '#4088c8',
+  // Building common
+  roof1: '#8868b8', roof2: '#a080d0', roof3: '#7050a0',
+  wall1: '#c8c0d8', wall2: '#b0a8c0', wall3: '#9890a8',
+  door:  '#604830', doorFrame: '#484040',
+  window: '#90d8f0', windowFrame: '#5060a0',
+  // Accents per zone
+  accent: {
+    governance: { r1:'#7050c0', r2:'#8868d8', w:'#d0c8e0' },
+    memory:     { r1:'#308880', r2:'#40a898', w:'#c0e8e0' },
+    testing:    { r1:'#c05050', r2:'#d06868', w:'#e0c0c0' },
+    benevolence:{ r1:'#c04880', r2:'#d060a0', w:'#e8c0d8' },
+    architecture:{ r1:'#408840', r2:'#58a858', w:'#c8e0c8' },
+    infrastructure:{ r1:'#707088', r2:'#8888a0', w:'#d0d0d8' },
+    diagnostic: { r1:'#3868b0', r2:'#5080c8', w:'#c0d0e8' },
+    gamification:{ r1:'#6030a0', r2:'#7848c0', w:'#d0c0e8' },
+    dashboard:  { r1:'#208080', r2:'#30a0a0', w:'#b8e0e0' },
+    stock:      { r1:'#b09020', r2:'#c8a838', w:'#e8e0c0' },
+    debug:      { r1:'#c07028', r2:'#d88840', w:'#e8d8c0' },
+  },
+  // Character
+  skin: '#f0c8a0', hair: '#483828', shirt: '#7060c0', pants: '#384070',
+  // Tree
+  leaf1: '#3a7828', leaf2: '#4a9038', trunk: '#685030',
+  // Fence
+  fence: '#c0b090',
+};
+
+// ============================================================
+//  MAP DATA — generated from zone data
+// ============================================================
+let map = [];       // MH x MW of tile chars
+let bldgs = [];     // [{mx, my, zone, colors}]
+let trees = [];     // [{mx, my}]
+let fences = [];    // [{mx, my}]
+let avatarMX = 10, avatarMY = 8;
+let frame = 0;
+let worldData = null, govData = null;
+let hoverZone = null;
+let particles = [];  // weather particles
+
+function initMap() {
+  map = [];
+  for (let y = 0; y < MH; y++) {
+    map[y] = [];
+    for (let x = 0; x < MW; x++) {
+      // Default grass with variation
+      const v = ((x * 7 + y * 13) % 5);
+      map[y][x] = v === 0 ? 2 : v === 1 ? 3 : 1; // 1,2,3 = grass variants
+    }
+  }
+}
+
+// Lay path on map
+function carve(x0,y0,x1,y1) {
+  let x=x0, y=y0;
+  while(x!==x1) { if(y>=0&&y<MH&&x>=0&&x<MW) map[y][x]=4; x+=x1>x?1:-1; }
+  while(y!==y1) { if(y>=0&&y<MH&&x>=0&&x<MW) map[y][x]=4; y+=y1>y?1:-1; }
+  if(y>=0&&y<MH&&x>=0&&x<MW) map[y][x]=4;
+}
+
+function placeWorld(zones) {
+  bldgs = []; trees = []; fences = [];
+  if (!zones || !zones.length) return;
+
+  // Place buildings in fixed good positions
+  const positions = [
+    {x:3,  y:2},  {x:10, y:2},  {x:16, y:2},
+    {x:3,  y:7},  {x:16, y:7},
+    {x:3,  y:11}, {x:10, y:11}, {x:16, y:11},
+  ];
+
+  const sorted = [...zones].sort((a,b) => (b.level*10+b.visit_count)-(a.level*10+a.visit_count));
+  const cx = 10, cy = 7;
+  avatarMX = cx; avatarMY = cy;
+
+  // Carve center cross paths
+  carve(0, cy, MW-1, cy);
+  carve(cx, 0, cx, MH-1);
+
+  sorted.forEach((zone, i) => {
+    if (i >= positions.length) return;
+    const pos = positions[i];
+    const acc = C.accent[zone.zone_id] || C.accent.governance;
+    bldgs.push({ mx: pos.x, my: pos.y, zone, colors: acc });
+    // Path from building entrance to nearest main path
+    carve(pos.x + 1, pos.y + 3, pos.x + 1, cy);
+    carve(pos.x + 1, cy, cx, cy);
+  });
+
+  // Trees — fill empty grass areas
+  for (let i = 0; i < 15; i++) {
+    const tx = 1 + ((i * 7 + 3) % (MW - 2));
+    const ty = 1 + ((i * 11 + 5) % (MH - 2));
+    const blocked = bldgs.some(b => Math.abs(b.mx - tx) < 4 && Math.abs(b.my - ty) < 4);
+    if (!blocked && map[ty]?.[tx] <= 3) {
+      trees.push({mx: tx, my: ty});
+    }
+  }
+
+  // Fences along some paths
+  bldgs.forEach(b => {
+    const fy = b.my + 3;
+    if (fy < MH - 1) {
+      for (let fx = b.mx - 1; fx <= b.mx + 3; fx++) {
+        if (fx >= 0 && fx < MW && map[fy]?.[fx] <= 3) {
+          fences.push({mx: fx, my: fy});
+        }
+      }
+    }
+  });
+}
+
+// ============================================================
+//  RENDERING
+// ============================================================
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  const w = Math.floor(window.innerWidth / 2);
+  const h = window.innerHeight - 28; // HUD
+  S = Math.max(1, Math.min(Math.floor(w / (MW * T)), Math.floor(h / (MH * T))));
+  canvas.width = MW * T * S;
+  canvas.height = MH * T * S;
+}
+
+// ============================================================
+//  PORTRAIT DRAWING
+// ============================================================
+function drawPortrait(mood) {
+  const pc = document.getElementById('portrait');
+  const pctx = pc.getContext('2d');
+  pctx.clearRect(0, 0, 80, 80);
+
+  const moodColors = { calm:'#7c5cfc', alert:'#ffd93d', tense:'#ff6b6b', serene:'#6bcb77' };
+  const mc = moodColors[mood] || moodColors.calm;
+
+  // Background gradient
+  const grad = pctx.createLinearGradient(0, 0, 0, 80);
+  grad.addColorStop(0, '#1a1a3e');
+  grad.addColorStop(1, '#0a0a1e');
+  pctx.fillStyle = grad;
+  pctx.fillRect(0, 0, 80, 80);
+
+  // Ground
+  pctx.fillStyle = '#2a4a2a';
+  pctx.fillRect(0, 64, 80, 16);
+
+  // Body (chibi proportions, pixel style, 4px per pixel)
+  const ps = 4; // pixel size
+  const ox = 28, oy = 24; // origin
+
+  // Cape / aura glow
+  const aura = Math.sin(Date.now() * 0.002) * 0.15 + 0.2;
+  pctx.fillStyle = mc + Math.round(aura * 255).toString(16).padStart(2,'0');
+  pctx.fillRect(ox - 4, oy, 6*ps + 8, 10*ps);
+
+  // Legs
+  pctx.fillStyle = '#303050';
+  pctx.fillRect(ox + ps, oy + 8*ps, 2*ps, 3*ps);
+  pctx.fillRect(ox + 3*ps, oy + 8*ps, 2*ps, 3*ps);
+  // Boots
+  pctx.fillStyle = '#202030';
+  pctx.fillRect(ox + ps - 1, oy + 10*ps, 2*ps + 1, ps);
+  pctx.fillRect(ox + 3*ps - 1, oy + 10*ps, 2*ps + 1, ps);
+
+  // Body armor
+  pctx.fillStyle = '#204060';
+  pctx.fillRect(ox, oy + 4*ps, 6*ps, 4*ps);
+  // Armor highlight
+  pctx.fillStyle = '#305070';
+  pctx.fillRect(ox, oy + 4*ps, 6*ps, ps);
+  // Chest gem
+  pctx.fillStyle = mc;
+  pctx.fillRect(ox + 2*ps, oy + 5*ps, 2*ps, 2*ps);
+  pctx.fillStyle = '#ffffff';
+  pctx.fillRect(ox + 2*ps, oy + 5*ps, ps, ps);
+
+  // Arms
+  pctx.fillStyle = '#204060';
+  pctx.fillRect(ox - ps, oy + 4*ps, ps, 3*ps);
+  pctx.fillRect(ox + 6*ps, oy + 4*ps, ps, 3*ps);
+
+  // Head
+  pctx.fillStyle = '#e8c8a8';
+  pctx.fillRect(ox + ps, oy + ps, 4*ps, 3*ps);
+  // Hair (silver)
+  pctx.fillStyle = '#b8c8d8';
+  pctx.fillRect(ox, oy, 6*ps, 2*ps);
+  pctx.fillRect(ox, oy + 2*ps, ps, 2*ps);
+  pctx.fillRect(ox + 5*ps, oy + 2*ps, ps, 2*ps);
+  pctx.fillRect(ox + ps, oy + 3*ps, ps, ps);
+  // Glasses
+  pctx.fillStyle = '#4080a0';
+  pctx.fillRect(ox + ps, oy + 2*ps, ps, ps);
+  pctx.fillRect(ox + 3*ps, oy + 2*ps, ps, ps);
+  pctx.fillRect(ox + 2*ps, oy + 2*ps, ps, 1);
+  // Eyes
+  pctx.fillStyle = '#202040';
+  pctx.fillRect(ox + ps, oy + 2*ps, ps, ps);
+  pctx.fillRect(ox + 3*ps, oy + 2*ps, ps, ps);
+  // Headphone accent
+  pctx.fillStyle = mc;
+  pctx.fillRect(ox, oy, ps, ps);
+  pctx.fillRect(ox + 5*ps, oy, ps, ps);
+
+  // Shadow
+  pctx.fillStyle = 'rgba(0,0,0,0.3)';
+  pctx.fillRect(ox + ps, 63, 4*ps, 2);
+
+  // Mood title
+  const titles = { calm:'流浪者 WANDERER', alert:'哨兵 SENTINEL', tense:'守護者 GUARDIAN', serene:'智者 SAGE' };
+  const moodZh2 = { calm:'平靜', alert:'警覺', tense:'緊繃', serene:'寧靜' };
+  document.getElementById('portraitTitle').textContent =
+    (titles[mood] || '流浪者 WANDERER') + ' · ' + (moodZh2[mood] || mood);
+  document.getElementById('portraitTitle').style.color = mc;
+}
+
+// ============================================================
+//  STATUS PANEL UPDATE
+// ============================================================
+function updatePanel(gov, world) {
+  if (!gov) return;
+  const drift = gov.baseline_drift || {};
+  const psi = gov.soul_integral || 0;
+  const caution = drift.caution_bias ?? 0.5;
+  const inno = drift.innovation_bias ?? 0.6;
+  const auto = drift.autonomy_level ?? 0.35;
+
+  // Stat bars (psi capped at 1.0 for display)
+  const setPct = (id, val, max) => {
+    document.getElementById(id).style.width = Math.min(100, val / max * 100).toFixed(1) + '%';
+  };
+  setPct('barPsi', psi, 1.0);
+  setPct('barCaution', caution, 1.0);
+  setPct('barInno', inno, 1.0);
+  setPct('barAuto', auto, 1.0);
+  document.getElementById('valPsi').textContent = psi.toFixed(2);
+  document.getElementById('valCaution').textContent = caution.toFixed(2);
+  document.getElementById('valInno').textContent = inno.toFixed(2);
+  document.getElementById('valAuto').textContent = auto.toFixed(2);
+
+  // Vows
+  const vowsEl = document.getElementById('vowsList');
+  vowsEl.innerHTML = '';
+  (gov.active_vows || []).forEach(v => {
+    const d = document.createElement('div');
+    d.className = 'vow-item';
+    d.innerHTML = `<span class="vow-id">${v.id || '—'}</span>${v.content || ''}`;
+    vowsEl.appendChild(d);
+  });
+  if (!gov.active_vows?.length) {
+    vowsEl.innerHTML = '<div class="vow-item" style="color:#404050;font-style:italic;">no active vows</div>';
+  }
+
+  // Tensions
+  const tensEl = document.getElementById('tensionsList');
+  tensEl.innerHTML = '';
+  const tensions = (gov.tension_history || []).slice(-5).reverse();
+  tensions.forEach(t => {
+    const sev = parseFloat(t.severity || 0);
+    const cls = sev >= 0.6 ? 't-hi' : sev >= 0.3 ? 't-md' : 't-lo';
+    const d = document.createElement('div');
+    d.className = 'tension-item';
+    d.innerHTML = `<span class="tension-sev ${cls}">${sev.toFixed(1)}</span>
+                   <span class="tension-topic">${t.topic || '—'}</span>`;
+    tensEl.appendChild(d);
+  });
+  if (!tensions.length) {
+    tensEl.innerHTML = '<div class="tension-item" style="color:#404050;font-style:italic;">no tensions</div>';
+  }
+}
+
+// Fill a pixel-scale rectangle
+function px(x, y, w, h, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x * S, y * S, w * S, h * S);
+}
+
+// Draw ground tile at map position
+function drawGround(mx, my) {
+  const bx = mx * T, by = my * T;
+  const tile = map[my]?.[mx] || 1;
+
+  if (tile <= 3) {
+    // Grass
+    const base = tile === 1 ? C.grass1 : tile === 2 ? C.grass2 : C.grass3;
+    px(bx, by, T, T, base);
+    // Grass detail dots
+    const seed = mx * 31 + my * 17;
+    if (seed % 3 === 0) px(bx + (seed%11), by + ((seed*3)%13), 2, 2, C.grass3);
+    if (seed % 4 === 0) px(bx + ((seed*7)%10), by + ((seed*5)%11), 1, 2, C.grass2);
+  } else if (tile === 4) {
+    // Path
+    px(bx, by, T, T, C.path);
+    // Path texture
+    px(bx, by + T - 1, T, 1, C.pathDk);
+    const seed = mx * 13 + my * 7;
+    if (seed % 5 === 0) px(bx + seed%12, by + (seed*2)%12, 2, 1, C.pathDk);
+  }
+}
+
+// Draw building (3 tiles wide, 3 tiles tall)
+function drawBuilding(b) {
+  const bx = b.mx * T, by = b.my * T;
+  const c = b.colors;
+  const lv = b.zone.level || 1;
+
+  // === Foundation / ground shadow ===
+  px(bx - 1, by + T*3 - 2, T*3 + 2, 3, 'rgba(0,0,0,0.25)');
+
+  // === Walls (2 tiles wide, 2 tiles tall) ===
+  px(bx, by + T, T*3, T*2, c.w);
+  // Wall shadow on left
+  px(bx, by + T, 2, T*2, C.wall3);
+  // Wall bottom border
+  px(bx, by + T*3 - 2, T*3, 2, C.wall3);
+
+  // === Roof (wider, with overhang) ===
+  // Main roof body
+  px(bx - 2, by + 2, T*3 + 4, T - 2, c.r1);
+  // Roof top (narrower)
+  px(bx + 2, by, T*3 - 4, 4, c.r2);
+  // Roof bottom edge (eave)
+  px(bx - 3, by + T - 2, T*3 + 6, 3, c.r1);
+  // Roof highlight
+  px(bx, by + 3, T*3, 1, c.r2);
+  // Roof shadow
+  px(bx - 2, by + T, T*3 + 4, 2, 'rgba(0,0,0,0.15)');
+
+  // === Door ===
+  const dx = bx + T + 3, dw = T - 6, dh = T - 2;
+  px(dx - 1, by + T*2 + 1, dw + 2, dh + 1, C.doorFrame);
+  px(dx, by + T*2 + 2, dw, dh, C.door);
+  // Doorknob
+  px(dx + dw - 3, by + T*2 + dh/2 + 1, 2, 2, '#d0c040');
+
+  // === Windows ===
+  // Left window
+  const wy = by + T + 4;
+  drawWindow(bx + 3, wy);
+  // Right window
+  drawWindow(bx + T*2 + 3, wy);
+
+  // === Level indicator — small banner/flag on roof ===
+  if (lv >= 2) {
+    const fx = bx + T*3 - 2;
+    px(fx, by - 4, 1, 6, '#444');
+    px(fx + 1, by - 4, 4, 3, b.zone.color || c.r2);
+  }
+
+  // === Glow for active zones ===
+  if (lv >= 2) {
+    const glow = Math.sin(frame * 0.04) * 0.08 + 0.1;
+    ctx.fillStyle = (b.zone.color || c.r2) + Math.round(glow * 255).toString(16).padStart(2,'0');
+    ctx.fillRect((bx-4)*S, (by-4)*S, (T*3+8)*S, (T*3+8)*S);
+  }
+
+  // === Recency glow — recently visited zones pulse brighter ===
+  const lastVisited = b.zone.last_visited || b.zone.lastVisited || '';
+  if (lastVisited) {
+    const elapsed = (Date.now() - new Date(lastVisited).getTime()) / 1000;
+    if (elapsed < 3600) {  // within last hour
+      const intensity = Math.max(0, 1 - elapsed / 3600);
+      const pulse = Math.sin(frame * 0.08) * 0.1 + 0.15;
+      const alpha = Math.round((intensity * pulse + intensity * 0.05) * 255);
+      if (alpha > 0) {
+        ctx.fillStyle = '#ffffff' + alpha.toString(16).padStart(2, '0');
+        ctx.fillRect((bx-6)*S, (by-6)*S, (T*3+12)*S, (T*3+12)*S);
+      }
+    }
+  }
+
+  // === Name label below building ===
+  ctx.fillStyle = '#e0e0e0';
+  ctx.font = `${Math.max(8, 7*S)}px monospace`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.fillText(b.zone.name, (bx + T*1.5)*S, (by + T*3 + 2)*S);
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+}
+
+function drawWindow(wx, wy) {
+  px(wx - 1, wy - 1, 8, 8, C.windowFrame);
+  px(wx, wy, 6, 6, C.window);
+  // Cross frame
+  px(wx + 2, wy, 1, 6, C.windowFrame);
+  px(wx, wy + 2, 6, 1, C.windowFrame);
+  // Reflection
+  px(wx + 1, wy + 1, 2, 1, '#ffffff');
+}
+
+// Draw tree (1 tile)
+function drawTree(t) {
+  const bx = t.mx * T, by = t.my * T;
+  // Trunk
+  px(bx + 6, by + 9, 4, 7, C.trunk);
+  // Canopy layers
+  px(bx + 2, by + 3, 12, 4, C.leaf1);
+  px(bx + 4, by + 1, 8, 3, C.leaf2);
+  px(bx + 3, by + 6, 10, 4, C.leaf1);
+  // Highlight
+  px(bx + 5, by + 2, 3, 1, '#5ab048');
+}
+
+// Draw fence post
+function drawFence(f) {
+  const bx = f.mx * T, by = f.my * T;
+  px(bx + 2, by + 4, 2, 10, C.fence);
+  px(bx + 8, by + 4, 2, 10, C.fence);
+  px(bx, by + 6, T, 2, C.fence);
+  px(bx, by + 10, T, 2, C.fence);
+}
+
+// Draw avatar (RPG character, 12x16 pixels)
+function drawAvatar() {
+  const bx = avatarMX * T + 2, by = avatarMY * T - 4;
+  const bounce = Math.round(Math.sin(frame * 0.08) * 1);
+
+  // Shadow
+  px(bx + 1, by + 16, 10, 2, 'rgba(0,0,0,0.3)');
+
+  // Feet
+  px(bx + 2, by + 14 + bounce, 3, 2, C.pants);
+  px(bx + 7, by + 14 + bounce, 3, 2, C.pants);
+
+  // Legs
+  px(bx + 3, by + 12 + bounce, 2, 2, C.pants);
+  px(bx + 7, by + 12 + bounce, 2, 2, C.pants);
+
+  // Body
+  px(bx + 2, by + 7 + bounce, 8, 5, C.shirt);
+  // Arms
+  px(bx + 1, by + 8 + bounce, 2, 4, C.shirt);
+  px(bx + 9, by + 8 + bounce, 2, 4, C.shirt);
+
+  // Head
+  px(bx + 3, by + 1 + bounce, 6, 6, C.skin);
+
+  // Hair
+  px(bx + 2, by + 0 + bounce, 8, 3, C.hair);
+  px(bx + 2, by + 2 + bounce, 1, 2, C.hair);
+  px(bx + 9, by + 2 + bounce, 1, 2, C.hair);
+
+  // Eyes
+  const mood = worldData?.world_mood || 'calm';
+  if (mood === 'tense') {
+    px(bx + 4, by + 4 + bounce, 2, 1, '#222');
+    px(bx + 7, by + 4 + bounce, 2, 1, '#222');
+  } else if (mood === 'serene') {
+    px(bx + 4, by + 4 + bounce, 2, 1, '#222');
+    px(bx + 7, by + 4 + bounce, 2, 1, '#222');
+  } else {
+    px(bx + 4, by + 3 + bounce, 2, 2, '#222');
+    px(bx + 7, by + 3 + bounce, 2, 2, '#222');
+    // Eye highlight
+    px(bx + 4, by + 3 + bounce, 1, 1, '#fff');
+    px(bx + 7, by + 3 + bounce, 1, 1, '#fff');
+  }
+
+  // Mouth
+  if (mood === 'serene' || mood === 'calm') {
+    px(bx + 5, by + 5 + bounce, 3, 1, '#c09080');
+  } else {
+    px(bx + 5, by + 5 + bounce, 2, 1, '#c09080');
+  }
+
+  // Hat/accessory color based on mood
+  const moodColor = {calm:'#7060c0', alert:'#c0a030', tense:'#c05050', serene:'#50a050'};
+  px(bx + 3, by + 0 + bounce, 6, 1, moodColor[mood] || moodColor.calm);
+}
+
+// ============================================================
+//  SPEECH BUBBLE
+// ============================================================
+const BUBBLE_LINES = {
+  calm: [
+    '世界很安靜，等待指令中…',
+    '記憶還在，放心。',
+    '每次對話都會留下痕跡。',
+    '治理狀態正常。',
+    '靜待下一個任務。',
+  ],
+  alert: [
+    '有些事需要注意。',
+    '保持警覺中…',
+    '我在思考這個問題。',
+    '感知到張力，處理中。',
+    '正在分析狀況。',
+  ],
+  tense: [
+    '有衝突發生，謹慎應對。',
+    '這需要仔細考量。',
+    '不能輕率行動。',
+    '公理優先於效率。',
+    '停下來重新評估…',
+  ],
+  serene: [
+    '一切井然有序。',
+    '記憶完整，靈魂穩定。',
+    '和諧的狀態。',
+    '這是我喜歡的感覺。',
+    '繼續成長中。',
+  ],
+};
+
+let bubbleTimer = 0;
+let currentBubble = '';
+let bubbleVisible = false;
+
+function updateBubble() {
+  const mood = worldData?.world_mood || 'calm';
+  const lines = BUBBLE_LINES[mood] || BUBBLE_LINES.calm;
+  currentBubble = lines[Math.floor(Math.random() * lines.length)];
+  bubbleVisible = true;
+
+  const el = document.getElementById('bubble');
+  el.textContent = currentBubble;
+  el.classList.add('show');
+
+  // Position above avatar on canvas
+  const canvasRect = canvas.getBoundingClientRect();
+  const worldLeft = canvasRect.left;
+  const worldTop = canvasRect.top;
+  const ax = (avatarMX * T + T / 2) * S;
+  const ay = (avatarMY * T - 8) * S;
+  const bw = Math.min(180, currentBubble.length * 7 + 20);
+
+  el.style.left = (worldLeft + ax - bw / 2) + 'px';
+  el.style.top  = (worldTop + ay - 36) + 'px';
+  el.style.maxWidth = bw + 'px';
+
+  // Hide after 4s
+  clearTimeout(el._timer);
+  el._timer = setTimeout(() => {
+    el.classList.remove('show');
+    bubbleVisible = false;
+  }, 4000);
+}
+
+// ============================================================
+//  MAIN RENDER LOOP
+// ============================================================
+function render() {
+  frame++;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Ground
+  for (let y = 0; y < MH; y++)
+    for (let x = 0; x < MW; x++)
+      drawGround(x, y);
+
+  // Fences (behind buildings)
+  fences.forEach(f => drawFence(f));
+
+  // Trees behind avatar
+  trees.filter(t => t.my < avatarMY).forEach(t => drawTree(t));
+
+  // Buildings behind avatar
+  bldgs.filter(b => b.my + 3 <= avatarMY).forEach(b => drawBuilding(b));
+
+  // Avatar
+  drawAvatar();
+
+  // Buildings in front of avatar
+  bldgs.filter(b => b.my + 3 > avatarMY).forEach(b => drawBuilding(b));
+
+  // Trees in front
+  trees.filter(t => t.my >= avatarMY).forEach(t => drawTree(t));
+
+  // Weather particles
+  drawWeather();
+
+  requestAnimationFrame(render);
+}
+
+// ============================================================
+//  INTERACTION
+// ============================================================
+function tileAt(ex, ey) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: Math.floor((ex - rect.left) / (T * S)),
+    y: Math.floor((ey - rect.top) / (T * S))
+  };
+}
+
+function bldgAt(tx, ty) {
+  return bldgs.find(b => tx >= b.mx-1 && tx <= b.mx+3 && ty >= b.my && ty <= b.my+3);
+}
+
+canvas.addEventListener('mousemove', e => {
+  const {x, y} = tileAt(e.clientX, e.clientY);
+  const b = bldgAt(x, y);
+  const tip = document.getElementById('tip');
+  if (b) {
+    hoverZone = b.zone;
+    tip.classList.add('show');
+    tip.style.left = (e.clientX + 14) + 'px';
+    tip.style.top = (e.clientY - 8) + 'px';
+    document.getElementById('tN').textContent = b.zone.name;
+    document.getElementById('tM').textContent =
+      `LV.${b.zone.level} | ${b.zone.visit_count} visits | ${b.zone.artifact_count} artifacts`;
+    canvas.style.cursor = 'pointer';
+  } else {
+    hoverZone = null;
+    tip.classList.remove('show');
+    canvas.style.cursor = 'default';
+  }
+});
+
+canvas.addEventListener('click', e => {
+  if (hoverZone) alert(
+    `${hoverZone.name}\nLevel: ${hoverZone.level}\n` +
+    `Visits: ${hoverZone.visit_count}\nArtifacts: ${hoverZone.artifact_count}\n` +
+    `Topics: ${hoverZone.topics?.join(', ')}`
+  );
+});
+
+// ============================================================
+//  DATA LOAD
+// ============================================================
+function loadAll(world, gov) {
+  worldData = world; govData = gov;
+  initMap();
+  placeWorld(world?.zones);
+
+  const mood = world?.world_mood || 'calm';
+  const badge = document.getElementById('hMood');
+  badge.textContent = mood.toUpperCase();
+  badge.className = 'hud-mood m-' + mood;
+  document.getElementById('hPsi').textContent = (gov?.soul_integral || 0).toFixed(2);
+  document.getElementById('hSes').textContent = world?.total_sessions || 0;
+  document.getElementById('hZn').textContent = world?.zones?.length || 0;
+  // Chinese mood badge
+  const moodZh = {calm:'平靜', alert:'警覺', tense:'緊繃', serene:'寧靜'};
+  badge.textContent = (moodZh[mood] || mood.toUpperCase());
+  if (document.getElementById('spSes')) {
+    document.getElementById('spSes').textContent = world?.total_sessions || 0;
+    document.getElementById('spZn').textContent = world?.zones?.length || 0;
+  }
+
+  drawPortrait(mood);
+  updatePanel(gov, world);
+  updateVisitors();
+  updateAegis();
+}
+
+// Drag-drop
+document.body.addEventListener('dragover', e => e.preventDefault());
+document.body.addEventListener('drop', e => {
+  e.preventDefault();
+  Array.from(e.dataTransfer.files).forEach(f => {
+    const r = new FileReader();
+    r.onload = ev => {
+      try {
+        const d = JSON.parse(ev.target.result);
+        if (d.zones) worldData = d;
+        else if (d.soul_integral !== undefined) govData = d;
+        if (worldData) loadAll(worldData, govData);
+      } catch(err) {}
+    };
+    r.readAsText(f);
+  });
+});
+
+// ============================================================
+//  VISITORS & AEGIS PANEL
+// ============================================================
+function updateVisitors() {
+  const el = document.getElementById('visitorsList');
+  if (!el) return;
+  const visitors = (typeof __VISITORS__ !== 'undefined') ? __VISITORS__ : [];
+  if (!visitors.length) {
+    el.innerHTML = '<div style="padding:6px 20px;font-size:11px;color:#404060;">No visitors yet</div>';
+    return;
+  }
+  const seen = new Set();
+  el.innerHTML = visitors.filter(v => {
+    const key = v.agent + '@' + (v.timestamp || '').substring(0, 16);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).slice(0, 5).map(v => {
+    const ts = (v.timestamp || '').substring(11, 16);
+    const src = v.source ? ` [${v.source}]` : '';
+    return `<div class="visitor-item">
+      <span class="visitor-agent">${v.agent || '?'}</span>
+      <span class="visitor-time">${ts}${src}</span>
+    </div>`;
+  }).join('');
+}
+
+function updateAegis() {
+  const el = document.getElementById('aegisStatus');
+  if (!el) return;
+  const a = (typeof __AEGIS__ !== 'undefined') ? __AEGIS__ : {};
+  const intact = a.integrity === 'intact';
+  const icon = intact ? '&#9632;' : '&#9888;';
+  const cls = intact ? 'aegis-intact' : 'aegis-compromised';
+  const label = intact ? 'INTACT' : (a.integrity || 'UNKNOWN').toUpperCase();
+
+  const signed = (a.total_traces || 0) - (a.signature_failures || []).length;
+  const unsigned = (a.signature_failures || []).filter(f => f.reason === 'no signature').length;
+
+  el.innerHTML = `
+    <div class="aegis-status">
+      <span class="aegis-icon ${cls}">${icon}</span>
+      <span class="${cls}" style="font-weight:bold;letter-spacing:1px;">${label}</span>
+    </div>
+    <div class="aegis-detail">
+      Chain: ${a.chain_valid ? 'valid' : 'BROKEN'} |
+      Signed: ${signed}/${a.total_traces || 0}${unsigned ? ' ('+unsigned+' legacy)' : ''}
+    </div>
+  `;
+}
+
+// Injected data
+if (typeof __WORLD_DATA__ !== 'undefined') worldData = __WORLD_DATA__;
+if (typeof __GOV_DATA__ !== 'undefined') govData = __GOV_DATA__;
+
+window.addEventListener('load', () => {
+  resize();
+  if (worldData) loadAll(worldData, govData);
+  else {
+    initMap();
+    placeWorld([]);
+    drawPortrait('calm');
+  }
+  render();
+  initWeather();
+  // Animate portrait on mood change
+  setInterval(() => drawPortrait(worldData?.world_mood || 'calm'), 2000);
+
+  // Speech bubble — show one shortly after load, then every ~12s
+  setTimeout(() => updateBubble(), 1500);
+  setInterval(() => updateBubble(), 12000);
+});
+window.addEventListener('resize', () => {
+  resize();
+  if (worldData) loadAll(worldData, govData);
+});
+
+// ============================================================
+//  WEATHER PARTICLES
+// ============================================================
+function initWeather() {
+  particles = [];
+  const mood = worldData?.world_mood || 'calm';
+  const count = mood === 'calm' ? 0 : mood === 'focused' ? 15 : mood === 'tense' ? 30 : 8;
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      speed: 1 + Math.random() * 2,
+      size: mood === 'tense' ? 1 : 2,
+      drift: (Math.random() - 0.5) * 0.5,
+    });
+  }
+}
+
+function drawWeather() {
+  if (!particles.length) return;
+  const mood = worldData?.world_mood || 'calm';
+  const color = mood === 'tense' ? 'rgba(200,200,255,0.6)' :
+                mood === 'focused' ? 'rgba(220,220,240,0.4)' :
+                'rgba(200,220,255,0.3)';
+  ctx.fillStyle = color;
+  for (const p of particles) {
+    p.y += p.speed;
+    p.x += p.drift;
+    if (p.y > canvas.height) { p.y = -2; p.x = Math.random() * canvas.width; }
+    if (p.x < 0) p.x = canvas.width;
+    if (p.x > canvas.width) p.x = 0;
+    if (mood === 'tense') {
+      // Rain: vertical streaks
+      ctx.fillRect(p.x, p.y, 1, 4);
+    } else {
+      // Dust/snow: small dots
+      ctx.fillRect(p.x, p.y, p.size, p.size);
+    }
+  }
+}
+
+// ============================================================
+//  POST-MESSAGE LISTENER (dashboard → world updates)
+// ============================================================
+window.addEventListener('message', (e) => {
+  if (!e.data || typeof e.data !== 'object') return;
+  const msg = e.data;
+  if (msg.type === 'tonesoul:update') {
+    if (msg.worldData) { worldData = msg.worldData; }
+    if (msg.govData) { govData = msg.govData; }
+    if (worldData) loadAll(worldData, govData);
+    initWeather();
+  }
+  if (msg.type === 'tonesoul:visitors' && msg.visitors) {
+    __VISITORS__ = msg.visitors;
+    updateVisitors();
+  }
+  if (msg.type === 'tonesoul:aegis' && msg.aegis) {
+    __AEGIS__ = msg.aegis;
+    updateAegis();
+  }
+});
+</script>
+</body>
+</html>

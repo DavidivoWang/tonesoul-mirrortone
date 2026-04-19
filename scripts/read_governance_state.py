@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -37,6 +38,7 @@ SEARCH_PATHS = [
 
 
 def find_state_file() -> Path | None:
+    """Search known locations for governance_state.json."""
     for p in SEARCH_PATHS:
         if p.exists():
             return p
@@ -44,6 +46,7 @@ def find_state_file() -> Path | None:
 
 
 def severity_bar(severity: float) -> str:
+    """Visual bar for severity 0-1."""
     filled = int(severity * 10)
     return "█" * filled + "░" * (10 - filled)
 
@@ -51,7 +54,12 @@ def severity_bar(severity: float) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Read governance state")
     parser.add_argument("--state", type=Path, default=None)
-    parser.add_argument("--json", action="store_true", dest="json_output", help="Output raw JSON for machine consumption")
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        dest="json_output",
+        help="Output raw JSON for machine consumption",
+    )
     args = parser.parse_args()
 
     state_path = args.state or find_state_file()
@@ -61,12 +69,14 @@ def main() -> None:
         print("\nRun: python scripts/init_governance_state.py --output <path>")
         sys.exit(1)
 
+    assert state_path is not None  # type guard after sys.exit
     state = json.loads(state_path.read_text(encoding="utf-8"))
 
     if args.json_output:
         print(json.dumps(state, indent=2, ensure_ascii=False))
         return
 
+    # --- Human-readable report ---
     now = datetime.now(timezone.utc)
     last = datetime.fromisoformat(state["last_updated"])
     hours_ago = (now - last).total_seconds() / 3600.0
@@ -80,6 +90,7 @@ def main() -> None:
     print(f"  Soul integral:  {state['soul_integral']:.4f}")
     print()
 
+    # Baseline drift
     drift = state.get("baseline_drift", {})
     print("  Baseline Drift:")
     print(f"    Caution:     {drift.get('caution_bias', 0.5):.4f}  (0.5 = neutral)")
@@ -87,6 +98,7 @@ def main() -> None:
     print(f"    Autonomy:    {drift.get('autonomy_level', 0.5):.4f}  (<0.5 = human-led)")
     print()
 
+    # Active vows
     vows = state.get("active_vows", [])
     if vows:
         print(f"  Active Vows ({len(vows)}):")
@@ -94,6 +106,7 @@ def main() -> None:
             print(f"    [{v['id']}] {v['content']}")
         print()
 
+    # Tension history (with decay preview)
     tensions = state.get("tension_history", [])
     if tensions:
         print(f"  Tension History ({len(tensions)} events):")
@@ -107,6 +120,7 @@ def main() -> None:
                 print(f"              -> {t['resolution'][:50]}")
         print()
 
+    # Aegis vetoes
     vetoes = state.get("aegis_vetoes", [])
     if vetoes:
         print(f"  Aegis Vetoes ({len(vetoes)}):")

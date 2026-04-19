@@ -1,0 +1,60 @@
+name: ToneSoul Integrity Tests
+
+on:
+  push:
+    branches: [ main, master, dev ]
+    paths:
+      - "tonesoul/**"
+      - "tests/**"
+      - "AXIOMS.json"
+      - "pyproject.toml"
+      - "requirements*.txt"
+      - ".github/workflows/integrity_tests.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: tonesoul-integrity-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest numpy pyyaml
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    
+    - name: Verify ToneSoul core modules
+      run: |
+        export PYTHONPATH=.
+        python -c "from tonesoul.tsr_metrics import score; print('tsr_metrics OK')"
+        python -c "from tonesoul.poav import score; print('poav OK')"
+        python -c "from tonesoul.unified_pipeline import UnifiedPipeline; print('unified_pipeline OK')"
+        python -c "from tonesoul.vow_system import VowEnforcer; print('vow_system OK')"
+        python -c "from tonesoul.time_island import TimeIsland; print('time_island OK')"
+    
+    - name: Run VowEnforcer test
+      run: |
+        export PYTHONPATH=.
+        python -c "from tonesoul.vow_system import VowEnforcer; e = VowEnforcer(); r = e.enforce('Test with uncertainty. I think this might work.'); print(f'Vow: passed={r.all_passed}')"
+    
+    - name: Validate JSON schemas
+      run: |
+        python -c "import json; json.load(open('AXIOMS.json', encoding='utf-8'))"
+    
+    - name: Check tonesoul module syntax
+      run: |
+        python -m py_compile tonesoul/tsr_metrics.py
+        python -m py_compile tonesoul/poav.py
+        python -m py_compile tonesoul/vow_system.py
+        python -m py_compile tonesoul/time_island.py

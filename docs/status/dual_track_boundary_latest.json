@@ -1,0 +1,141 @@
+{
+  "generated_at": "2026-04-14T00:03:21Z",
+  "overall_ok": true,
+  "repo_root": "C:\\Users\\user\\Desktop\\倉庫",
+  "config": {
+    "allow_private_paths": false,
+    "blocked_prefixes": [
+      ".agent/",
+      ".moltbook/",
+      "generated_prompts/",
+      "memory/.hierarchical_index/",
+      "memory/.semantic_index/",
+      "memory/external_framework_analysis/",
+      "memory/handoff/",
+      "memory/memory/.hierarchical_index/",
+      "memory/memory/.semantic_index/",
+      "memory/narrative/",
+      "memory/vectors/",
+      "obsidian-vault/",
+      "reports/ystm_demo/",
+      "simulation_logs/",
+      "tonesoul_evolution/"
+    ],
+    "blocked_files": [
+      "memory/ANTIGRAVITY_SYNC.md",
+      "memory/BOOTSTRAP.md",
+      "memory/agent_discussion.jsonl",
+      "memory/agent_discussion.jsonl.bak.20260206T145513Z",
+      "memory/agent_discussion_antigravity_response.jsonl",
+      "memory/agent_discussion_curated.jsonl",
+      "memory/antigravity_journal.md",
+      "memory/antigravity_memory_20260129.md",
+      "memory/dawn_protocol_v10.md",
+      "memory/guild_recruitment_post.md",
+      "memory/moltbook_exploration.md",
+      "memory/persona_synthesis_v5.md",
+      "memory/persona_synthesis_v8.md",
+      "memory/resonance_drafts.md",
+      "memory/resonance_report_v1.md",
+      "memory/self_journal.jsonl",
+      "memory/silence_of_xiaozhua_v7.md",
+      "memory/summary_balls.jsonl",
+      "memory/web_chat_debug.md"
+    ]
+  },
+  "collection": {
+    "ok": true,
+    "mode": "git",
+    "command": "git -c core.quotepath=off show --pretty=format: --name-status --diff-filter=ACMRD HEAD",
+    "exit_code": 0,
+    "duration_seconds": 0.03,
+    "stdout_tail": "D\t.agent/agents/yuhun_creator.md\nD\t.agent/agents/yuhun_empath.md\nD\t.agent/agents/yuhun_logician.md\nD\t.agent/agents/yuhun_safety_guard.md\nM\t.gitignore\nM\ttonesoul/unified_pipeline.py\nM\ttonesoul/yuhun/__init__.py\nA\ttonesoul/yuhun/context_assembler.py\nM\ttonesoul/yuhun/shadow_doc.py",
+    "stderr_tail": "",
+    "entries": [
+      {
+        "status_code": "D",
+        "status": "D",
+        "paths": [
+          ".agent/agents/yuhun_creator.md"
+        ]
+      },
+      {
+        "status_code": "D",
+        "status": "D",
+        "paths": [
+          ".agent/agents/yuhun_empath.md"
+        ]
+      },
+      {
+        "status_code": "D",
+        "status": "D",
+        "paths": [
+          ".agent/agents/yuhun_logician.md"
+        ]
+      },
+      {
+        "status_code": "D",
+        "status": "D",
+        "paths": [
+          ".agent/agents/yuhun_safety_guard.md"
+        ]
+      },
+      {
+        "status_code": "M",
+        "status": "M",
+        "paths": [
+          ".gitignore"
+        ]
+      },
+      {
+        "status_code": "M",
+        "status": "M",
+        "paths": [
+          "tonesoul/unified_pipeline.py"
+        ]
+      },
+      {
+        "status_code": "M",
+        "status": "M",
+        "paths": [
+          "tonesoul/yuhun/__init__.py"
+        ]
+      },
+      {
+        "status_code": "A",
+        "status": "A",
+        "paths": [
+          "tonesoul/yuhun/context_assembler.py"
+        ]
+      },
+      {
+        "status_code": "M",
+        "status": "M",
+        "paths": [
+          "tonesoul/yuhun/shadow_doc.py"
+        ]
+      }
+    ],
+    "paths": [
+      ".agent/agents/yuhun_creator.md",
+      ".agent/agents/yuhun_empath.md",
+      ".agent/agents/yuhun_logician.md",
+      ".agent/agents/yuhun_safety_guard.md",
+      ".gitignore",
+      "tonesoul/unified_pipeline.py",
+      "tonesoul/yuhun/__init__.py",
+      "tonesoul/yuhun/context_assembler.py",
+      "tonesoul/yuhun/shadow_doc.py"
+    ]
+  },
+  "metrics": {
+    "changed_path_count": 9,
+    "violation_count": 0,
+    "private_deletion_count": 4
+  },
+  "violations": [],
+  "issues": [],
+  "warnings": [
+    "detected 4 deletions under blocked private paths (allowed cleanup)"
+  ]
+}

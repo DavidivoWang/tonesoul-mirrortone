@@ -1,0 +1,136 @@
+name: Repo Healthcheck
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - "tonesoul/**"
+      - "tests/**"
+      - "apps/**"
+      - "scripts/**"
+      - "docs/status/**"
+      - "docs/REPOSITORY_STRUCTURE.md"
+      - "AXIOMS.json"
+      - "law/**"
+      - "pyproject.toml"
+      - "requirements*.txt"
+      - ".github/workflows/repo_healthcheck.yml"
+  pull_request:
+    branches: [master, main]
+    paths:
+      - "tonesoul/**"
+      - "tests/**"
+      - "apps/**"
+      - "scripts/**"
+      - "AXIOMS.json"
+      - "law/**"
+      - "pyproject.toml"
+      - "requirements*.txt"
+      - ".github/workflows/repo_healthcheck.yml"
+  workflow_dispatch:
+    inputs:
+      include_sdh:
+        description: "Run SDH live smoke checks (requires reachable web/api)."
+        type: boolean
+        required: true
+        default: false
+      web_base:
+        description: "Optional web base for SDH, e.g. http://127.0.0.1:3002"
+        type: string
+        required: false
+      api_base:
+        description: "Optional api base for SDH, e.g. http://127.0.0.1:5001"
+        type: string
+        required: false
+      sdh_timeout:
+        description: "Optional SDH timeout seconds."
+        type: string
+        required: false
+      check_council_modes:
+        description: "Check council mode switches during SDH smoke."
+        type: boolean
+        required: true
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tonesoul-repo-healthcheck-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  healthcheck:
+    name: Repository Healthcheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+          pip install hypothesis pytest-cov pytest-asyncio
+
+      - name: Install web dependencies
+        run: npm --prefix apps/web ci
+
+      - name: Run repository healthcheck (blocking, push/pr default)
+        if: github.event_name != 'workflow_dispatch'
+        continue-on-error: ${{ hashFiles('memory/agent_discussion_curated.jsonl') == '' }}
+        run: |
+          python scripts/run_repo_healthcheck.py --strict --allow-missing-discussion
+
+      - name: Run repository healthcheck (blocking, workflow_dispatch)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          TS_INCLUDE_SDH: ${{ github.event.inputs.include_sdh }}
+          TS_WEB_BASE: ${{ github.event.inputs.web_base }}
+          TS_API_BASE: ${{ github.event.inputs.api_base }}
+          TS_SDH_TIMEOUT: ${{ github.event.inputs.sdh_timeout }}
+          TS_CHECK_COUNCIL_MODES: ${{ github.event.inputs.check_council_modes }}
+        run: python scripts/run_repo_healthcheck_dispatch.py
+
+      - name: Upload healthcheck artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo-healthcheck-status-${{ github.run_id }}
+          path: |
+            docs/status/repo_healthcheck_latest.json
+            docs/status/repo_healthcheck_latest.md
+            docs/status/persona_swarm_framework_latest.json
+            docs/status/multi_agent_divergence_latest.json
+            docs/status/multi_agent_divergence_latest.md
+            docs/status/memory_quality_latest.json
+            docs/status/memory_quality_latest.md
+            docs/status/memory_learning_samples_latest.jsonl
+            docs/status/memory_governance_contract_latest.json
+            docs/status/memory_governance_contract_latest.md
+            docs/status/friction_shadow_replay_latest.json
+            docs/status/friction_shadow_replay_latest.md
+            docs/status/friction_shadow_calibration_latest.json
+            docs/status/friction_shadow_calibration_latest.md
+            docs/status/philosophical_reflection_latest.json
+            docs/status/philosophical_reflection_latest.md
+            docs/status/memory_topology_fit_latest.json
+            docs/status/memory_topology_fit_latest.md
+            docs/status/dual_track_boundary_latest.json
+            docs/status/dual_track_boundary_latest.md
+          if-no-files-found: error
+          retention-days: 90

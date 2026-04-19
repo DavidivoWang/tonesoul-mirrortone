@@ -1,0 +1,290 @@
+# ToneSoul Self-Improvement Trial Wave
+
+**Summary**: `self_improvement_trial_wave promote=18 park=1 retire=0 blocked=0`
+
+> Trial-wave outcomes are bounded self-improvement results. They may inform future patches or parking decisions, but they do not become governance truth, identity truth, or hot-memory authority.
+
+## Trial Families
+
+- `cross_consumer_parity_packaging`
+- `bounded_operator_retrieval_cueing`
+- `deliberation_mode_hint_packaging`
+- `task_board_parking_clarity`
+- `shared_edit_overlap_clarity`
+- `publish_push_posture_clarity`
+- `mutation_followup_routing`
+- `surface_versioning_lineage_clarity`
+- `launch_health_trend_clarity`
+- `internal_state_observability_clarity`
+- `hook_chain_trigger_clarity`
+- `consumer_misread_guard_clarity`
+- `subsystem_parity_focus_clarity`
+- `closeout_attention_action_clarity`
+- `claude_priority_correction_clarity`
+- `hot_memory_pull_boundary_clarity`
+- `memory_panel_tier_subordination_clarity`
+- `status_panel_operator_copy_clarity`
+- `dashboard_command_shelf_activation_clarity`
+
+## Outcomes
+
+- `promote`: `18`
+- `park`: `1`
+- `retire`: `0`
+- `blocked`: `0`
+- `not_ready_for_trial`: `0`
+
+## Candidates
+
+- `consumer_parity_packaging_v1` -> `promote`
+  - target_surface: `consumer_contract.first_hop_order`
+  - success_metric: `cross_consumer_drift_validation_wave.status == aligned`
+  - result_story: Consumer-parity packaging now reads as aligned across the bounded shells that matter most.
+  - evidence: `consumer_drift status=aligned checks=4`
+  - result_surface: `promoted_result`
+  - replay_rule: `read_status_surface_first_open_raw_run_only_if_consumer_story_is_disputed`
+  - residue_posture: `keep_visible_in_latest_status_surface`
+  - unresolved_items:
+    - alignment is packaging-level only, not proof of better reasoning
+    - future consumer changes must keep running the same drift wave
+  - promotion_limit: `does not authorize council, identity, or transport-semantics changes`
+  - next_action: `reuse this drift-validation wave whenever shared consumer packaging changes`
+- `operator_retrieval_cueing_v1` -> `park`
+  - target_surface: `operator_retrieval.result_shape`
+  - success_metric: `operator_retrieval_contract_present and compiled_landing_zone_spec_present and live runner maturity`
+  - result_story: Operator retrieval packaging is now bounded and safer to reason about, but it is not live enough to promote as an active capability.
+  - evidence: `operator retrieval contract present; compiled landing-zone spec present; no live retrieval runner`
+  - result_surface: `parked_result`
+  - replay_rule: `prefer_status_surface_then_follow_contracts_then_open_raw_run_if_retrieval_posture_is_contested`
+  - residue_posture: `park_in_status_surface_and_reopen_only_when_live_retrieval_lane_exists`
+  - unresolved_items:
+    - no live operator-retrieval runner is in the mainline yet
+    - no compiled corpus or collection health lane exists yet
+    - no operator validation wave has tested retrieval against real use
+  - promotion_limit: `does not authorize retrieval answers to outrank session-start, observer-window, packet, or identity surfaces`
+  - next_action: `revisit only after a live bounded retrieval runner and compiled collections exist`
+- `deliberation_mode_hint_latency_v2` -> `promote`
+  - target_surface: `session_start.deliberation_mode_hint`
+  - success_metric: `deliberation_hint_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Deliberation-mode hint packaging now cleanly separates active escalation pressure from conditional escalation ladders.
+  - evidence: `deliberation_hint_probe mode=elevated_council active=1 conditional=3 review=4 split=yes`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_hint_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - packaging wins do not prove better reasoning quality
+    - future shell consumers must preserve the active/conditional distinction
+  - promotion_limit: `does not authorize council runtime depth changes, confidence math changes, or broader shell expansion`
+  - next_action: `keep this split stable while evaluating one next admitted self-improvement candidate`
+- `task_board_parking_clarity_v1` -> `promote`
+  - target_surface: `task_board_preflight + mutation_preflight.next_followup`
+  - success_metric: `task_board_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Task-board parking now reads as a bounded routing outcome instead of soft parking prose.
+  - evidence: `task_board_probe classification=docs_plans_first write_task_md=no promotion=parking_only routing=yes`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_task_board_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - parking clarity does not prove better planning quality
+    - future shells must preserve docs_plans_first as routing, not ratification
+  - promotion_limit: `does not authorize task.md auto-promotion, governance semantics changes, or new permission systems`
+  - next_action: `keep the task-board routing story stable while selecting the next bounded candidate`
+- `shared_edit_overlap_clarity_v1` -> `promote`
+  - target_surface: `shared_edit_preflight.result_shape`
+  - success_metric: `shared_edit_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Shared-edit preflight now shows overlap pressure and claim-gap pressure as separate bounded signals.
+  - evidence: `shared_edit_probe decision=coordinate basis=other_agent_overlap other=1 gaps=2 pressures=yes`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_shared_edit_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer shared-edit packaging does not prove better collaboration outcomes
+    - future shells must preserve overlap-versus-claim-gap separation without inventing new authority
+  - promotion_limit: `does not authorize automatic claims, path locks, broader write permissions, or governance changes`
+  - next_action: `keep shared-edit preflight packaging bounded while selecting the next admitted candidate`
+- `publish_push_posture_clarity_v1` -> `promote`
+  - target_surface: `publish_push_preflight.result_shape`
+  - success_metric: `publish_push_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Publish/push preflight now separates review posture from launch-honesty posture as bounded signals.
+  - evidence: `publish_push_probe classification=review_before_push basis=review_and_honesty_cues_present review=4 honesty=2 blocked=0`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_publish_push_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer publish/push packaging does not prove safer deployment outcomes
+    - future shells must preserve review-versus-honesty separation without widening authority
+  - promotion_limit: `does not authorize automatic publish, deployment, or stronger launch claims`
+  - next_action: `keep publish/push preflight packaging bounded while selecting the next admitted candidate`
+- `mutation_followup_routing_v1` -> `promote`
+  - target_surface: `mutation_preflight.next_followup`
+  - success_metric: `mutation_followup_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Mutation preflight now routes next_followup toward the current bounded hook instead of pointing at one stale default.
+  - evidence: `mutation_followup_probe shared_target=shared_code_edit.path_overlap_preflight publish_target=publish_push.posture_preflight`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_mutation_followup_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer mutation follow-up routing does not prove better planning quality
+    - future shells must preserve bounded hook selection without turning it into a planner
+  - promotion_limit: `does not authorize new hooks, broader permissions, or governance changes`
+  - next_action: `keep mutation follow-up routing bounded while selecting the next admitted candidate`
+- `surface_versioning_lineage_clarity_v1` -> `promote`
+  - target_surface: `surface_versioning.compatibility_posture`
+  - success_metric: `surface_versioning_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Surface versioning now exposes compatibility posture and fallback lineage clearly enough for later shells to recover parent truth without guessing.
+  - evidence: `surface_versioning_probe consumers=codex_cli,dashboard_operator_shell,claude_style_shell compatibility=repo_native_entry,bounded_adapter,bounded_adapter fallback=session_start:tiered_v1>observer_window:anchor_window_v1>r_memory_packet:packet_v1`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_surface_versioning_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - compatibility posture improves lineage clarity, not actual cross-vendor transport
+    - future shells must keep the fallback chain subordinate to parent runtime truth
+  - promotion_limit: `does not authorize new transport semantics, shell promotion, or vendor-native interoperability claims`
+  - next_action: `keep compatibility posture bounded while admitting the next candidate`
+- `launch_health_trend_clarity_v1` -> `promote`
+  - target_surface: `launch_health_trend_posture`
+  - success_metric: `launch_health_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Launch-health posture now says what to watch, what blocks forecasting, and what operators may safely do now without implying predictive math.
+  - evidence: `launch_health_probe trend_watch=coordination_backend_alignment,collaborator_beta_validation_health forecast_blockers=continuity_effectiveness,council_decision_quality,public_launch_ready_flag actions=3`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_launch_health_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer launch-health packaging does not create predictive launch numbers
+    - future consumers must keep trend-watch cues subordinate to present-tense launch posture
+  - promotion_limit: `does not authorize predictive launch math, stronger maturity claims, or deployment authority changes`
+  - next_action: `keep launch-health cues bounded while admitting the next candidate`
+- `internal_state_observability_clarity_v1` -> `promote`
+  - target_surface: `internal_state_observability.pressure_watch_cues`
+  - success_metric: `internal_state_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Internal-state observability now says what pressures are visible and what bounded operator response fits each pressure without crossing into selfhood language.
+  - evidence: `internal_state_probe signals=coordination_strain,continuity_drift,stop_reason_pressure,deliberation_conflict actions=4`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_internal_state_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - functional pressure cues do not prove subjective feeling or self-awareness
+    - future consumers must keep action cues subordinate to the selfhood boundary
+  - promotion_limit: `does not authorize emotion claims, hidden-thought inference, or stronger agency claims`
+  - next_action: `keep internal-state cues bounded while admitting the next candidate`
+- `hook_chain_trigger_clarity_v1` -> `promote`
+  - target_surface: `hook_chain.current_recommendation`
+  - success_metric: `hook_chain_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Hook chain now says which bounded preflight is currently relevant and why, without inventing a new hook family.
+  - evidence: `hook_chain_probe recommended=shared_edit_path_overlap target=shared_code_edit.path_overlap_preflight selection=yes hooks=3`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_hook_chain_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer hook-chain packaging does not prove better planning quality or stronger permissions
+    - future shells must keep current_recommendation subordinate to mutation_preflight and bounded hook scope
+  - promotion_limit: `does not authorize new hooks, stronger permissions, or planner-style mutation authority`
+  - next_action: `keep hook-chain recommendations bounded while admitting the next candidate`
+- `consumer_misread_guard_clarity_v1` -> `promote`
+  - target_surface: `consumer_contract.priority_misread_guard`
+  - success_metric: `consumer_misread_guard_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Consumer misread guards now say where the misread appears, what correction to apply, and which correction matters first.
+  - evidence: `consumer_misread_guard_probe guards=4 priority=observer_stable_not_verified surface=observer_window.stable claude_sync=yes`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_consumer_contract_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - priority misread correction improves shared interpretation, not transport or reasoning quality
+    - future consumers must keep the same guard set and priority rule
+  - promotion_limit: `does not authorize new planners, stronger permissions, or stronger cross-vendor interoperability claims`
+  - next_action: `keep consumer misread correction bounded while admitting the next candidate`
+- `subsystem_parity_focus_clarity_v1` -> `promote`
+  - target_surface: `subsystem_parity.next_focus`
+  - success_metric: `subsystem_parity_focus_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Subsystem parity now says which family produced the current focus, what pressures made it current, and what bounded operator action follows.
+  - evidence: `subsystem_parity_focus_probe target=shared_code_edit.path_overlap_preflight source=mutation_preflight_hooks pressures=3 shell_sync=yes`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_subsystem_parity_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer next_focus rationale improves orientation, not planning quality or authority
+    - future shells must keep next_focus subordinate to mutation_preflight and canonical_center
+  - promotion_limit: `does not authorize planner behavior, stronger permissions, or governance promotion`
+  - next_action: `keep subsystem-parity focus bounded while admitting the next candidate`
+- `closeout_attention_action_clarity_v1` -> `promote`
+  - target_surface: `closeout_attention.operator_action`
+  - success_metric: `closeout_attention_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Closeout attention now says which bounded handoff family triggered attention, what pressures are active, and what operator action follows.
+  - evidence: `closeout_attention_probe status=partial source=bounded_handoff_closeout pressures=4 shell_sync=yes`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_closeout_attention_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer closeout handling improves anti-fake-completion, not planning quality or authority
+    - future shells must keep closeout attention subordinate to consumer contract and bounded handoff truth
+  - promotion_limit: `does not authorize planner behavior, stronger permissions, or governance promotion`
+  - next_action: `keep closeout-attention handling bounded while admitting the next candidate`
+- `claude_priority_correction_clarity_v1` -> `promote`
+  - target_surface: `claude_entry_adapter.priority_correction`
+  - success_metric: `claude_priority_correction_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Claude-style entry now recovers one bounded priority correction with enough structure to re-read the same parent surfaces before acting.
+  - evidence: `claude_priority_correction_probe name=compaction_not_completion reread=4 next=shared_code_edit.path_overlap_preflight rule=yes`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_claude_entry_adapter_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer Claude correction packaging improves shell parity, not transport or reasoning quality
+    - future shells must keep priority correction subordinate to the same consumer contract and first-hop order
+  - promotion_limit: `does not authorize vendor-native interop claims, stronger permissions, or transport promotion`
+  - next_action: `keep Claude priority correction bounded while admitting the next candidate`
+- `hot_memory_pull_boundary_clarity_v1` -> `promote`
+  - target_surface: `hot_memory_ladder.current_pull_boundary`
+  - success_metric: `hot_memory_pull_boundary_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Hot-memory ladder now says where a bounded successor should stop pulling and why, without widening authority.
+  - evidence: `hot_memory_pull_boundary_probe posture=review_handoff_before_deeper_pull stop_at=bounded_handoff dashboard_sync=yes`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_hot_memory_ladder_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer pull boundaries improve latency discipline, not memory quality or transport strength
+    - future shells must keep current_pull_boundary subordinate to canonical_center and live coordination truth
+  - promotion_limit: `does not authorize deeper default pulls, retrieval promotion, or transport claims`
+  - next_action: `keep hot-memory pull boundaries bounded while admitting the next candidate`
+- `memory_panel_tier_subordination_v1` -> `promote`
+  - target_surface: `dashboard.memory_panel.reference_boundary`
+  - success_metric: `memory_panel_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Dashboard memory panel now presents reference selection as an explicitly auxiliary layer and keeps closeout caution visible.
+  - evidence: `memory_panel_probe boundary=auxiliary_only caution=yes selected=2`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_memory_panel_view_model_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer memory-panel packaging improves operator discipline, not retrieval quality or memory semantics
+    - future dashboard changes must keep reference selection subordinate to Tier 0 / Tier 1 / Tier 2 operator truth
+  - promotion_limit: `does not authorize retrieval promotion, hotter memory claims, or a second operator control plane`
+  - next_action: `keep the memory panel subordinate while admitting the next candidate`
+- `status_panel_operator_copy_clarity_v1` -> `promote`
+  - target_surface: `dashboard.status_panel.operator_posture`
+  - success_metric: `status_panel_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Dashboard status panel now states operator boundaries cleanly and renders telemetry in a readable form without changing tier authority.
+  - evidence: `status_panel_probe primary=yes secondary=yes telemetry=成功`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_status_panel_view_model_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer status-panel copy improves operator readability, not runtime truth or planning quality
+    - future dashboard changes must keep primary-versus-secondary boundaries explicit
+  - promotion_limit: `does not authorize new control planes, stronger runtime claims, or shell expansion`
+  - next_action: `keep the status panel readable and subordinate while admitting the next candidate`
+- `dashboard_command_shelf_activation_clarity_v1` -> `promote`
+  - target_surface: `dashboard.command_shelf.commands`
+  - success_metric: `command_shelf_probe.present and consumer_drift_report.status == aligned`
+  - result_story: Dashboard command shelf now states where each command comes from, why it is visible, and when to fall back to a smaller tier.
+  - evidence: `command_shelf_probe next_source=mutation_preflight.next_followup next_activation=yes deep_return=yes`
+  - result_surface: `promoted_result`
+  - replay_rule: `prefer_status_surface_then_probe_current_command_shelf_shape_before_reusing_the_story`
+  - residue_posture: `keep_visible_as_current_packaging_result`
+  - unresolved_items:
+    - clearer command-shelf activation packaging improves operator discipline, not planning quality or automation authority
+    - future dashboard changes must keep bounded moves and deep pulls visibly subordinate to the tier model
+  - promotion_limit: `does not authorize browser-side command execution, stronger permissions, or a new operator control plane`
+  - next_action: `hold self-improvement v0 at the status surface and require explicit ratification before opening a new active bucket`
+
+## Next Short Board
+
+- `Explicitly ratify the next active bucket; do not silently auto-open queued governance-depth work.`

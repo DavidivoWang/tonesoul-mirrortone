@@ -1,0 +1,792 @@
+{
+  "generated_at": "2026-04-18T03:38:31Z",
+  "source": "scripts/analyze_codebase_graph.py",
+  "root_package": "tonesoul",
+  "summary": {
+    "total_modules": 254,
+    "total_lines": 77601,
+    "total_classes": 496,
+    "total_functions": 2653,
+    "total_edges": 453,
+    "total_cycles": 0,
+    "total_layer_violations": 23,
+    "total_orphans": 0,
+    "total_community_drifts": 20,
+    "self_declared_layer_count": 15,
+    "self_declared_layer_ratio": 0.0591,
+    "purpose_count": 15,
+    "purpose_ratio": 0.0591
+  },
+  "annotation_coverage": {
+    "self_declared_layer_count": 15,
+    "self_declared_layer_ratio": 0.0591,
+    "purpose_count": 15,
+    "purpose_ratio": 0.0591
+  },
+  "god_nodes": [
+    {
+      "module": "tonesoul.unified_pipeline",
+      "path": "tonesoul/unified_pipeline.py",
+      "in_degree": 0,
+      "out_degree": 34,
+      "total_degree": 34,
+      "lines": 3630,
+      "classes": 2,
+      "functions": 78,
+      "layer": "pipeline",
+      "layer_source": "self_declared",
+      "purpose": "Top-level runtime pipeline that wires perception, council, and output surfaces."
+    },
+    {
+      "module": "tonesoul.ystm.schema",
+      "path": "tonesoul/ystm/schema.py",
+      "in_degree": 27,
+      "out_degree": 0,
+      "total_degree": 27,
+      "lines": 160,
+      "classes": 14,
+      "functions": 5,
+      "layer": "shared",
+      "layer_source": "override",
+      "purpose": ""
+    },
+    {
+      "module": "tonesoul.yss_pipeline",
+      "path": "tonesoul/yss_pipeline.py",
+      "in_degree": 1,
+      "out_degree": 25,
+      "total_degree": 26,
+      "lines": 1096,
+      "classes": 5,
+      "functions": 29,
+      "layer": "pipeline",
+      "layer_source": "self_declared",
+      "purpose": "Compose YSS gates, action set, and audit into one semantic-field pipeline pass."
+    },
+    {
+      "module": "tonesoul.runtime_adapter",
+      "path": "tonesoul/runtime_adapter.py",
+      "in_degree": 5,
+      "out_degree": 17,
+      "total_degree": 22,
+      "lines": 2543,
+      "classes": 3,
+      "functions": 54,
+      "layer": "pipeline",
+      "layer_source": "self_declared",
+      "purpose": "Load/commit governance state across session boundaries; the model-agnostic runtime spine."
+    },
+    {
+      "module": "tonesoul.council.types",
+      "path": "tonesoul/council/types.py",
+      "in_degree": 21,
+      "out_degree": 0,
+      "total_degree": 21,
+      "lines": 166,
+      "classes": 7,
+      "functions": 2,
+      "layer": "shared",
+      "layer_source": "self_declared",
+      "purpose": "Shared type primitives (PerspectiveType, VoteDecision, verdicts) for the council subsystem."
+    },
+    {
+      "module": "tonesoul.council.runtime",
+      "path": "tonesoul/council/runtime.py",
+      "in_degree": 4,
+      "out_degree": 14,
+      "total_degree": 18,
+      "lines": 776,
+      "classes": 3,
+      "functions": 19,
+      "layer": "governance",
+      "layer_source": "self_declared",
+      "purpose": "Run the multi-perspective council, return verdict + coherence + minority opinion."
+    },
+    {
+      "module": "tonesoul.memory.soul_db",
+      "path": "tonesoul/memory/soul_db.py",
+      "in_degree": 16,
+      "out_degree": 1,
+      "total_degree": 17,
+      "lines": 1180,
+      "classes": 6,
+      "functions": 64,
+      "layer": "memory",
+      "layer_source": "self_declared",
+      "purpose": "SQLite-backed memory store with decay, layered retrieval, and source attribution."
+    },
+    {
+      "module": "tonesoul.autonomous_cycle",
+      "path": "tonesoul/autonomous_cycle.py",
+      "in_degree": 1,
+      "out_degree": 14,
+      "total_degree": 15,
+      "lines": 367,
+      "classes": 3,
+      "functions": 12,
+      "layer": "orchestration",
+      "layer_source": "self_declared",
+      "purpose": "Drive the autonomous wake/sense/dream loop without a human trigger."
+    },
+    {
+      "module": "tonesoul.council.perspective_factory",
+      "path": "tonesoul/council/perspective_factory.py",
+      "in_degree": 3,
+      "out_degree": 11,
+      "total_degree": 14,
+      "lines": 890,
+      "classes": 6,
+      "functions": 32,
+      "layer": "governance",
+      "layer_source": "self_declared",
+      "purpose": "Factory for pluggable council perspectives (rules / LLM / tool-verified)."
+    },
+    {
+      "module": "tonesoul.tonebridge",
+      "path": "tonesoul/tonebridge/__init__.py",
+      "in_degree": 1,
+      "out_degree": 11,
+      "total_degree": 12,
+      "lines": 119,
+      "classes": 0,
+      "functions": 0,
+      "layer": "surface",
+      "layer_source": "subpackage",
+      "purpose": ""
+    },
+    {
+      "module": "tonesoul.yss_gates",
+      "path": "tonesoul/yss_gates.py",
+      "in_degree": 3,
+      "out_degree": 9,
+      "total_degree": 12,
+      "lines": 947,
+      "classes": 1,
+      "functions": 20,
+      "layer": "governance",
+      "layer_source": "self_declared",
+      "purpose": "Compose the YSS gate stack (DCS, POAV, frame router, seed, acceptance) into one policy pass."
+    },
+    {
+      "module": "tonesoul.ystm.demo",
+      "path": "tonesoul/ystm/demo.py",
+      "in_degree": 4,
+      "out_degree": 8,
+      "total_degree": 12,
+      "lines": 407,
+      "classes": 1,
+      "functions": 7,
+      "layer": "surface",
+      "layer_source": "self_declared",
+      "purpose": "End-to-end YSTM demo: ingest segments, build terrain, render HTML/PNG/SVG surfaces."
+    },
+    {
+      "module": "tonesoul.council.pre_output_council",
+      "path": "tonesoul/council/pre_output_council.py",
+      "in_degree": 2,
+      "out_degree": 9,
+      "total_degree": 11,
+      "lines": 154,
+      "classes": 1,
+      "functions": 4,
+      "layer": "governance",
+      "layer_source": "self_declared",
+      "purpose": "Convene the pre-output council: run perspectives, compute coherence, emit verdict and transcript."
+    },
+    {
+      "module": "tonesoul.governance.kernel",
+      "path": "tonesoul/governance/kernel.py",
+      "in_degree": 4,
+      "out_degree": 7,
+      "total_degree": 11,
+      "lines": 608,
+      "classes": 1,
+      "functions": 20,
+      "layer": "governance",
+      "layer_source": "self_declared",
+      "purpose": "Governance kernel: decides how the pipeline behaves (routing, council convening, friction)."
+    },
+    {
+      "module": "tonesoul.council.base",
+      "path": "tonesoul/council/base.py",
+      "in_degree": 9,
+      "out_degree": 1,
+      "total_degree": 10,
+      "lines": 25,
+      "classes": 1,
+      "functions": 2,
+      "layer": "shared",
+      "layer_source": "self_declared",
+      "purpose": "Abstract IPerspective contract implemented by every council perspective."
+    },
+    {
+      "module": "tonesoul.dream_engine",
+      "path": "tonesoul/dream_engine.py",
+      "in_degree": 2,
+      "out_degree": 8,
+      "total_degree": 10,
+      "lines": 1001,
+      "classes": 4,
+      "functions": 33,
+      "layer": "evolution",
+      "layer_source": "self_declared",
+      "purpose": "Offline dream cycle: crystallize memory and update subjectivity layers between waking sessions."
+    },
+    {
+      "module": "tonesoul.memory",
+      "path": "tonesoul/memory/__init__.py",
+      "in_degree": 0,
+      "out_degree": 10,
+      "total_degree": 10,
+      "lines": 69,
+      "classes": 0,
+      "functions": 0,
+      "layer": "memory",
+      "layer_source": "subpackage",
+      "purpose": ""
+    },
+    {
+      "module": "tonesoul.schemas",
+      "path": "tonesoul/schemas.py",
+      "in_degree": 9,
+      "out_degree": 0,
+      "total_degree": 9,
+      "lines": 800,
+      "classes": 30,
+      "functions": 39,
+      "layer": "shared",
+      "layer_source": "self_declared",
+      "purpose": "Pydantic data contracts shared across council, LLM, and governance layers."
+    },
+    {
+      "module": "tonesoul.ystm.acceptance",
+      "path": "tonesoul/ystm/acceptance.py",
+      "in_degree": 1,
+      "out_degree": 8,
+      "total_degree": 9,
+      "lines": 146,
+      "classes": 0,
+      "functions": 7,
+      "layer": "domain",
+      "layer_source": "subpackage",
+      "purpose": ""
+    },
+    {
+      "module": "tonesoul.council",
+      "path": "tonesoul/council/__init__.py",
+      "in_degree": 2,
+      "out_degree": 6,
+      "total_degree": 8,
+      "lines": 53,
+      "classes": 0,
+      "functions": 0,
+      "layer": "governance",
+      "layer_source": "subpackage",
+      "purpose": ""
+    }
+  ],
+  "cycles": [],
+  "layer_violations": [
+    {
+      "source": "tonesoul",
+      "source_layer": "shared",
+      "target": "tonesoul.unified_controller",
+      "target_layer": "pipeline"
+    },
+    {
+      "source": "tonesoul.constraint_stack",
+      "source_layer": "governance",
+      "target": "tonesoul.action_set",
+      "target_layer": "pipeline"
+    },
+    {
+      "source": "tonesoul.constraint_stack",
+      "source_layer": "governance",
+      "target": "tonesoul.mercy_objective",
+      "target_layer": "evolution"
+    },
+    {
+      "source": "tonesoul.council.runtime",
+      "source_layer": "governance",
+      "target": "tonesoul.benevolence",
+      "target_layer": "evolution"
+    },
+    {
+      "source": "tonesoul.governance",
+      "source_layer": "governance",
+      "target": "tonesoul.benevolence",
+      "target_layer": "evolution"
+    },
+    {
+      "source": "tonesoul.governance.kernel",
+      "source_layer": "governance",
+      "target": "tonesoul.resistance",
+      "target_layer": "evolution"
+    },
+    {
+      "source": "tonesoul.mcp_server",
+      "source_layer": "infrastructure",
+      "target": "tonesoul.council.compact",
+      "target_layer": "governance"
+    },
+    {
+      "source": "tonesoul.mcp_server",
+      "source_layer": "infrastructure",
+      "target": "tonesoul.council.calibration",
+      "target_layer": "governance"
+    },
+    {
+      "source": "tonesoul.mcp_server",
+      "source_layer": "infrastructure",
+      "target": "tonesoul.council.runtime",
+      "target_layer": "governance"
+    },
+    {
+      "source": "tonesoul.mcp_server",
+      "source_layer": "infrastructure",
+      "target": "tonesoul.runtime_adapter",
+      "target_layer": "pipeline"
+    },
+    {
+      "source": "tonesoul.memory.boot",
+      "source_layer": "memory",
+      "target": "tonesoul.runtime_adapter",
+      "target_layer": "pipeline"
+    },
+    {
+      "source": "tonesoul.risk_calculator",
+      "source_layer": "governance",
+      "target": "tonesoul.working_style",
+      "target_layer": "evolution"
+    },
+    {
+      "source": "tonesoul.tension_engine",
+      "source_layer": "governance",
+      "target": "tonesoul.nonlinear_predictor",
+      "target_layer": "domain"
+    },
+    {
+      "source": "tonesoul.tension_engine",
+      "source_layer": "governance",
+      "target": "tonesoul.resistance",
+      "target_layer": "evolution"
+    },
+    {
+      "source": "tonesoul.tension_engine",
+      "source_layer": "governance",
+      "target": "tonesoul.variance_compressor",
+      "target_layer": "domain"
+    },
+    {
+      "source": "tonesoul.unified_pipeline",
+      "source_layer": "pipeline",
+      "target": "tonesoul.tonebridge",
+      "target_layer": "surface"
+    },
+    {
+      "source": "tonesoul.yss_gates",
+      "source_layer": "governance",
+      "target": "tonesoul.dcs",
+      "target_layer": "domain"
+    },
+    {
+      "source": "tonesoul.yss_gates",
+      "source_layer": "governance",
+      "target": "tonesoul.frame_router",
+      "target_layer": "pipeline"
+    },
+    {
+      "source": "tonesoul.yss_gates",
+      "source_layer": "governance",
+      "target": "tonesoul.ystm.acceptance",
+      "target_layer": "domain"
+    },
+    {
+      "source": "tonesoul.yss_pipeline",
+      "source_layer": "pipeline",
+      "target": "tonesoul.ystm.demo",
+      "target_layer": "surface"
+    },
+    {
+      "source": "tonesoul.ystm",
+      "source_layer": "domain",
+      "target": "tonesoul.ystm.demo",
+      "target_layer": "surface"
+    },
+    {
+      "source": "tonesoul.ystm.acceptance",
+      "source_layer": "domain",
+      "target": "tonesoul.ystm.demo",
+      "target_layer": "surface"
+    },
+    {
+      "source": "tonesoul.ystm_demo",
+      "source_layer": "domain",
+      "target": "tonesoul.ystm.demo",
+      "target_layer": "surface"
+    }
+  ],
+  "orphans": [],
+  "subpackage_stats": {
+    "(root)": {
+      "files": 97,
+      "lines": 39309,
+      "classes": 192,
+      "functions": 1180
+    },
+    "backends": {
+      "files": 2,
+      "lines": 899,
+      "classes": 2,
+      "functions": 72
+    },
+    "cli": {
+      "files": 1,
+      "lines": 1,
+      "classes": 0,
+      "functions": 0
+    },
+    "corpus": {
+      "files": 4,
+      "lines": 859,
+      "classes": 8,
+      "functions": 37
+    },
+    "council": {
+      "files": 30,
+      "lines": 7136,
+      "classes": 46,
+      "functions": 261
+    },
+    "deliberation": {
+      "files": 7,
+      "lines": 1888,
+      "classes": 18,
+      "functions": 86
+    },
+    "evolution": {
+      "files": 4,
+      "lines": 1128,
+      "classes": 5,
+      "functions": 46
+    },
+    "gates": {
+      "files": 2,
+      "lines": 400,
+      "classes": 6,
+      "functions": 13
+    },
+    "gateway": {
+      "files": 3,
+      "lines": 189,
+      "classes": 4,
+      "functions": 16
+    },
+    "governance": {
+      "files": 5,
+      "lines": 1591,
+      "classes": 12,
+      "functions": 42
+    },
+    "inter_soul": {
+      "files": 5,
+      "lines": 472,
+      "classes": 9,
+      "functions": 40
+    },
+    "llm": {
+      "files": 5,
+      "lines": 1375,
+      "classes": 7,
+      "functions": 73
+    },
+    "loop": {
+      "files": 4,
+      "lines": 622,
+      "classes": 16,
+      "functions": 23
+    },
+    "market": {
+      "files": 4,
+      "lines": 1324,
+      "classes": 16,
+      "functions": 35
+    },
+    "memory": {
+      "files": 25,
+      "lines": 8115,
+      "classes": 39,
+      "functions": 327
+    },
+    "observability": {
+      "files": 5,
+      "lines": 764,
+      "classes": 7,
+      "functions": 35
+    },
+    "perception": {
+      "files": 4,
+      "lines": 1018,
+      "classes": 5,
+      "functions": 30
+    },
+    "pipeline": {
+      "files": 1,
+      "lines": 11,
+      "classes": 0,
+      "functions": 0
+    },
+    "scribe": {
+      "files": 4,
+      "lines": 1801,
+      "classes": 7,
+      "functions": 61
+    },
+    "semantic": {
+      "files": 3,
+      "lines": 184,
+      "classes": 3,
+      "functions": 18
+    },
+    "shared": {
+      "files": 3,
+      "lines": 249,
+      "classes": 6,
+      "functions": 7
+    },
+    "tech_trace": {
+      "files": 4,
+      "lines": 578,
+      "classes": 0,
+      "functions": 29
+    },
+    "tonebridge": {
+      "files": 12,
+      "lines": 3505,
+      "classes": 39,
+      "functions": 130
+    },
+    "ystm": {
+      "files": 13,
+      "lines": 2173,
+      "classes": 21,
+      "functions": 60
+    },
+    "yuhun": {
+      "files": 7,
+      "lines": 2010,
+      "classes": 28,
+      "functions": 32
+    }
+  },
+  "subpackage_coupling": {
+    "(root)": {
+      "(root)": 103,
+      "ystm": 24,
+      "governance": 9,
+      "llm": 3,
+      "memory": 17,
+      "perception": 3,
+      "scribe": 3,
+      "council": 8,
+      "gateway": 2,
+      "backends": 3,
+      "gates": 1,
+      "tonebridge": 1,
+      "yuhun": 2,
+      "deliberation": 2,
+      "tech_trace": 3
+    },
+    "backends": {
+      "(root)": 1
+    },
+    "corpus": {
+      "corpus": 5,
+      "deliberation": 1
+    },
+    "council": {
+      "council": 64,
+      "(root)": 8,
+      "llm": 1,
+      "semantic": 2,
+      "memory": 1
+    },
+    "deliberation": {
+      "deliberation": 14
+    },
+    "evolution": {
+      "evolution": 4
+    },
+    "gates": {
+      "gates": 1
+    },
+    "gateway": {
+      "gateway": 3
+    },
+    "governance": {
+      "(root)": 8,
+      "governance": 1,
+      "gates": 1,
+      "llm": 2,
+      "memory": 1
+    },
+    "inter_soul": {
+      "inter_soul": 8
+    },
+    "llm": {
+      "llm": 6,
+      "(root)": 2
+    },
+    "loop": {
+      "loop": 6,
+      "shared": 2
+    },
+    "market": {
+      "llm": 1,
+      "market": 1
+    },
+    "memory": {
+      "memory": 43,
+      "(root)": 4
+    },
+    "observability": {
+      "observability": 4
+    },
+    "perception": {
+      "perception": 2
+    },
+    "pipeline": {
+      "(root)": 3
+    },
+    "scribe": {
+      "llm": 1,
+      "scribe": 2,
+      "memory": 1
+    },
+    "semantic": {
+      "semantic": 3
+    },
+    "shared": {
+      "shared": 2
+    },
+    "tech_trace": {
+      "tech_trace": 3,
+      "(root)": 1
+    },
+    "tonebridge": {
+      "tonebridge": 14,
+      "llm": 1
+    },
+    "ystm": {
+      "ystm": 29,
+      "(root)": 1
+    },
+    "yuhun": {
+      "yuhun": 8,
+      "memory": 1,
+      "(root)": 2
+    }
+  },
+  "community_drifts": [
+    {
+      "module": "tonesoul.backends.file_store",
+      "directory": "backends",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.backends.redis_store",
+      "directory": "backends",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.council.calibration",
+      "directory": "council",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.escape_valve",
+      "directory": "(root)",
+      "community": "council"
+    },
+    {
+      "module": "tonesoul.gates",
+      "directory": "gates",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.gates.compute",
+      "directory": "gates",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.governance",
+      "directory": "governance",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.governance.kernel",
+      "directory": "governance",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.governance.reflex",
+      "directory": "governance",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.governance.reflex_config",
+      "directory": "governance",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.governance.retro",
+      "directory": "governance",
+      "community": "memory"
+    },
+    {
+      "module": "tonesoul.memory.hippocampus",
+      "directory": "memory",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.memory.semantic_graph",
+      "directory": "memory",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.memory.visual_chain",
+      "directory": "memory",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.perception.web_ingest",
+      "directory": "perception",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.pipeline",
+      "directory": "pipeline",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.safe_parse",
+      "directory": "(root)",
+      "community": "council"
+    },
+    {
+      "module": "tonesoul.tech_trace.validate",
+      "directory": "tech_trace",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.ystm.schema",
+      "directory": "ystm",
+      "community": "(root)"
+    },
+    {
+      "module": "tonesoul.ystm_demo",
+      "directory": "(root)",
+      "community": "ystm"
+    }
+  ]
+}

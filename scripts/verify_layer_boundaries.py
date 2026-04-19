@@ -98,10 +98,29 @@ def find_violations(
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Verify architecture layer boundaries.")
-    parser.add_argument("--project-root", default=".", help="Repository root to scan.")
-    parser.add_argument("--roots", nargs="+", default=list(DEFAULT_ROOTS), help="Top-level roots that are forbidden to import app-layer modules.")
-    parser.add_argument("--forbidden-prefixes", nargs="+", default=list(DEFAULT_FORBIDDEN_PREFIXES), help="Forbidden import prefixes.")
-    parser.add_argument("--allow-import", action="append", default=[], help="Allowed exception in 'path:import.path' format. Can repeat.")
+    parser.add_argument(
+        "--project-root",
+        default=".",
+        help="Repository root to scan.",
+    )
+    parser.add_argument(
+        "--roots",
+        nargs="+",
+        default=list(DEFAULT_ROOTS),
+        help="Top-level roots that are forbidden to import app-layer modules.",
+    )
+    parser.add_argument(
+        "--forbidden-prefixes",
+        nargs="+",
+        default=list(DEFAULT_FORBIDDEN_PREFIXES),
+        help="Forbidden import prefixes.",
+    )
+    parser.add_argument(
+        "--allow-import",
+        action="append",
+        default=[],
+        help="Allowed exception in 'path:import.path' format. Can repeat.",
+    )
     return parser
 
 
@@ -114,7 +133,12 @@ def main() -> int:
             continue
         relative, import_path = rule.split(":", maxsplit=1)
         allowed_imports.add((relative.strip(), import_path.strip()))
-    violations = find_violations(project_root=project_root, roots=args.roots, forbidden_prefixes=args.forbidden_prefixes, allowed_imports=allowed_imports)
+    violations = find_violations(
+        project_root=project_root,
+        roots=args.roots,
+        forbidden_prefixes=args.forbidden_prefixes,
+        allowed_imports=allowed_imports,
+    )
     payload = {
         "ok": len(violations) == 0,
         "project_root": str(project_root),

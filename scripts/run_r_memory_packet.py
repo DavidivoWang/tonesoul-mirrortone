@@ -43,7 +43,11 @@ def main() -> None:
     if args.ack and not str(args.agent or "").strip():
         parser.error("--ack requires --agent")
 
-    from tonesoul.runtime_adapter import acknowledge_observer_cursor, load, r_memory_packet
+    from tonesoul.runtime_adapter import (
+        acknowledge_observer_cursor,
+        load,
+        r_memory_packet,
+    )
 
     store = None
     posture = None

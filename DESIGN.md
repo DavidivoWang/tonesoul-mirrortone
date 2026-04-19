@@ -4,6 +4,11 @@
 > Last Updated: 2026-03-30
 > Status: current design center for whole-system reasoning. This file complements `README.md` and the deeper architecture contracts; it does not outrank runtime code, tests, or canonical governance files.
 
+> **⚠️ If your question is "what does `tonesoul/<x>.py` do / which layer is it in / who depends on it?"**
+> Go to [docs/status/codebase_graph_latest.md](docs/status/codebase_graph_latest.md) (auto-generated body map, 254 modules, with `__ts_layer__` / `__ts_purpose__` self-declarations, layer, coupling, imports).
+> For the import / layer rules themselves, see [docs/ARCHITECTURE_BOUNDARIES.md](docs/ARCHITECTURE_BOUNDARIES.md).
+> This file is for *why the system is shaped this way at all* — not file-level lookup.
+
 ---
 
 ## Why This File Exists
@@ -86,52 +91,57 @@ ToneBridge and adjacent surfaces exist because raw user wording is not yet safe 
 Without this layer:
 - the system mirrors the user too early
 - councils deliberate over unparsed social residue
-- downstream modules inherit unstable framing as if it were structure
+- safety and realism become post-hoc patches
 
-### 4. Deliberation / Council
+One conservative design assumption matters here:
 
-The council layer exists to prevent single-channel overclaim.
-Its job is not to simulate truth by performance, but to expose structured disagreement before final output.
+`a language-model surface can behave like a reflective semantic interface without thereby earning full subject-level authority.`
 
-Without it:
-- one persuasive voice wins too easily
-- the system cannot show internal contestation
-- uncertainty gets compressed into style
+That is one reason ToneSoul keeps mirror-rupture and fail-stop in the control plane rather than treating fluent self-description as self-justifying truth.
 
-### 5. Runtime Memory
+### 4. Council
 
-Memory exists so the system can preserve bounded continuity:
-- unresolved tensions
-- durable preferences
-- prior decisions
-- handoff state
-- compressed residues that still matter
+Council exists to preserve dissent and bounded review depth before output ships.
 
 Without it:
-- every session becomes amnesic theater
-- later agents restart from surface prose
-- continuity becomes fake even when style remains smooth
+- disagreement disappears into one fluent voice
+- minority concerns vanish from downstream handoff
+- confidence looks cleaner than reality
 
-But memory is bounded on purpose.
-ToneSoul is not designed to claim infinite recall or hidden total carry-forward.
+### 5. Tension / Runtime Review
 
-### 6. Tooling / Action Layer
+ToneSoul cares whether an answer still holds under pressure.
+That is why tension is a pressure metric, not a vibe metric.
 
-Scripts, diagnostics, verifiers, and execution helpers exist so claims about the system can be checked against visible surfaces.
+Without runtime review:
+- smooth answers ship too early
+- contradiction is discovered too late
+- "character" collapses into reaction
 
-Without tooling:
-- architecture remains literary
-- onboarding becomes ritual instead of operational entry
-- future contributors cannot locate the real control points
+### 6. Continuity
 
-### 7. Documentation / Contracts
+Continuity exists because stateless sessions lose too much, but total recall is also wrong.
 
-ToneSoul uses many narrow contracts because whole-system behavior drifts unless local rules are made explicit.
+That is why ToneSoul distinguishes:
+- packet / delta / claims
+- checkpoints / compactions
+- subject snapshot
+- working-style continuity
+- canonical truth
 
-Without contracts:
-- every later agent re-derives the architecture from scratch
-- subtle boundaries are overwritten by the latest confident explanation
-- operational truth loses against narrative convenience
+Without these boundaries:
+- every agent starts from zero
+- handoff becomes transcript copying
+- style, identity, and law silently collapse into each other
+
+### 7. Safety / Protection
+
+Safety here is not only content blocking.
+It is also:
+- refusing unsupported filler
+- surfacing opacity
+- preserving audit posture
+- stopping when L1/L2 support is not enough
 
 ### 8. Observability / Evidence
 
@@ -193,10 +203,12 @@ Redis/live coordination remains a path, not the mature default claim.
 ### Invariant 6: Later Agents Start From Structured Entry, Not Repo-Wide Guessing
 
 The expected order remains:
-1. `AI_ONBOARDING.md`
-2. `docs/AI_QUICKSTART.md`
-3. `python scripts/start_agent_session.py --agent <your-id>`
-4. optional deeper reads only after the bounded entry surfaces are understood
+1. `docs/AI_QUICKSTART.md`
+2. `python scripts/start_agent_session.py --agent <your-id>`
+3. `AI_ONBOARDING.md`
+4. `docs/foundation/README.md`
+5. `task.md`
+6. optional deeper reads only after the bounded entry surfaces are understood
 
 ## Why ToneSoul Keeps Adding These Contracts
 
@@ -259,12 +271,14 @@ It is "make the current center easier for a successor to see and continue safely
 If you are a new agent or a future maintainer:
 
 1. `README.md`
-2. `AI_ONBOARDING.md`
+2. `docs/foundation/README.md`
 3. `docs/AI_QUICKSTART.md`
-4. `DESIGN.md`
-5. `docs/architecture/TONESOUL_SYSTEM_OVERVIEW_AND_SUBSYSTEM_GUIDE.md`
-6. `python scripts/start_agent_session.py --agent <your-id>`
-7. only then open deeper contracts relevant to the current short board
+4. `python scripts/start_agent_session.py --agent <your-id>`
+5. `AI_ONBOARDING.md`
+6. `task.md`
+7. `DESIGN.md`
+8. `docs/architecture/TONESOUL_SYSTEM_OVERVIEW_AND_SUBSYSTEM_GUIDE.md`
+9. only then open deeper contracts relevant to the current short board
 
 If you are continuing implementation work, also read:
 - `task.md`

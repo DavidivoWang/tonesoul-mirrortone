@@ -1,0 +1,9 @@
+# Temporary: disable Python serverless packaging on Vercel.
+# We currently run Next.js-only deployment with same-origin + mock fallback.
+# IMPORTANT: keep Next route handlers under `src/app/api/**` included.
+/api/
+requirements.txt
+node_modules/
+.next/
+.vercel/
+.vercel.bak/

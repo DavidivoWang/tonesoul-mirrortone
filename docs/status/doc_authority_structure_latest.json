@@ -1,0 +1,1037 @@
+{
+  "generated_at": "2026-04-07T13:09:21Z",
+  "inventory_path": "docs/status/doc_convergence_inventory_latest.json",
+  "metrics": {
+    "group_count": 25,
+    "tracked_file_count": 103,
+    "metadata_complete_count": 103,
+    "metadata_missing_count": 0
+  },
+  "groups": [
+    {
+      "id": "entrypoints",
+      "label": "Entry Points",
+      "description": "first surfaces for orientation and collaboration posture",
+      "authority_role": "entrypoint",
+      "use_when": "first repo contact, before choosing which deeper lane to open",
+      "read_order": 1,
+      "files": [
+        {
+          "path": "README.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "README.zh-TW.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "AI_ONBOARDING.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/INDEX.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/README.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 5,
+      "metadata_complete_count": 5
+    },
+    {
+      "id": "ai_operational_guides",
+      "label": "AI Operational Guides",
+      "description": "minimal working entry and lookup surfaces for later agents",
+      "authority_role": "operational",
+      "use_when": "after entrypoint routing, before or during daily work",
+      "read_order": 2,
+      "files": [
+        {
+          "path": "docs/AI_QUICKSTART.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/AI_REFERENCE.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 2,
+      "metadata_complete_count": 2
+    },
+    {
+      "id": "canonical_architecture",
+      "label": "Canonical Architecture",
+      "description": "canonical architectural north-star and layer maps",
+      "authority_role": "canonical",
+      "use_when": "before architecture claims, runtime authority claims, or boundary changes",
+      "read_order": 3,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_EXTERNALIZED_COGNITIVE_ARCHITECTURE.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/notes/TONESOUL_ARCHITECTURE_MEMORY_ANCHOR_2026-03-22.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/KNOWLEDGE_SURFACES_BOUNDARY_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_EIGHT_LAYER_CONVERGENCE_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 4,
+      "metadata_complete_count": 4
+    },
+    {
+      "id": "deep_system_maps",
+      "label": "Deep System Maps",
+      "description": "panoramic repository-wide maps that explain the whole system without becoming executable contracts",
+      "authority_role": "deep_map",
+      "use_when": "before repo-wide refactors or whole-system explanations",
+      "read_order": 4,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_SYSTEM_OVERVIEW_AND_SUBSYSTEM_GUIDE.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/narrative/TONESOUL_ANATOMY.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 2,
+      "metadata_complete_count": 2
+    },
+    {
+      "id": "interpretive_readings",
+      "label": "Interpretive Readings",
+      "description": "grounded narrative readings that help later agents inherit load-bearing meaning without outranking canonical contracts",
+      "authority_role": "interpretive",
+      "use_when": "when the architecture map is clear but the deeper load-bearing meaning is still not",
+      "read_order": 5,
+      "files": [
+        {
+          "path": "docs/notes/TONESOUL_DEEP_READING_ANCHOR_2026-03-26.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/narrative/TONESOUL_CODEX_READING.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 2,
+      "metadata_complete_count": 2
+    },
+    {
+      "id": "governance_execution",
+      "label": "Governance And Execution",
+      "description": "runtime, audit, and API contracts",
+      "authority_role": "contract",
+      "use_when": "when moving from documentation into executable governance or API behavior",
+      "read_order": 6,
+      "files": [
+        {
+          "path": "docs/7D_AUDIT_FRAMEWORK.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/7D_EXECUTION_SPEC.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/AUDIT_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/API_SPEC.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/COUNCIL_RUNTIME.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_SHARED_R_MEMORY_OPERATIONS_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 6,
+      "metadata_complete_count": 6
+    },
+    {
+      "id": "claim_authority_distillation",
+      "label": "Claim Authority Distillation",
+      "description": "boundary aids that classify whether prominent repo terms are active runtime, vocabulary, theory, or projection",
+      "authority_role": "boundary_contract",
+      "use_when": "when a term sounds load-bearing but you need to know whether it is truly implemented before relying on it",
+      "read_order": 7,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_CLAIM_AUTHORITY_MATRIX.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_LAW_RUNTIME_BOUNDARY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 2,
+      "metadata_complete_count": 2
+    },
+    {
+      "id": "evidence_topology_and_verifiability",
+      "label": "Evidence And Verifiability",
+      "description": "evidence ladders and topology aids that separate what is tested, structurally enforced, runtime-present, document-backed, philosophical, or currently blocked",
+      "authority_role": "evidence_map",
+      "use_when": "when a claim sounds important and you need to know whether it is regression-backed, schema-backed, thinly tested, or merely documented before repeating it",
+      "read_order": 8,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_CLAIM_TO_EVIDENCE_MATRIX.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_EVIDENCE_LADDER_AND_VERIFIABILITY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_TEST_AND_VALIDATION_TOPOLOGY_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_evidence_followup_candidates_2026-03-29.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 4,
+      "metadata_complete_count": 4
+    },
+    {
+      "id": "subject_refresh_boundaries",
+      "label": "Subject Refresh Boundaries",
+      "description": "boundary aids for deciding when hot-state evidence may refresh subject snapshots without inflating durable identity",
+      "authority_role": "boundary_contract",
+      "use_when": "when writing, reviewing, or proposing heuristics around subject_snapshot refresh and promotion limits",
+      "read_order": 9,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_SUBJECT_REFRESH_BOUNDARY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_SUBJECT_SNAPSHOT_FIELD_LANES.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 2,
+      "metadata_complete_count": 2
+    },
+    {
+      "id": "control_plane_discipline",
+      "label": "Control Plane Discipline",
+      "description": "readiness, task-track, and plan-delta discipline surfaces for coordinating work before and during execution",
+      "authority_role": "discipline_contract",
+      "use_when": "when the question is whether a task is ready, what track it belongs to, or how plan changes should be recorded",
+      "read_order": 10,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_TASK_TRACK_AND_READINESS_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_PLAN_DELTA_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_MIRROR_RUPTURE_FAIL_STOP_AND_LOW_DRIFT_ANCHOR_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_control_plane_followup_candidates_2026-03-28.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 4,
+      "metadata_complete_count": 4
+    },
+    {
+      "id": "observable_shell_and_axiom_boundaries",
+      "label": "Observable-Shell And Axiom Boundaries",
+      "description": "boundary aids for epistemic honesty about opacity and for challenging axiom claims without silently rewriting the constitution",
+      "authority_role": "boundary_contract",
+      "use_when": "when an agent is about to overclaim auditability of hidden reasoning or repeat an axiom without checking what would weaken it",
+      "read_order": 11,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_OBSERVABLE_SHELL_OPACITY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_AXIOM_FALSIFICATION_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_observability_and_axiom_adoption_review_2026-03-28.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 3,
+      "metadata_complete_count": 3
+    },
+    {
+      "id": "council_deliberation_discipline",
+      "label": "Council Deliberation Discipline",
+      "description": "discipline aids for preserving dissent, replaying verdicts honestly, and matching deliberation depth to task stakes",
+      "authority_role": "discipline_contract",
+      "use_when": "when a council result needs bounded dossier extraction, minority preservation, or mode-depth guidance without mutating runtime behavior from prose alone",
+      "read_order": 12,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_COUNCIL_DOSSIER_AND_DISSENT_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_ADAPTIVE_DELIBERATION_MODE_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_council_followup_candidates_2026-03-28.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 3,
+      "metadata_complete_count": 3
+    },
+    {
+      "id": "continuity_import_and_receiver_discipline",
+      "label": "Continuity Import And Receiver Discipline",
+      "description": "receiver-side continuity aids for deciding what may be acknowledged, applied, promoted, or discounted by decay across packet, handoff, and subject surfaces",
+      "authority_role": "discipline_contract",
+      "use_when": "when the question is not merely what should continue, but what a later agent may safely import from continuity surfaces and how long that import remains fresh",
+      "read_order": 13,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_CONTINUITY_IMPORT_AND_DECAY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_RECEIVER_INTERPRETATION_BOUNDARY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_CONTINUITY_SURFACE_LIFECYCLE_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_WORKING_STYLE_CONTINUITY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_continuity_followup_candidates_2026-03-29.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 5,
+      "metadata_complete_count": 5
+    },
+    {
+      "id": "council_realism_and_calibration",
+      "label": "Council Realism And Calibration",
+      "description": "honesty and adoption aids for separating perspective plurality from real independence, and descriptive confidence from calibrated confidence",
+      "authority_role": "boundary_contract",
+      "use_when": "when describing how real the current council is, what its confidence numbers actually mean, or which bounded adversarial upgrades are safe to consider next",
+      "read_order": 14,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_COUNCIL_REALISM_AND_INDEPENDENCE_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_COUNCIL_CONFIDENCE_AND_CALIBRATION_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_ADVERSARIAL_DELIBERATION_ADOPTION_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_council_realism_followup_candidates_2026-03-29.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 4,
+      "metadata_complete_count": 4
+    },
+    {
+      "id": "context_continuity_adoption",
+      "label": "Context Continuity Adoption",
+      "description": "adoption aid for deciding what structure should continue across sessions, tasks, agents, and models without turning handoff memory into hidden truth",
+      "authority_role": "adoption_map",
+      "use_when": "when the question is not merely how to hand off hot state, but what continuity discipline ToneSoul should adopt or defer",
+      "read_order": 15,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_CONTEXT_CONTINUITY_ADOPTION_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 1,
+      "metadata_complete_count": 1
+    },
+    {
+      "id": "prompt_discipline_skeleton",
+      "label": "Prompt Discipline",
+      "description": "prompt-side discipline aids for separating goal, priority, confidence, recovery, compression, receiver instructions, and practical task-shaped variants before building extraction or transfer prompts",
+      "authority_role": "discipline_contract",
+      "use_when": "when the question is not what should be transferred, but how the prompt that extracts or transfers it should be structured",
+      "read_order": 16,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_PROMPT_DISCIPLINE_SKELETON.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_PROMPT_VARIANTS.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_PROMPT_STARTER_CARDS.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 3,
+      "metadata_complete_count": 3
+    },
+    {
+      "id": "prompt_surface_topology_and_adoption",
+      "label": "Prompt Surface Topology And Adoption",
+      "description": "topology and adoption aids that classify which live prompt families are already aligned, which are the next short board, and which should remain specialized",
+      "authority_role": "adoption_map",
+      "use_when": "when the question is not how prompt discipline works in theory, but which concrete prompt families should be adopted next and which should stay untouched",
+      "read_order": 17,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_PROMPT_SURFACE_ADOPTION_MATRIX.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_PROMPT_SURFACE_BOUNDARY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_PROMPT_SURFACE_TOPOLOGY_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_prompt_adoption_followup_candidates_2026-03-29.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 4,
+      "metadata_complete_count": 4
+    },
+    {
+      "id": "reality_alignment_and_render_boundaries",
+      "label": "Reality Alignment And Render Boundaries",
+      "description": "doc-reality aids that distinguish live entry surfaces from stale assumptions, separate file-layer truth from terminal noise, and keep directory counts reproducible",
+      "authority_role": "doc_reality_aid",
+      "use_when": "when entry routing, document counts, or encoding reports may have drifted from the current repo state and you need a measured baseline before repeating them",
+      "read_order": 18,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_ENTRY_SURFACE_REALITY_BASELINE.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_DOC_METRIC_AND_COUNT_METHOD.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_RENDER_LAYER_AND_ENCODING_BOUNDARY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_DOC_DRIFT_AND_CONFLICT_REGISTER.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 4,
+      "metadata_complete_count": 4
+    },
+    {
+      "id": "successor_continuity_and_hot_memory",
+      "label": "Successor Continuity And Hot Memory",
+      "description": "successor-facing contracts and residue notes that keep hot-memory layering, source precedence, and sidecar retirement aligned with the live runtime/readout story",
+      "authority_role": "successor_contract",
+      "use_when": "when a later agent needs the active hot-memory and successor-collaboration story without reopening retired sidecar theories",
+      "read_order": 19,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_SUCCESSOR_COLLABORATION_AND_HOT_MEMORY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_LOW_DRIFT_ANCHOR_SOURCE_PRECEDENCE_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_HOT_MEMORY_DECAY_AND_COMPRESSION_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_successor_collaboration_and_hot_memory_program_2026-04-02.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_subsystem_parity_and_gap_map_2026-04-02.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_successor_sidecar_residue_triage_2026-04-02.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 6,
+      "metadata_complete_count": 6
+    },
+    {
+      "id": "research_driven_memory_interop_and_knowledge_layer",
+      "label": "Research-Driven Memory Interop And Knowledge Layer",
+      "description": "repo-native bridge contracts for cross-agent consumer parity, Claude-compatible first-hop entry, future knowledge-layer separation, bounded launch-health trend posture, and bounded internal-state observability",
+      "authority_role": "interop_contract",
+      "use_when": "when the question is how different agent shells should read the same memory surfaces, where future retrieval belongs, how launch-health readouts should stay descriptive without fake forecasting, or how internal-state pressure may be externalized without selfhood inflation",
+      "read_order": 20,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_CROSS_AGENT_MEMORY_CONSUMER_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_CLAUDE_COMPATIBLE_ENTRY_ADAPTER_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_KNOWLEDGE_LAYER_BOUNDARY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_LAUNCH_HEALTH_TREND_READOUT_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_INTERNAL_STATE_OBSERVABILITY_REALITY_CHECK_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_SURFACE_VERSIONING_AND_CONSUMER_LINEAGE_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_KNOWLEDGE_LAYER_SOURCE_TAXONOMY_AND_PARKING_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_COMPILED_KNOWLEDGE_LANDING_ZONE_SPEC.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_OPERATOR_RETRIEVAL_QUERY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_research_lines_and_memory_interop_program_2026-04-06.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 10,
+      "metadata_complete_count": 10
+    },
+    {
+      "id": "bounded_self_improvement_loop",
+      "label": "Bounded Self-Improvement Loop",
+      "description": "bounded improvement-loop surfaces that define how ToneSoul may propose, evaluate, and promote operator/runtime improvements without crossing governance, identity, or hot-memory transport boundaries",
+      "authority_role": "improvement_contract",
+      "use_when": "when the question is how ToneSoul may safely improve operator/runtime surfaces, where experiment lineage belongs, which mutation classes remain forbidden or human-gated in v0, or how trial outcomes may surface without becoming runtime truth",
+      "read_order": 21,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_SELF_IMPROVEMENT_LOOP_V0_SPEC.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_SELF_IMPROVEMENT_EVALUATOR_HARNESS_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_EXPERIMENT_REGISTRY_AND_LINEAGE_BOUNDARY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_BOUNDED_MUTATION_SPACE_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_ANALYZER_AND_PROMOTION_GATE_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_PROMOTION_READY_RESULT_SURFACE_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_self_improvement_loop_v0_program_2026-04-06.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 7,
+      "metadata_complete_count": 7
+    },
+    {
+      "id": "entry_simplification_and_lineage_routing",
+      "label": "Entry Simplification And Lineage Routing",
+      "description": "cleanup and routing aids for audience entry paths, historical-versus-current surface distinction, safe simplification moves, and bounded docs cleanup sequencing",
+      "authority_role": "doc_cleanup_aid",
+      "use_when": "when the problem is how a reader should enter, what should remain visible as lineage, or which cleanup moves are safe without flattening authority",
+      "read_order": 22,
+      "files": [
+        {
+          "path": "docs/architecture/TONESOUL_AUDIENCE_ROUTING_AND_ENTRY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_HISTORICAL_SPEC_AND_LEGACY_SURFACE_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_DOC_SURFACE_SIMPLIFICATION_BOUNDARY_CONTRACT.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/TONESOUL_ENCODING_AND_MOJIBAKE_HAZARD_REGISTER.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/tonesoul_docs_cleanup_wave_candidates_2026-03-29.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 5,
+      "metadata_complete_count": 5
+    },
+    {
+      "id": "doc_governance",
+      "label": "Documentation Governance",
+      "description": "naming, zoning, and convergence planning surfaces",
+      "authority_role": "doc_governance",
+      "use_when": "when retrieval quality, metadata posture, or naming collisions are the problem",
+      "read_order": 23,
+      "files": [
+        {
+          "path": "docs/DOCS_INFORMATION_ARCHITECTURE_v1.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/DOCS_CLASSIFICATION_LEDGER_v1.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/FILE_PURPOSE_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/status/doc_convergence_inventory_latest.json",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/plans/doc_convergence_cleanup_plan_2026-03-22.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 5,
+      "metadata_complete_count": 5
+    },
+    {
+      "id": "convergence_contracts",
+      "label": "Convergence Contracts",
+      "description": "ownership and divergence boundaries for duplicate-like surfaces",
+      "authority_role": "boundary_contract",
+      "use_when": "when two similar-looking lanes need explicit ownership or split-brain control",
+      "read_order": 24,
+      "files": [
+        {
+          "path": "docs/architecture/BASENAME_DIVERGENCE_DISTILLATION_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/PRIVATE_MEMORY_SHADOW_BOUNDARY_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/PARADOX_FIXTURE_OWNERSHIP_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/architecture/ENGINEERING_MIRROR_OWNERSHIP_MAP.md",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 4,
+      "metadata_complete_count": 4
+    },
+    {
+      "id": "generated_status",
+      "label": "Generated Status",
+      "description": "machine-readable current posture for convergence-related lanes",
+      "authority_role": "generated_status",
+      "use_when": "when current machine-readable posture matters more than prose explanation",
+      "read_order": 25,
+      "files": [
+        {
+          "path": "docs/status/doc_convergence_inventory_latest.json",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/status/basename_divergence_distillation_latest.json",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/status/private_memory_shadow_latest.json",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/status/paradox_fixture_ownership_latest.json",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/status/engineering_mirror_ownership_latest.json",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        },
+        {
+          "path": "docs/status/claim_authority_latest.json",
+          "exists": true,
+          "has_purpose": true,
+          "has_date": true,
+          "metadata_complete": true
+        }
+      ],
+      "tracked_count": 6,
+      "metadata_complete_count": 6
+    }
+  ],
+  "missing_metadata_files": [],
+  "primary_status_line": "doc_authority_structure | groups=25 tracked=103 metadata_complete=103 metadata_missing=0",
+  "runtime_status_line": "doc_retrieval_order=entrypoint_to_operational_to_canonical_to_deep_map_to_interpretive_to_boundary_aids_to_control_plane | generated_status_lane=6",
+  "artifact_policy_status_line": "structure_mode=retrieval_oriented | authority_roles=explicit | generated_status_preferred_for_current_state"
+}

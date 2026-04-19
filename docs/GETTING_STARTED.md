@@ -151,3 +151,4 @@ python scripts/init_governance_state.py \
 
 Available presets: `default`, `cautious-guardian`, `creative-explorer`.
 Create your own by copying and editing any `.soul.json` in `memory/profiles/`.
+

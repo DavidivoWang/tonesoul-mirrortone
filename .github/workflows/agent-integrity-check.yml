@@ -1,0 +1,32 @@
+name: Agent Integrity Check
+
+# Protect against AGENTS.md / HANDOFF.md / skills/ prompt injection attacks
+# See: https://prompt.security - AGENTS.md Goal Hijack vulnerability
+
+on:
+  push:
+    paths:
+      - "AGENTS.md"
+      - "HANDOFF.md"
+      - "SOUL.md"
+      - "skills/**"
+      - ".agent/**"
+      - ".agents/**"
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - "HANDOFF.md"
+      - "SOUL.md"
+      - "skills/**"
+      - ".agent/**"
+      - ".agents/**"
+
+jobs:
+  integrity-check:
+    name: Agent File Integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run agent integrity contract (blocking)
+        run: python3 scripts/check_agent_integrity.py

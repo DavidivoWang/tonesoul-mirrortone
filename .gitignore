@@ -1,5 +1,5 @@
 # ToneSoul 5.2 - Git Ignore Configuration
-# Clean Git keeps the runtime auditable.
+# 🦞 清潔的 Git 就是 AI 的本體
 
 # Binary & Media Files
 *.gguf
@@ -20,7 +20,7 @@ logs/
 simulation_logs/
 zenodo_upload/
 
-# Private Evolution Layer
+# Private Evolution Layer (→ ToneSoul-Memory-Vault.git)
 tonesoul_evolution/
 
 # Build artifacts
@@ -55,7 +55,7 @@ memory/soul.db
 # External Dependencies
 .external/
 
-# Archive
+# Archive (deprecated)
 .archive/
 
 # Runtime Logs
@@ -76,14 +76,10 @@ memory/.hierarchical_index/
 memory/moltbook_logs/
 memory/narrative/
 
-# Secrets / local env
+# Moltbook Scripts (contains API keys - do not commit)
 .moltbook/
-.env
-.env.local
-.env.*.local
-.env*.local
 
-# Temporary / Development Files
+# Temporary/Development Files
 add_reset.py
 fix_nonlocal.py
 moltbook_register.html
@@ -94,48 +90,67 @@ data/yuhun.db
 .hypothesis/
 .tmp_tests/
 memory/.tmp_tests/
-pytest_output.txt
-pytest_err.txt
-test_results.txt
 
 # Local Modelfiles
 Modelfile.*
 
-# External Demo Files
+# External Demo Files (keep repo clean)
 WFGY*
 *Singularity*
 
-# Autonomous runtime artifacts
+# Moltbook outputs are archived under .archive/ (ignored)
+.vercel
+.env*.local
+
+# Private Evolution Layer (Dual-Track Isolation)
+tonesoul_evolution/
+
+# Environment secrets
+.env
+.env.local
+.env.*.local
+
+# Test output
+pytest_output.txt
+pytest_err.txt
+
+# Autonomous runtime artifacts (probe runs, dream wakeup logs)
 memory/autonomous/
 docs/status/probe_*/
 
-# Large archival data
+# Large archival data (history — runtime reads session_traces.jsonl only)
 memory/archive/
 
-# Vector index
+# Vector index (rebuildable via scripts/ingest_ancestral_memory.py)
 memory_base/
 
-# VRM models
+# VRM 3D models (loaded externally at runtime)
 *.vrm
 
 # Moltbook temporary data
 moltbook_feed.json
 *_framework_latest.json
 
-# Memory crystals
+# Memory crystals (runtime generated)
 memory/crystals.jsonl
 
-# Scribe chronicles
-/docs/chronicles/
+# Scribe chronicles (auto-generated runtime snapshots, keep local)
+docs/chronicles/
 
-# Runtime state snapshots
+# Runtime state snapshots (regenerated each cycle)
 docs/status/persona_track_record_latest.json
 docs/status/scribe_status_latest.json
 memory/verification_tasks.jsonl
+
+# One-off test output
+test_results.txt
 
 # Temporary consolidation scripts
 _consolidate_plans.py
 .aegis/
 
-# Knowledge graph index
+# Knowledge graph index (rebuildable artifact — run graphify-out/build_graph.py to regenerate)
 graphify-out/
+
+# YUHUN council agent definitions (private-track, dual-track boundary)
+.agent/agents/

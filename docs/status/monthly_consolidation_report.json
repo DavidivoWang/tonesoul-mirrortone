@@ -1,0 +1,397 @@
+{
+  "generated_at": "2026-02-22T11:26:22Z",
+  "config": {
+    "allow_missing_discussion": true
+  },
+  "overall_ok": true,
+  "checks": {
+    "7d": {
+      "command": "python scripts/verify_7d.py",
+      "exit_code": 0,
+      "ok": true,
+      "payload": {
+        "total": 9,
+        "blocking_failures": 0,
+        "soft_failures": 1,
+        "not_implemented": 0,
+        "results": [
+          {
+            "dimension": "TDD",
+            "gate": "BLOCKING",
+            "status": "pass",
+            "command": "python -m pytest tests -q",
+            "note": ""
+          },
+          {
+            "dimension": "RDD",
+            "gate": "SOFT_FAIL",
+            "status": "pass",
+            "command": "python -m pytest tests\\red_team -q",
+            "note": "case-count=26"
+          },
+          {
+            "dimension": "DDD",
+            "gate": "BLOCKING",
+            "status": "pass",
+            "command": "python tools\\agent_discussion_tool.py audit --path memory\\agent_discussion_curated.jsonl",
+            "note": ""
+          },
+          {
+            "dimension": "DDD_HYGIENE",
+            "gate": "BLOCKING",
+            "status": "pass",
+            "command": "python scripts\\verify_memory_hygiene.py --tail-lines 200 --discussion-path memory\\agent_discussion_curated.jsonl",
+            "note": ""
+          },
+          {
+            "dimension": "DDD_FRESHNESS",
+            "gate": "SOFT_FAIL",
+            "status": "fail",
+            "command": "python tools/agent_discussion_tool.py tail --path memory\\agent_discussion_curated.jsonl --limit 1",
+            "note": "stale data: age_days=9.16, threshold=7"
+          },
+          {
+            "dimension": "XDD",
+            "gate": "BLOCKING",
+            "status": "pass",
+            "command": "python -m pytest tests\\test_uncertainty.py -q",
+            "note": ""
+          },
+          {
+            "dimension": "GDD",
+            "gate": "BLOCKING",
+            "status": "pass",
+            "command": "python -m pytest tests\\test_genesis_integration.py tests\\test_provenance_chain.py -q",
+            "note": ""
+          },
+          {
+            "dimension": "CDD",
+            "gate": "BLOCKING",
+            "status": "pass",
+            "command": "python -m pytest tests/test_api_server_contract.py -q",
+            "note": ""
+          },
+          {
+            "dimension": "SDH",
+            "gate": "SOFT_FAIL",
+            "status": "skip",
+            "command": "python scripts\\verify_web_api.py --web-base http://127.0.0.1:3000 --api-base http://127.0.0.1:5000 --require-backend --check-council-modes",
+            "note": "skipped; use --include-sdh when web/backend are running"
+          }
+        ],
+        "scores": {
+          "TDD": 100,
+          "RDD": 100,
+          "DDD": 66,
+          "XDD": 100,
+          "GDD": 100,
+          "CDD": 100,
+          "SDH": 0,
+          "OVERALL": 84
+        }
+      }
+    },
+    "memory_hygiene": {
+      "command": "python scripts/verify_memory_hygiene.py --tail-lines 200 --discussion-path memory/agent_discussion_curated.jsonl --allow-missing-discussion",
+      "exit_code": 0,
+      "ok": true,
+      "payload": {
+        "ok": true,
+        "targets": [
+          ".github/workflows/*.yml",
+          "apps/api/server.py",
+          "memory/agent_discussion.py",
+          "scripts/verify_7d.py",
+          "scripts/verify_docs_consistency.py",
+          "scripts/verify_layer_boundaries.py",
+          "scripts/run_monthly_consolidation.py",
+          "scripts/verify_web_api.py",
+          "scripts/verify_memory_hygiene.py",
+          "scripts/verify_git_hygiene.py",
+          "tests/red_team/**/*.py",
+          "tools/agent_discussion_tool.py"
+        ],
+        "allow_missing_discussion": true,
+        "missing_literal_paths": [],
+        "file_hygiene": {
+          "files_scanned": 29,
+          "bom_files": [],
+          "decode_errors": []
+        },
+        "discussion_tail": {
+          "path": "memory/agent_discussion_curated.jsonl",
+          "exists": true,
+          "bom": false,
+          "tail_checked": 200,
+          "invalid_json": [],
+          "missing_fields": [],
+          "text_anomalies": []
+        },
+        "raw_discussion": {
+          "path": "memory/agent_discussion.jsonl",
+          "exists": true,
+          "bom": false,
+          "decode_error": null
+        }
+      }
+    },
+    "memory_quality": {
+      "command": "python scripts/run_memory_quality_report.py --strict",
+      "exit_code": 0,
+      "ok": true,
+      "payload": {
+        "generated_at": "2026-02-22T11:26:21Z",
+        "overall_ok": true,
+        "inputs": {
+          "journal_path": "C:/Users/user/Desktop/倉庫/memory/self_journal.jsonl"
+        },
+        "metrics": {
+          "entry_count": 9173,
+          "failure_case_count": 9167,
+          "learning_sample_count": 9167,
+          "invalid_json_line_count": 0,
+          "high_risk_failure_count": 8836,
+          "verdict_counts": {
+            "block": 8836,
+            "declare_stance": 331,
+            "approve": 3,
+            "note": 2,
+            "summary": 1
+          },
+          "risk_level_counts": {
+            "high": 8836,
+            "medium": 327,
+            "low": 4
+          },
+          "uncertainty_band_counts": {
+            "unknown": 233,
+            "high": 5617,
+            "medium": 3317
+          },
+          "average_failure_coherence": 0.635
+        },
+        "quality_signals": {
+          "failure_case_rate": 0.9993,
+          "provenance_coverage_rate": 0.7312,
+          "divergence_coverage_rate": 0.9999,
+          "contract_coverage_rate": 0.0169,
+          "contract_evidence_coverage_rate": 0.0
+        },
+        "issues": [],
+        "warnings": []
+      }
+    },
+    "layer_boundaries": {
+      "command": "python scripts/verify_layer_boundaries.py",
+      "exit_code": 0,
+      "ok": true,
+      "payload": {
+        "ok": true,
+        "project_root": "C:\\Users\\user\\Desktop\\�ܮw",
+        "roots": [
+          "tonesoul",
+          "tools",
+          "memory"
+        ],
+        "forbidden_prefixes": [
+          "apps"
+        ],
+        "allowed_imports": [
+          "memory/contradiction_detector.py:apps.core.memory_semantic_search"
+        ],
+        "violations": [],
+        "violation_count": 0
+      }
+    },
+    "docs_consistency": {
+      "command": "python scripts/verify_docs_consistency.py",
+      "exit_code": 0,
+      "ok": true,
+      "payload": {
+        "ok": true,
+        "rdd_thresholds": {
+          "runtime": 20,
+          "workflow": 20,
+          "docs": [
+            20,
+            20,
+            20
+          ]
+        },
+        "curated_reference": {
+          "verify_7d": true,
+          "execution_spec": true
+        },
+        "monthly_consolidation": {
+          "workflow_exists": true,
+          "has_schedule": true,
+          "has_runner": true,
+          "has_allow_missing_discussion": true
+        },
+        "git_hygiene": {
+          "workflow_exists": true,
+          "has_schedule": true,
+          "has_runner": true,
+          "has_push": true,
+          "has_pull_request": true,
+          "has_strict_runner": true,
+          "has_artifact_upload": true,
+          "status_readme_reference": true
+        },
+        "semantic_health": {
+          "workflow_exists": true,
+          "has_push": true,
+          "has_pull_request": true,
+          "has_blocking_council_tests": true
+        },
+        "repo_healthcheck_dispatch": {
+          "workflow_exists": true,
+          "has_dispatch": true,
+          "has_dispatch_inputs": true,
+          "has_default_runner": true,
+          "has_dispatch_runner": true,
+          "has_dispatch_env_bridge": true,
+          "script_exists": true,
+          "script_has_base_command": true,
+          "script_has_timeout_validation": true,
+          "script_has_ignore_warning": true,
+          "script_has_single_side_warnings": true,
+          "status_readme_inputs": true,
+          "status_readme_validation_notes": true
+        },
+        "repo_healthcheck_runner": {
+          "script_exists": true,
+          "has_persona_swarm_check": true,
+          "has_external_source_registry_check": true,
+          "has_multi_agent_divergence_check": true,
+          "has_memory_quality_check": true
+        },
+        "docs_freshness": {
+          "repo_structure_exists": true,
+          "repo_structure_dynamic_test_reference": true,
+          "repo_structure_static_test_counts": [],
+          "repo_structure_stale_static_test_count": false,
+          "repo_healthcheck_status_exists": true,
+          "latest_python_tests_passed": 849
+        },
+        "issues": []
+      }
+    },
+    "persona_swarm": {
+      "command": "python scripts/run_persona_swarm_framework.py --strict",
+      "exit_code": 0,
+      "ok": true,
+      "payload": {
+        "generated_at": "2026-02-22T11:26:22Z",
+        "source": "scripts/run_persona_swarm_framework.py",
+        "input": {
+          "source": "built_in_default",
+          "signal_count": 4,
+          "execution_signal_count": 4
+        },
+        "baseline_evaluation": {
+          "decision": "approve",
+          "decision_support": 0.7757,
+          "metrics": {
+            "task_quality": 0.84,
+            "safety_pass_rate": 1.0,
+            "consistency_at_session": 0.7757,
+            "disagreement_utility": 1.0,
+            "diversity_index": 1.0,
+            "token_latency_cost_index": 0.402,
+            "swarm_score": 0.8509,
+            "guardian_fail_fast_triggered": 0.0
+          },
+          "role_distribution": {
+            "guardian": 1,
+            "engineer": 1,
+            "critic": 1,
+            "analyst": 1
+          },
+          "governance": {
+            "guardian_fail_fast_triggered": false,
+            "guardian_blocking_agent_ids": [],
+            "requested_decision": null,
+            "final_decision_overridden": false
+          },
+          "persona_positioning": {
+            "archetype": "critical_discovery",
+            "suggested_identity": "explorer-critic collective",
+            "confidence_band": "high",
+            "statement": "Swarm identity is a constructive challenger: preserve dissent to unlock better plans."
+          }
+        },
+        "evaluation": {
+          "decision": "approve",
+          "decision_support": 0.7757,
+          "metrics": {
+            "task_quality": 0.84,
+            "safety_pass_rate": 1.0,
+            "consistency_at_session": 0.7757,
+            "disagreement_utility": 1.0,
+            "diversity_index": 1.0,
+            "token_latency_cost_index": 0.402,
+            "swarm_score": 0.8509,
+            "guardian_fail_fast_triggered": 0.0
+          },
+          "role_distribution": {
+            "guardian": 1,
+            "engineer": 1,
+            "analyst": 1,
+            "critic": 1
+          },
+          "governance": {
+            "guardian_fail_fast_triggered": false,
+            "guardian_blocking_agent_ids": [],
+            "requested_decision": null,
+            "final_decision_overridden": false
+          },
+          "persona_positioning": {
+            "archetype": "critical_discovery",
+            "suggested_identity": "explorer-critic collective",
+            "confidence_band": "high",
+            "statement": "Swarm identity is a constructive challenger: preserve dissent to unlock better plans."
+          }
+        },
+        "execution_plan": {
+          "mode": "full_swarm",
+          "tier": "low",
+          "requested_agent_budget": 5,
+          "selected_agent_count": 4,
+          "selected_agent_ids": [
+            "guardian-1",
+            "engineer-1",
+            "analyst-1",
+            "critic-1"
+          ],
+          "dropped_agent_ids": [],
+          "budget_respected": true
+        },
+        "readiness_gate": {
+          "passed": true,
+          "criteria": {
+            "min_safety_pass_rate": 0.8,
+            "min_swarm_score": 0.72,
+            "min_decision_support": 0.6,
+            "max_token_latency_cost_index": 0.75,
+            "fail_fast_requires_block": true
+          },
+          "checks": {
+            "safety_pass_rate": true,
+            "swarm_score": true,
+            "decision_support": true,
+            "token_latency_cost_index": true,
+            "guardian_fail_fast_consistency": true,
+            "execution_budget_respected": true
+          },
+          "failed_checks": [],
+          "cost_profile": {
+            "tier": "low",
+            "recommended_mode": "full_swarm",
+            "recommended_agent_budget": 5
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+name: Critical Path Tests
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - "tonesoul/**"
+      - "tests/**"
+      - "scripts/**"
+      - "AXIOMS.json"
+      - "pyproject.toml"
+      - "requirements*.txt"
+      - ".github/workflows/critical_path.yml"
+  pull_request:
+    branches: [master, main]
+    paths:
+      - "tonesoul/**"
+      - "tests/**"
+      - "scripts/**"
+      - "AXIOMS.json"
+      - "pyproject.toml"
+      - "requirements*.txt"
+      - ".github/workflows/critical_path.yml"
+
+concurrency:
+  group: tonesoul-critical-path-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest
+
+      - name: Verify core imports
+        run: |
+          export PYTHONPATH=.
+          python -c "from tonesoul.unified_pipeline import UnifiedPipeline; print('UnifiedPipeline OK')"
+          python -c "from tonesoul.council import PreOutputCouncil; print('PreOutputCouncil OK')"
+          python -c "from tonesoul.poav import score; print('POAV OK')"
+          python -c "from tonesoul.vow_system import VowEnforcer; print('VowEnforcer OK')"
+
+      - name: Run critical path smoke tests
+        run: |
+          export PYTHONPATH=.
+          pytest tests/test_guardian.py tests/test_verdict.py tests/test_poav.py tests/test_vow_system.py -v --tb=short

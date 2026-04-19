@@ -1,0 +1,778 @@
+{
+  "contract_version": "v1",
+  "generated_at": "2026-03-26T12:00:00+00:00",
+  "backend": "redis",
+  "dominance_order": [
+    "hard_constraints",
+    "canonical_governance_contracts",
+    "current_task_objective",
+    "r_memory_posture",
+    "retrieved_long_term_memory",
+    "loose_prose_background"
+  ],
+  "session_end_order": [
+    "build_session_trace",
+    "run_aegis_and_verifier_gates",
+    "merge_trace_effects_into_governance_posture",
+    "persist_governance_posture",
+    "append_aegis_protected_trace",
+    "rebuild_world_and_zone_surfaces",
+    "optionally_export_safe_semantic_summary"
+  ],
+  "trace_integrity": {
+    "aegis_protected": true,
+    "hash_chain_required": true,
+    "source_of_truth": "tonesoul/runtime_adapter.py::commit"
+  },
+  "parallel_lanes": {
+    "canonical_commit_serialized": true,
+    "perspectives_surface": "ts:perspectives:{agent_id}",
+    "checkpoints_surface": "ts:checkpoints:*",
+    "compaction_surface": "ts:compacted",
+    "subject_snapshot_surface": "ts:subject_snapshots",
+    "observer_cursor_surface": "ts:observer_cursors:{agent_id}",
+    "routing_events_surface": "ts:routing_events",
+    "field_surface": "ts:field"
+  },
+  "canonical_sources": [
+    "docs/architecture/TONESOUL_R_MEMORY_STACK_RECOMMENDATION.md",
+    "docs/architecture/TONESOUL_MULTI_AGENT_SEMANTIC_FIELD_CONTRACT.md",
+    "docs/architecture/TONESOUL_SHARED_R_MEMORY_OPERATIONS_CONTRACT.md",
+    "docs/architecture/TONESOUL_RUNTIME_COMPACTION_AND_GAMIFICATION_CONTRACT.md",
+    "docs/notes/TONESOUL_RUNTIME_REVIEW_LOGIC_ANCHOR_2026-03-26.md",
+    "docs/RFC-015_Self_Dogfooding_Runtime_Adapter.md"
+  ],
+  "posture": {
+    "soul_integral": 0.82,
+    "session_count": 12,
+    "last_updated": "2026-03-26T11:55:00+00:00",
+    "freshness_hours": 0.083,
+    "baseline_drift": {
+      "caution_bias": 0.55,
+      "innovation_bias": 0.61,
+      "autonomy_level": 0.35
+    },
+    "risk_posture": {
+      "score": 0.24,
+      "level": "stable",
+      "factors": ["compaction_backlog"],
+      "recommended_action": "normal_operation",
+      "inputs": {
+        "tension_pressure": 0.35,
+        "aegis_pressure": 0.0,
+        "coordination_pressure": 0.25,
+        "backlog_pressure": 0.5,
+        "trace_pressure": 0.0
+      }
+    },
+    "active_vows": [
+      {
+        "id": "public-memory-boundary",
+        "content": "Do not commit personal memory data to the public repo.",
+        "source": "AGENTS.md"
+      }
+    ],
+    "recent_tensions": [
+      {
+        "topic": "runtime safety vs coordination speed",
+        "severity": 0.74,
+        "timestamp": "2026-03-26T11:50:00+00:00",
+        "resolution": "Aegis-first commit path"
+      }
+    ],
+    "recent_aegis_vetoes": [
+      {
+        "type": "memory_poisoning",
+        "timestamp": "2026-03-26T11:40:00+00:00",
+        "agent": "codex",
+        "violations": ["prompt_injection"]
+      }
+    ]
+  },
+  "recent_traces": [
+    {
+      "session_id": "sess-001",
+      "agent": "codex",
+      "timestamp": "2026-03-26T11:55:00+00:00",
+      "freshness_hours": 0.083,
+      "topics": ["runtime_adapter", "redis"],
+      "tension_count": 2,
+      "vow_count": 0,
+      "aegis_veto_count": 0,
+      "key_decision_count": 3,
+      "council_dossier_summary": {
+        "final_verdict": "approve",
+        "confidence_posture": "contested",
+        "coherence_score": 0.62,
+        "dissent_ratio": 0.35,
+        "has_minority_report": true,
+        "deliberation_mode": "standard_council",
+        "opacity_declaration": "partially_observable",
+        "evolution_suppression_flag": true,
+        "realism_note": "Descriptive agreement record only; dissent is visible and suppression risk is flagged, so review minority signals before treating approval as settled.",
+        "confidence_decomposition": {
+          "calibration_status": "descriptive_only",
+          "agreement_score": 0.5,
+          "coverage_posture": "partial",
+          "distinct_perspectives": 2,
+          "evidence_density": 0.5,
+          "evidence_posture": "moderate",
+          "grounding_posture": "not_required",
+          "adversarial_posture": "survived_dissent"
+        }
+      }
+    }
+  ],
+  "recent_visitors": [
+    {
+      "agent": "codex",
+      "timestamp": "2026-03-26T11:56:00+00:00",
+      "source": "gateway"
+    }
+  ],
+  "active_claims": [
+    {
+      "task_id": "launch-world-dedupe",
+      "agent": "codex",
+      "summary": "dedupe Redis world refresh after governance commit",
+      "paths": [
+        "scripts/launch_world.py",
+        "tests/test_launch_world.py"
+      ],
+      "source": "gateway",
+      "created_at": "2026-03-26T11:57:00+00:00",
+      "expires_at": "1774527120.0",
+      "freshness_hours": 0.05
+    }
+  ],
+  "recent_checkpoints": [
+    {
+      "checkpoint_id": "cp-001",
+      "agent": "codex",
+      "session_id": "sess-001",
+      "summary": "Packet lane is stable; observer delta feed still needs the CLI ack path.",
+      "pending_paths": [
+        "scripts/run_r_memory_packet.py",
+        "tonesoul/diagnose.py"
+      ],
+      "next_action": "Expose an ack-aware packet entrypoint so later agents can advance their observer cursor.",
+      "source": "cli",
+      "updated_at": "2026-03-26T11:59:00+00:00",
+      "freshness_hours": 0.017
+    }
+  ],
+  "recent_compactions": [
+    {
+      "compaction_id": "cmp-001",
+      "agent": "codex",
+      "session_id": "sess-001",
+      "summary": "Mutex landed; next agent should wire compaction summaries into gateway consumers only after packet stays stable.",
+      "carry_forward": [
+        "canonical commit stays serialized",
+        "compaction remains non-canonical resumability memory"
+      ],
+      "pending_paths": [
+        "scripts/gateway.py",
+        "apps/dashboard/world.html"
+      ],
+      "evidence_refs": [
+        "docs/architecture/TONESOUL_RUNTIME_COMPACTION_AND_GAMIFICATION_CONTRACT.md"
+      ],
+      "council_dossier": {
+        "dossier_version": "v1",
+        "final_verdict": "approve",
+        "confidence_posture": "contested",
+        "coherence_score": 0.62,
+        "dissent_ratio": 0.35,
+        "minority_report": [
+          {
+            "perspective": "critic",
+            "decision": "concern",
+            "confidence": 0.75,
+            "reasoning": "Schema change affects downstream consumers without a migration plan.",
+            "evidence": ["docs/spec.md"]
+          }
+        ],
+        "vote_summary": [
+          {
+            "perspective": "guardian",
+            "decision": "approve",
+            "confidence": 0.8
+          },
+          {
+            "perspective": "critic",
+            "decision": "concern",
+            "confidence": 0.75
+          }
+        ],
+        "deliberation_mode": "standard_council",
+        "change_of_position": [],
+        "evidence_refs": ["docs/spec.md"],
+        "grounding_summary": {
+          "has_ungrounded_claims": false,
+          "total_evidence_sources": 1
+        },
+        "confidence_decomposition": {
+          "calibration_status": "descriptive_only",
+          "agreement_score": 0.5,
+          "coverage_posture": "partial",
+          "distinct_perspectives": 2,
+          "evidence_density": 0.5,
+          "evidence_posture": "moderate",
+          "grounding_posture": "not_required",
+          "adversarial_posture": "survived_dissent"
+        },
+        "opacity_declaration": "partially_observable"
+        },
+        "closeout": {
+          "status": "partial",
+          "stop_reason": "",
+          "unresolved_items": [
+            "gateway consumer still needs packet wiring review"
+          ],
+          "human_input_required": false,
+          "note": "Closeout remains bounded but incomplete; review pending paths and next action before continuing."
+        },
+        "next_action": "Expose bounded compaction summaries in the operator shell without mutating governance posture.",
+        "source": "cli",
+      "updated_at": "2026-03-26T12:00:00+00:00",
+      "freshness_hours": 0.0
+    }
+  ],
+  "recent_subject_snapshots": [
+    {
+      "snapshot_id": "subj-001",
+      "agent": "codex",
+      "session_id": "sess-001",
+      "summary": "Operate as a packet-first runtime steward with explicit boundaries.",
+      "stable_vows": [
+        "do not commit personal memory data"
+      ],
+      "durable_boundaries": [
+        "protected files stay human-managed"
+      ],
+      "decision_preferences": [
+        "prefer packet before broad repo scan"
+      ],
+      "verified_routines": [
+        "leave compaction before release"
+      ],
+      "active_threads": [
+        "subject-snapshot rollout"
+      ],
+      "evidence_refs": [
+        "docs/AI_QUICKSTART.md"
+      ],
+      "refresh_signals": [
+        "refresh when durable boundaries change"
+      ],
+      "source": "cli",
+      "updated_at": "2026-03-26T12:01:00+00:00",
+      "freshness_hours": 0.0
+    }
+  ],
+  "recent_routing_events": [
+    {
+      "event_id": "route-001",
+      "agent": "codex",
+      "surface": "checkpoint",
+      "action": "preview",
+      "forced": false,
+      "overlap": false,
+      "misroute_signal": false,
+      "updated_at": "2026-03-26T12:02:00+00:00",
+      "freshness_hours": 0.0,
+      "summary": "resume packet cleanup"
+    },
+    {
+      "event_id": "route-002",
+      "agent": "codex",
+      "surface": "subject_snapshot",
+      "action": "write",
+      "forced": false,
+      "overlap": true,
+      "misroute_signal": true,
+      "updated_at": "2026-03-26T12:04:00+00:00",
+      "freshness_hours": 0.0,
+      "summary": "packet-first startup is now a durable operating preference"
+    }
+  ],
+  "project_memory_summary": {
+    "focus_topics": [
+      "runtime_adapter",
+      "redis"
+    ],
+    "recent_agents": [
+      "codex"
+    ],
+    "active_claim_count": 1,
+    "pending_paths": [
+      "scripts/gateway.py",
+      "apps/dashboard/world.html"
+    ],
+    "carry_forward": [
+      "canonical commit stays serialized",
+      "compaction remains non-canonical resumability memory"
+    ],
+    "next_actions": [
+      "Expose bounded compaction summaries in the operator shell without mutating governance posture."
+    ],
+    "subject_anchor": {
+      "summary": "Operate as a packet-first runtime steward with explicit boundaries.",
+      "stable_vows": [
+        "do not commit personal memory data"
+      ],
+      "durable_boundaries": [
+        "protected files stay human-managed"
+      ],
+      "decision_preferences": [
+        "prefer packet before broad repo scan"
+      ],
+      "verified_routines": [
+        "leave compaction before release"
+      ],
+      "active_threads": [
+        "subject-snapshot rollout"
+      ]
+    },
+    "working_style_anchor": {
+      "summary": "prefs=prefer packet before broad repo scan | routines=leave compaction before release",
+      "decision_preferences": [
+        "prefer packet before broad repo scan"
+      ],
+      "verified_routines": [
+        "leave compaction before release"
+      ],
+      "guardrail_boundaries": [
+        "protected files stay human-managed"
+      ],
+      "receiver_posture": "advisory_apply_not_promote",
+      "prompt_defaults": [
+        "state the goal function before long transfer or extraction prompts",
+        "keep P0/P1/P2 explicit when constraints may conflict",
+        "mark [資料不足] instead of filling gaps with unsupported guesses"
+      ],
+      "render_caveat": "Treat shell `??` or garbled CJK as render-layer noise until a UTF-8 file read proves real corruption."
+    },
+    "working_style_observability": {
+      "status": "partial",
+      "drift_risk": "medium",
+      "trackable_item_count": 2,
+      "reinforced_item_count": 1,
+      "signal_count": 6,
+      "signal_sources": [
+        "carry_forward",
+        "next_actions",
+        "routing_event",
+        "routing_summary"
+      ],
+      "reinforced_items": [
+        "decision_preferences: prefer packet before broad repo scan"
+      ],
+      "unreinforced_items": [
+        "verified_routines: leave compaction before release"
+      ],
+      "summary_text": "working_style=partial reinforced=1/2 signals=6 drift=medium",
+      "receiver_note": "Only part of the shared working style is echoed by recent handoff surfaces. Keep the playbook visible instead of assuming full continuity."
+    },
+    "working_style_import_limits": {
+      "apply_posture": "explicit_reuse_only",
+      "safe_apply": [
+        "scan_order: use shared packet/claim surfaces before widening the repo scan when they still fit the task.",
+        "evidence_handling: keep the shared evidence discipline instead of replacing it with model-native guessing.",
+        "prompt_shape: keep goal function and P0/P1/P2 explicit when a prompt is doing transfer, extraction, or bounded review work.",
+        "session_cadence: preserve the shared start/end rhythm when collaborative work is actually happening.",
+        "render_interpretation: treat shell mojibake as a render-layer suspicion before declaring the file itself corrupted."
+      ],
+      "must_not_import": [
+        "vows_or_permissions: working style must not rewrite what the system is allowed to do.",
+        "canonical_governance_truth: habits must not become runtime law, axiom enforcement, or authority truth.",
+        "durable_identity: style continuity must not silently become stable selfhood or subject promotion.",
+        "task_scope_or_success_criteria: inherited habits must not override the current task's objective or human-given scope."
+      ],
+      "stop_conditions": [
+        "current task or human instruction conflicts with the inherited habit",
+        "shared surfaces show recycled carry-forward without new evidence",
+        "a newer subject snapshot or compaction points to a different routine"
+      ],
+      "receiver_guidance": "Only part of the shared style is still echoed. Reuse it deliberately and keep checking task-local evidence instead of assuming full continuity.",
+      "summary_text": "working_style_import=explicit_reuse_only safe=5 blocked=4 drift=medium"
+    },
+    "evidence_readout_posture": {
+      "summary_text": "evidence=tested(session_control_and_handoff,council_mechanics) runtime_present(continuity_effectiveness) descriptive_only(council_decision_quality) document_backed(axiom_and_theory_claims)",
+      "classification_counts": {
+        "tested": 2,
+        "runtime_present": 1,
+        "descriptive_only": 1,
+        "document_backed": 1
+      },
+      "lanes": [
+        {
+          "lane": "session_control_and_handoff",
+          "classification": "tested",
+          "receiver_use": "safe_workflow_assumption",
+          "note": "Session-start/session-end, packet, delta, readiness, and receiver guards are regression-backed enough to reuse as current workflow discipline."
+        },
+        {
+          "lane": "continuity_effectiveness",
+          "classification": "runtime_present",
+          "receiver_use": "bounded_continuity_help",
+          "note": "Claims, checkpoints, compactions, and subject/working-style surfaces are live and partially tested, but broader cross-session effectiveness is still a bounded runtime claim rather than a proven quality guarantee."
+        },
+        {
+          "lane": "council_mechanics",
+          "classification": "tested",
+          "receiver_use": "safe_mechanism_assumption",
+          "note": "Council mechanics, dossier extraction, and suppression visibility are backed well enough to trust the mechanism shape."
+        },
+        {
+          "lane": "council_decision_quality",
+          "classification": "descriptive_only",
+          "receiver_use": "context_only",
+          "note": "Agreement, coherence, and confidence posture still describe internal review context, not calibrated correctness."
+        },
+        {
+          "lane": "axiom_and_theory_claims",
+          "classification": "document_backed",
+          "receiver_use": "intent_and_boundary_only",
+          "note": "Higher-order axioms and philosophical claims remain important, but they are not uniformly runtime-hard or regression-backed."
+        }
+      ],
+      "receiver_rule": "Use tested lanes for current workflow assumptions, runtime_present lanes as bounded mechanism presence, descriptive_only lanes as context not proof, and document_backed lanes as intent/boundary rather than runtime fact."
+    },
+    "launch_claim_posture": {
+      "current_tier": "collaborator_beta",
+      "next_target_tier": "public_launch",
+      "public_launch_ready": false,
+      "tier_guidance": [
+        {
+          "tier": "internal_alpha",
+          "posture": "safe_current_claims_only",
+          "note": "Safe to say trusted internal operators can use the current file-backed session-start/packet/diagnose workflow with tested receiver and council-mechanism readouts."
+        },
+        {
+          "tier": "collaborator_beta",
+          "posture": "guided_and_bounded",
+          "note": "Safe only as a guided beta target: repeated validation exists and the launch-default coordination story is explicit, but continuity effectiveness and council decision quality remain bounded rather than proven."
+        },
+        {
+          "tier": "public_launch",
+          "posture": "deferred",
+          "note": "Not yet honest to present ToneSoul as broadly launch-mature; public language must not overstate continuity effectiveness, council decision quality, or Redis/live shared memory."
+        }
+      ],
+      "safe_now": [
+        "session_control_and_handoff=tested: describe session-start, packet, delta, readiness, and receiver guards as the current tested coordination workflow.",
+        "coordination_backend=file-backed: describe file-backed coordination with receiver guards as the current launch-default story.",
+        "council_mechanics=tested: describe council structure, dossier extraction, and suppression visibility as mechanism-level support, not outcome proof."
+      ],
+      "blocked_overclaims": [
+        {
+          "claim": "continuity_effectiveness",
+          "current_classification": "runtime_present",
+          "reason": "Do not claim broadly proven cross-session continuity; current evidence supports bounded runtime presence and repeated validation, not public-grade proof."
+        },
+        {
+          "claim": "council_decision_quality",
+          "current_classification": "descriptive_only",
+          "reason": "Do not present council agreement or coherence as calibrated correctness; current confidence surfaces are descriptive, not accuracy-backed."
+        },
+        {
+          "claim": "live_shared_memory",
+          "current_classification": "not_launch_default",
+          "reason": "Do not present Redis/live shared memory as the launch-default or hardened public story while launch_default_mode remains file-backed and launch_alignment is runtime_override_not_launch_default."
+        }
+      ],
+      "receiver_rule": "Use collaborator-beta wording only for guided file-backed workflow and explicit evidence-bounded surfaces, and keep public-launch language deferred until evidence moves beyond runtime_present/descriptive_only on the known short boards.",
+      "summary_text": "launch_claims=current:collaborator_beta public_launch:deferred blocked=continuity_effectiveness,council_decision_quality,live_shared_memory"
+    },
+    "launch_health_trend_posture": {
+      "summary_text": "launch_health current=collaborator_beta public_ready=false descriptive=current_launch_tier,public_launch_ready_flag trendable=coordination_backend_alignment,collaborator_beta_validation_health forecast_later=public_launch_forecast",
+      "current_state": {
+        "current_tier": "collaborator_beta",
+        "public_launch_ready": false,
+        "launch_default_mode": "file-backed",
+        "launch_alignment": "runtime_override_not_launch_default",
+        "continuity_effectiveness": "runtime_present",
+        "council_decision_quality": "descriptive_only"
+      },
+      "metric_classes": [
+        {
+          "metric": "current_launch_tier",
+          "classification": "descriptive_only",
+          "receiver_use": "current_posture_only",
+          "note": "Current launch tier is a bounded operating posture, not a forecast of next-tier success."
+        },
+        {
+          "metric": "public_launch_ready_flag",
+          "classification": "descriptive_only",
+          "receiver_use": "current_boundary_only",
+          "note": "The public_launch_ready flag is a present-tense boundary, not a probability of launch success."
+        },
+        {
+          "metric": "coordination_backend_alignment",
+          "classification": "trendable",
+          "receiver_use": "trend_watch_only",
+          "note": "Backend mode and launch-default alignment can be trended later across validation waves without becoming predictive today."
+        },
+        {
+          "metric": "collaborator_beta_validation_health",
+          "classification": "trendable",
+          "receiver_use": "trend_watch_only",
+          "note": "Repeated collaborator-beta validation can become a trend series later, but current packet/session-start still expose only bounded snapshots."
+        },
+        {
+          "metric": "public_launch_forecast",
+          "classification": "forecast_later",
+          "receiver_use": "deferred",
+          "note": "No calibrated forecast exists yet because continuity effectiveness remains runtime_present and council decision quality remains descriptive_only."
+        }
+      ],
+      "forecast_boundary": "Do not emit predictive launch numbers or success probabilities until trendable metrics are collected over time and calibrated separately from descriptive confidence.",
+      "receiver_rule": "Treat launch health as a present-tense posture plus future trend lane. Descriptive metrics may orient current honesty, trendable metrics may justify later monitoring, and forecast_later metrics must remain non-numeric for now."
+    },
+    "internal_state_observability": {
+      "summary_text": "internal_state coordination=low drift=medium stop_pressure=medium deliberation=visible",
+      "current_state": {
+        "coordination_strain": "low",
+        "continuity_drift": "medium",
+        "stop_reason_pressure": "medium",
+        "deliberation_conflict": "visible",
+        "closeout_status": "partial",
+        "has_stop_reason": false,
+        "has_minority_report": true,
+        "evolution_suppression_flag": true
+      },
+      "evidence_sources": [
+        "risk_posture:stable",
+        "working_style_drift:medium",
+        "closeout:partial",
+        "deliberation_conflict:visible"
+      ],
+      "selfhood_boundary": "These are functional coordination pressures inferred from observable runtime surfaces, not proof of subjective feeling, emotion, or selfhood.",
+      "receiver_rule": "Use this readout to notice strain, drift, stop pressure, and visible disagreement early. Do not restate it as hidden-thought access or emotional self-report."
+    },
+    "routing_summary": {
+      "total_events": 2,
+      "preview_count": 1,
+      "write_count": 1,
+      "forced_count": 0,
+      "overlap_count": 1,
+      "misroute_signal_count": 1,
+      "surface_counts": {
+        "checkpoint": 1,
+        "subject_snapshot": 1
+      },
+      "recent_agents": [
+        "codex"
+      ],
+      "dominant_surface": "checkpoint",
+      "summary_text": "router=writes=1 previews=1 overrides=0 overlap=1 misroute_signals=1 top=checkpoint",
+      "recent_events": [
+        {
+          "event_id": "route-001",
+          "agent": "codex",
+          "surface": "checkpoint",
+          "action": "preview",
+          "forced": false,
+          "overlap": false,
+          "misroute_signal": false,
+          "updated_at": "2026-03-26T12:02:00+00:00",
+          "freshness_hours": 0.0,
+          "summary": "resume packet cleanup"
+        },
+        {
+          "event_id": "route-002",
+          "agent": "codex",
+          "surface": "subject_snapshot",
+          "action": "write",
+          "forced": false,
+          "overlap": true,
+          "misroute_signal": true,
+          "updated_at": "2026-03-26T12:04:00+00:00",
+          "freshness_hours": 0.0,
+          "summary": "packet-first startup is now a durable operating preference"
+        }
+      ]
+    },
+    "subject_refresh": {
+      "status": "refresh_candidate",
+      "refresh_recommended": true,
+      "snapshot_present": true,
+      "latest_snapshot_id": "subj-001",
+      "snapshot_updated_at": "2026-03-26T12:01:00+00:00",
+      "risk_level": "stable",
+      "newer_compaction_count": 1,
+      "newer_checkpoint_count": 1,
+      "active_claim_count": 1,
+      "routing_misroute_signal_count": 1,
+      "field_guidance": [
+        {
+          "field": "stable_vows",
+          "action": "must_not_auto_promote",
+          "evidence_level": "human_confirmation",
+          "candidate_values": [],
+          "reason": "Stable vows are constitutional commitments and must never be inferred from hot-state coordination residue."
+        },
+        {
+          "field": "active_threads",
+          "action": "may_refresh_directly",
+          "evidence_level": "compaction-backed",
+          "candidate_values": [
+            "runtime_adapter",
+            "redis"
+          ],
+          "reason": "Fresh compactions newer than the latest snapshot confirm that current focus topics are durable enough to refresh active_threads."
+        }
+      ],
+      "promotion_hazards": [
+        "Do not promote active claims into durable identity; claims are ownership signals, not selfhood.",
+        "Do not promote routing ambiguity or forced routes into durable preferences or routines."
+      ],
+      "recommended_command": "python scripts/apply_subject_refresh.py --agent <your-id> --field active_threads --refresh-signal \"subject-refresh heuristic reviewed\"",
+      "summary_text": "subject_refresh=refresh_candidate direct=1 manual=2 hazards=2 evidence=c1/k1"
+    },
+    "summary_text": "focus=runtime_adapter, redis | subject=Operate as a packet-first runtime steward with explicit boundaries. | claims=1 | pending=scripts/gateway.py, apps/dashboard/world.html | router=writes=1 previews=1 overrides=0 overlap=1 misroute_signals=1 top=checkpoint | working_style=partial reinforced=1/2 signals=6 drift=medium | evidence=tested(session_control_and_handoff,council_mechanics) runtime_present(continuity_effectiveness) descriptive_only(council_decision_quality) document_backed(axiom_and_theory_claims) | subject_refresh=refresh_candidate direct=1 manual=2 hazards=2 evidence=c1/k1 | launch_health current=collaborator_beta public_ready=false descriptive=current_launch_tier,public_launch_ready_flag trendable=coordination_backend_alignment,collaborator_beta_validation_health forecast_later=public_launch_forecast | internal_state coordination=low drift=medium stop_pressure=medium deliberation=visible",
+    "repo_progress": {
+      "available": true,
+      "branch": "codex/r-memory-compaction-lane-20260326",
+      "head": "abc1234",
+      "staged_count": 1,
+      "modified_count": 2,
+      "untracked_count": 1,
+      "dirty_count": 4,
+      "path_preview": [
+        "tonesoul/runtime_adapter.py",
+        "scripts/run_r_memory_packet.py"
+      ]
+    }
+  },
+  "coordination_mode": {
+    "mode": "redis-live",
+    "live_surfaces_available": true,
+    "delta_feed_enabled": true,
+    "event_channel": "ts:events",
+    "surface_modes": {
+      "claims": "live",
+      "perspectives": "live",
+      "checkpoints": "live",
+      "compactions": "live",
+      "subject_snapshots": "live",
+      "observer_cursors": "live",
+      "routing_events": "live",
+      "visitors": "live"
+    },
+    "recheck_command": "python scripts/run_r_memory_packet.py --agent codex-observer",
+    "ack_command": "python scripts/run_r_memory_packet.py --agent codex-observer --ack",
+    "refresh_hint": "Redis live surfaces may change mid-session; re-read packet before shared edits after long work or when other agents arrive.",
+    "launch_default_mode": "file-backed",
+    "launch_alignment": "runtime_override_not_launch_default",
+    "launch_posture_note": "Current runtime is redis-live, but the launch-default coordination story remains file-backed until Redis hardening is explicitly promoted.",
+    "summary_text": "coordination=redis-live claims=live checkpoints=live subjects=live launch_default=file-backed delta=enabled visitors=live active=claims:1/checkpoints:1/compactions:1/subjects:1/routing:2/visitors:1"
+  },
+  "operator_guidance": {
+    "backend_mode": "redis",
+    "session_start": [
+      "python scripts/start_agent_session.py --agent <your-id>",
+      "python -m tonesoul.diagnose --agent <your-id>",
+      "python scripts/run_r_memory_packet.py --agent <your-id> --ack",
+      "python scripts/run_task_claim.py list"
+    ],
+    "session_end": [
+      "python scripts/end_agent_session.py --agent <your-id> --summary \"...\" --path \"...\"",
+      "python scripts/save_checkpoint.py --checkpoint-id <id> --agent <your-id> --summary \"...\" --path \"...\"",
+      "python scripts/save_compaction.py --agent <your-id> --summary \"...\" --path \"...\"",
+      "python scripts/run_task_claim.py release <task_id> --agent <your-id>"
+    ],
+    "coordination_commands": {
+      "claim": "python scripts/run_task_claim.py claim <task_id> --agent <your-id> --summary \"...\"",
+      "perspective": "python scripts/save_perspective.py --agent <your-id> --summary \"...\" --stance \"...\"",
+      "checkpoint": "python scripts/save_checkpoint.py --checkpoint-id <id> --agent <your-id> --summary \"...\" --path \"...\"",
+      "compaction": "python scripts/save_compaction.py --agent <your-id> --summary \"...\" --path \"...\"",
+      "signal_router": "python scripts/route_r_memory_signal.py --agent <your-id> --summary \"...\" --path \"...\" --next-action \"...\" --write",
+      "subject_snapshot": "python scripts/save_subject_snapshot.py --agent <your-id> --summary \"...\" --boundary \"...\" --preference \"...\"",
+      "apply_subject_refresh": "python scripts/apply_subject_refresh.py --agent <your-id> --field active_threads --refresh-signal \"subject-refresh heuristic reviewed\"",
+      "release": "python scripts/run_task_claim.py release <task_id> --agent <your-id>"
+    },
+    "recommended_order": [
+      "diagnose/load",
+      "packet",
+      "claim",
+      "work",
+      "perspective/checkpoint/compaction",
+      "commit",
+      "release"
+    ],
+    "current_reminders": [
+      "Prefer recent_compactions and project_memory_summary before older recent_traces.",
+      "Active claims are visible; coordinate before editing overlapping paths.",
+      "A recent subject snapshot is visible; treat it as durable working identity, but still non-canonical.",
+      "Subject-refresh heuristics found low-risk updates; review subject_refresh before writing the next snapshot.",
+      "Launch health posture: launch_health current=collaborator_beta public_ready=false descriptive=current_launch_tier,public_launch_ready_flag trendable=coordination_backend_alignment,collaborator_beta_validation_health forecast_later=public_launch_forecast",
+      "Internal state posture: internal_state coordination=low drift=medium stop_pressure=medium deliberation=visible",
+      "Redis live surfaces may change mid-session; re-read packet before shared edits after long work or when other agents arrive.",
+      "No since-last-seen baseline exists yet; ack the packet after review to establish one."
+    ],
+    "completion_rule": "Before ending a session, externalize progress with checkpoint or compaction, then release any shared claim."
+  },
+  "delta_feed": {
+    "observer_id": "codex-observer",
+    "first_observation": true,
+    "has_updates": true,
+    "update_count": 8,
+    "previous_seen_at": "",
+    "summary_text": "No observer cursor yet; current packet becomes the baseline after ack.",
+    "new_compactions": [
+      {
+        "compaction_id": "cmp-001",
+        "agent": "codex",
+        "summary": "Mutex landed; next agent should wire compaction summaries into gateway consumers only after packet stays stable.",
+        "updated_at": "2026-03-26T12:00:00+00:00"
+      }
+    ],
+    "new_subject_snapshots": [
+      {
+        "snapshot_id": "subj-001",
+        "agent": "codex",
+        "summary": "Operate as a packet-first runtime steward with explicit boundaries.",
+        "updated_at": "2026-03-26T12:01:00+00:00"
+      }
+    ],
+    "new_checkpoints": [
+      {
+        "checkpoint_id": "cp-001",
+        "agent": "codex",
+        "summary": "Packet lane is stable; observer delta feed still needs the CLI ack path.",
+        "next_action": "Expose an ack-aware packet entrypoint so later agents can advance their observer cursor.",
+        "updated_at": "2026-03-26T11:59:00+00:00"
+      }
+    ],
+    "new_traces": [
+      {
+        "session_id": "sess-001",
+        "agent": "codex",
+        "timestamp": "2026-03-26T11:55:00+00:00",
+        "topics": [
+          "runtime_adapter",
+          "redis"
+        ]
+      }
+    ],
+    "new_claims": [
+      {
+        "task_id": "launch-world-dedupe",
+        "agent": "codex",
+        "summary": "dedupe Redis world refresh after governance commit"
+      }
+    ],
+    "released_claim_ids": [],
+    "repo_change": {
+      "changed": true,
+      "previous_head": "",
+      "current_head": "abc1234",
+      "previous_dirty_count": 0,
+      "current_dirty_count": 4
+    },
+    "ack_command": "python scripts/run_r_memory_packet.py --agent codex-observer --ack"
+  }
+}

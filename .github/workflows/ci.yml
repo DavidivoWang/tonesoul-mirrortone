@@ -1,0 +1,184 @@
+name: CI (Legacy Manual Replay)
+
+on:
+  # Legacy replay lane kept for manual comparison. Automatic gating lives in test.yml.
+  workflow_dispatch:
+
+concurrency:
+  group: tonesoul-ci-legacy-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest numpy pyyaml
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Verify core imports
+        run: |
+          export PYTHONPATH=.
+          python -c "from tonesoul.tsr_metrics import score; print('TSR OK')"
+          python -c "from tonesoul.poav import score; print('POAV OK')"
+          python -c "from tonesoul.vow_system import VowEnforcer; print('VowSystem OK')"
+          python -c "from tonesoul.time_island import TimeIsland; print('TimeIsland OK')"
+          python -c "from tonesoul.evolution import ContextDistiller, CorpusBuilder; print('Evolution OK')"
+      - name: Run tests with coverage
+        run: |
+          export PYTHONPATH=.
+          pip install pytest-cov
+          pytest tests/ --cov=tonesoul --cov-report=xml --cov-report=html -v
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: htmlcov/
+          retention-days: 7
+      - name: Validate JSON schemas
+        run: |
+          python -c "import json; json.load(open('AXIOMS.json', encoding='utf-8'))"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install lint tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install 'black==26.1.0' ruff
+      - name: Check formatting with black gate
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          GITHUB_SHA: ${{ github.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          python scripts/run_black_gate.py --strict
+      - name: Upload black gate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: black-gate-legacy
+          path: black_gate_report.json
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Lint with ruff (blocking)
+        run: |
+          ruff check tonesoul tests
+      - name: Verify command registry
+        run: |
+          python scripts/verify_command_registry.py --strict
+      - name: Verify stale command refs
+        run: |
+          python scripts/verify_stale_command_refs.py --strict
+      - name: Verify submodule integrity (warning only)
+        run: |
+          python scripts/verify_submodule_integrity.py --strict || true
+
+  web_api_quality_replay:
+    name: Legacy web/API quality replay
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests jieba
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Install web dependencies
+        run: npm --prefix apps/web ci
+
+      - name: Lint web app
+        run: npm --prefix apps/web run lint
+
+      - name: Build web app
+        run: npm --prefix apps/web run build
+
+      - name: Run integrated web+backend quality replay
+        env:
+          TONESOUL_BACKEND_URL: http://127.0.0.1:5000
+        run: |
+          set -euo pipefail
+
+          python apps/api/server.py > backend.log 2>&1 &
+          BACK_PID=$!
+          npm --prefix apps/web run start -- --port 3000 > web.log 2>&1 &
+          WEB_PID=$!
+
+          cleanup() {
+            kill "$WEB_PID" "$BACK_PID" >/dev/null 2>&1 || true
+          }
+          trap cleanup EXIT
+
+          python - <<'PY'
+          import sys
+          import time
+          import requests
+
+          def wait_get(url: str, timeout_sec: int = 60) -> None:
+              deadline = time.time() + timeout_sec
+              while time.time() < deadline:
+                  try:
+                      r = requests.get(url, timeout=2)
+                      if r.status_code < 500:
+                          return
+                  except Exception:
+                      pass
+                  time.sleep(1)
+              print(f"timeout waiting for {url}", file=sys.stderr)
+              sys.exit(1)
+
+          def wait_post(url: str, payload: dict, timeout_sec: int = 120) -> None:
+              deadline = time.time() + timeout_sec
+              while time.time() < deadline:
+                  try:
+                      r = requests.post(url, json=payload, timeout=2)
+                      if r.status_code < 500:
+                          return
+                  except Exception:
+                      pass
+                  time.sleep(1)
+              print(f"timeout waiting for {url}", file=sys.stderr)
+              sys.exit(1)
+
+          wait_get("http://127.0.0.1:5000/api/health")
+          wait_post("http://127.0.0.1:3000/api/conversation", {"session_id": "ci_ready"})
+          PY
+
+          if ! python scripts/verify_web_api.py --web-base http://127.0.0.1:3000 --api-base http://127.0.0.1:5000 --require-backend --elisa-scenario --timeout 40; then
+            echo "=== backend.log ==="
+            cat backend.log || true
+            echo "=== web.log ==="
+            cat web.log || true
+            exit 1
+          fi
