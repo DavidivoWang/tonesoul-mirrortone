@@ -2,7 +2,7 @@
 
 > Purpose: short reviewable summary of what the current cleanup wave changed across ToneSoul's first-hop entry surfaces.
 > Last Updated: 2026-04-20
-> Status: review snapshot for the current landing-layer cleanup wave.
+> Status: review snapshot for the current landing-layer cleanup wave and its bounded follow-on cleanup.
 
 ---
 
@@ -11,7 +11,7 @@
 This wave did **not** try to rewrite ToneSoul's core center.
 It focused on making the repo easier to enter, route, continue, and inspect.
 
-The reviewable landing-layer set in this pass is:
+The original reviewable landing-layer set in this pass was:
 
 - `docs/AI_QUICKSTART.md`
 - `AI_ONBOARDING.md`
@@ -25,7 +25,7 @@ The reviewable landing-layer set in this pass is:
 `README.md` and `README.zh-TW.md` are **not** part of this reviewable docs-alignment set.
 Those root entry surfaces still contain mirror-repo-specific install-source edits and should stay on a separate line until any later manual port is reviewed on its own merits.
 
-## What Was Fixed
+## What Was Fixed In The Reviewable Pass
 
 ### 1. First-Hop Route Was Aligned
 
@@ -64,6 +64,21 @@ A bounded collaboration note was added:
 
 It defines this wave as a repo/docs/onboarding/workflow cleanup effort rather than a rewrite of ToneSoul's core worldview.
 
+## What Landed In The Follow-On Cleanup
+
+After the original reviewable pass, one bounded follow-on cleanup was completed on the landing layer:
+
+### 6. `docs/INDEX.md` Was Cleaned And Deconfused
+
+`docs/INDEX.md` was first repaired as an honest inventory surface and then split so that older mixed-encoding raw registry residue no longer lives inside the maintained main index.
+
+Current state:
+
+- `docs/INDEX.md` = clean maintained full registry / routing index
+- `docs/LEGACY_RAW_REGISTRY.md` = preserved historical raw residue only
+
+This reduces the risk that later agents treat old mixed-encoding registry blocks as live authority or first-hop routing.
+
 ## What This Wave Did Not Do
 
 This wave did **not**:
@@ -73,29 +88,30 @@ This wave did **not**:
 - upgrade interpretive prose into canonical runtime truth
 - widen maturity claims beyond the evidence ladder
 - silently treat mirror-specific root README edits as part of the reviewable docs-only pass
+- claim that the whole repo is now converged or finished
 
 ## Current Result
 
-The repo's landing layer is now more legible in four ways:
+The repo's landing layer is now more legible in five ways:
 
 - easier to enter
 - easier to continue across later agents
 - easier to inspect for authority and routing order
+- easier to browse without mistaking raw residue for maintained entry surfaces
 - easier to selectively learn from without bulk-reading the whole repository
 
 ## What Still Remains After This Wave
 
 This cleanup wave does **not** mean the whole repo is finished.
-It only means the entry and routing layer is substantially more coherent.
+It means the entry and routing layer is substantially more coherent, and the main index is now clean enough to stop misleading first-hop readers.
 
-Remaining work is still likely to include:
+Remaining work is now narrower and is still likely to include:
 
-- deeper docs consistency checks
-- broader cross-link validation
-- selective cleanup of downstream workflow surfaces
-- later owner review of wording and emphasis
+- final owner/reviewer reading of emphasis and wording
 - any separate handling of root `README.md` / `README.zh-TW.md` if a canonical-safe manual port is ever wanted
+- deeper repo-wide docs convergence work outside the landing layer
 
 ## Compressed Verdict
 
-This wave should be read as a landing-layer cleanup and alignment pass, not as a philosophical rewrite, not as a full-repo completion claim, and not as approval to bulk-merge mirror-specific root README edits into canonical surfaces.
+This wave should be read as a landing-layer cleanup and alignment pass, plus one bounded index deconfusion follow-on cleanup.
+It is not a philosophical rewrite, not a full-repo completion claim, and not approval to bulk-merge mirror-specific root README edits into canonical surfaces.
