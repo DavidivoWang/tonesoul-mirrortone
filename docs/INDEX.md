@@ -226,10 +226,10 @@ Use this when the question is not only what should be transferred, but how the e
 
 ## Current Continuation Surfaces
 
-- [plans/tonesoul_3day_execution_program_2026-03-30.md](plans/tonesoul_3day_execution_program_2026-03-30.md)
-- [status/codex_handoff_2026-04-02.md](status/codex_handoff_2026-04-02.md)
-- [plans/tonesoul_successor_collaboration_and_hot_memory_program_2026-04-02.md](plans/tonesoul_successor_collaboration_and_hot_memory_program_2026-04-02.md)
-- [plans/tonesoul_subsystem_parity_and_gap_map_2026-04-02.md](plans/tonesoul_subsystem_parity_and_gap_map_2026-04-02.md)
+- [plans/tonesoul_work_plan_v2_2026-04-14.md](plans/tonesoul_work_plan_v2_2026-04-14.md)
+- [status/codex_handoff_2026-04-15.md](status/codex_handoff_2026-04-15.md)
+- [plans/tonesoul_8hour_execution_program_2026-04-15.md](plans/tonesoul_8hour_execution_program_2026-04-15.md)
+- [plans/tonesoul_non_creator_external_cycle_preflight_refresh_pack_2026-04-15.md](plans/tonesoul_non_creator_external_cycle_preflight_refresh_pack_2026-04-15.md)
 
 ## Successor Continuity And Hot Memory
 
@@ -346,6 +346,12 @@ Use these when a document claim sounds too clean, too rounded, or too shell-depe
   - family map for governance prompts, context injection, refinement, domain pipelines, and persona voice
 - [plans/tonesoul_prompt_adoption_followup_candidates_2026-03-29.md](plans/tonesoul_prompt_adoption_followup_candidates_2026-03-29.md)
   - bounded next-wave candidates after the already-completed council and refinement waves
+
+## Historical Inventory Residue Boundary
+
+The sections below this line are preserved as older raw registry residue and may include mixed-encoding labels from earlier doc waves.
+Do not use them for first-hop routing, authority, or current continuation decisions.
+Prefer the maintained owner surfaces above, plus `docs/README.md`, `task.md`, and latest `docs/status/*` when current truth matters.
 
 ## ?妣 Documentation Governance v1
 
