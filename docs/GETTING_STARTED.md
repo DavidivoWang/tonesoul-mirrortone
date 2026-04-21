@@ -1,20 +1,24 @@
 # Getting Started with ToneSoul
 
 > Purpose: quickstart guide for installing ToneSoul, running a basic governance flow, and learning the core concepts.
-> Last Updated: 2026-03-23
+> Last Updated: 2026-04-21
 
 ToneSoul pairs a governance kernel (`AXIOMS.json`, `law/constitution.json`) with a semantic engine (`tonesoul/`). This guide helps new contributors install, run a basic flow, and internalize the core concepts.
 
 ## 1. Installation
 
-1. Clone the repository.
-2. Create a virtual environment and install Python deps:
-   ```bash
-   python -m venv .venv
-   .venv/Scripts/activate
-   pip install -r requirements.txt
-   ```
-3. Ensure `pytest` is available for running governance checks.
+Work from your current local checkout of the repository you intend to inspect or run.
+Then:
+
+```bash
+python -m venv .venv
+.venv/Scripts/activate
+pip install -e .
+```
+
+If canonical upstream identity or source provenance matters, verify that boundary separately rather than inferring it only from the checkout currently in front of you.
+
+Ensure `pytest` is available for running governance checks.
 
 ## 2. Quick Example
 
@@ -151,4 +155,3 @@ python scripts/init_governance_state.py \
 
 Available presets: `default`, `cautious-guardian`, `creative-explorer`.
 Create your own by copying and editing any `.soul.json` in `memory/profiles/`.
-
