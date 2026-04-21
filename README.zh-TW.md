@@ -6,7 +6,7 @@
 > ToneSoul 是一套外部化認知治理架構，關心的是可挑戰、可追溯、可稽核的 AI，而不是只追求更順的回答。
 >
 > Purpose: 語魂公開倉庫中文入口，說明整體架構、治理姿態與實作入口。
-> Last Updated: 2026-04-19
+> Last Updated: 2026-04-21
 
 [English](README.md)
 
@@ -22,15 +22,17 @@
 
 ## 5 分鐘快速啟動
 
-### 1) 安裝
+### 1) 準備你目前的本地 checkout
+
+使用你目前手上的本地倉庫副本來檢查或執行 ToneSoul，然後：
 
 ```bash
-git clone --depth 1 https://github.com/DavidivoWang/tonesoul-mirrortone.git
-cd tonesoul-mirrortone
 python -m venv .venv
 .venv/Scripts/activate
 pip install -e .
 ```
+
+如果 canonical upstream 身分或來源 provenance 很重要，請把那條來源界線另外檢查，不要只因為目前這份 checkout 存在就直接外推。
 
 ### 2) 驗證治理狀態有載入
 
