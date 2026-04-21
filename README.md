@@ -1,4 +1,4 @@
-﻿# ToneSoul / 語魂
+# ToneSoul / 語魂
 
 > AI that does not just answer. It catches semantic drift, remembers what matters, and audits itself.
 > If you want AI that won't make things up, start here.
@@ -6,7 +6,7 @@
 > ToneSoul is an externalized cognitive architecture for AI governance, ethical memory systems, verifier-first agents, knowledge-graph retrieval, and adapter-ready semantic governance.
 
 > Purpose: public repository entrypoint for ToneSoul's architecture, governance posture, and practical onboarding.
-> Last Updated: 2026-04-19
+> Last Updated: 2026-04-21
 
 ---
 
@@ -48,15 +48,18 @@ adapter-ready architecture, LoRA-ready distillation.
 
 ## Quick Start (5 minutes)
 
-### 1) Install
+### 1) Prepare a local checkout
+
+Use your current local checkout of the repository you want to inspect or run.
+Then:
 
 ```bash
-git clone --depth 1 https://github.com/DavidivoWang/tonesoul-mirrortone.git
-cd tonesoul-mirrortone
 python -m venv .venv
 .venv/Scripts/activate
 pip install -e .
 ```
+
+If canonical upstream identity or source provenance matters, review that boundary separately rather than inferring it from this checkout alone.
 
 ### 2) Verify governance loads
 
