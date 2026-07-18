@@ -69,3 +69,29 @@ def test_dashboard_launcher_fails_closed_on_missing_inputs() -> None:
     assert '$ErrorActionPreference = "Continue"' not in launcher
     assert "Blind Trust" not in launcher
     assert "Blind Mode" not in launcher
+
+
+def test_windows_workflow_checks_out_and_runs_the_exact_pr_head() -> None:
+    workflow = _read(".github/workflows/windows-local-entrypoints.yml")
+
+    assert "runs-on: windows-latest" in workflow
+    assert "timeout-minutes: 30" in workflow
+    assert "github.event.pull_request.head.sha || github.sha" in workflow
+    assert "verify_windows_entrypoints.ps1" in workflow
+    assert "actions/upload-artifact@v4" in workflow
+    assert "if-no-files-found: error" in workflow
+
+
+def test_windows_runtime_harness_covers_success_failure_and_cleanup() -> None:
+    harness = _read("scripts/ci/verify_windows_entrypoints.ps1")
+
+    assert "setup_env.ps1" in harness
+    assert "start_dashboard.ps1" in harness
+    assert "launcher-missing-venv" in harness
+    assert "launcher-missing-app" in harness
+    assert "launcher-missing-streamlit" in harness
+    assert "/_stcore/health" in harness
+    assert "dashboard_root_status" in harness
+    assert "Stop-DashboardProcessTree" in harness
+    assert "DASHBOARD_PROCESS_STOPPED=YES" in harness
+    assert "summary.json" in harness
