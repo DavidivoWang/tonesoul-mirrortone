@@ -1,0 +1,97 @@
+"""Static contracts for cross-platform local setup entrypoints."""
+
+from __future__ import annotations
+
+import re
+import shutil
+import subprocess
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def _read(relative_path: str) -> str:
+    return (ROOT / relative_path).read_text(encoding="utf-8")
+
+
+def _capture(pattern: str, text: str, label: str) -> str:
+    match = re.search(pattern, text, flags=re.MULTILINE)
+    assert match is not None, f"Unable to locate {label}"
+    return match.group(1)
+
+
+def test_package_version_matches_project_metadata() -> None:
+    pyproject = _read("pyproject.toml")
+    package_init = _read("tonesoul/__init__.py")
+
+    project_version = _capture(r'^version = "([^"]+)"$', pyproject, "project version")
+    package_version = _capture(
+        r'^__version__ = "([^"]+)"$', package_init, "package version"
+    )
+
+    assert package_version == project_version
+
+
+def test_windows_setup_uses_pyproject_as_dependency_source() -> None:
+    setup = _read("setup_env.ps1")
+
+    assert '"-e", ".[dev,dashboard,monitoring]"' in setup
+    assert "pip install -r requirements.txt" not in setup
+    assert "streamlit plotly pandas psutil requests" not in setup
+    assert "Python 3.10+" in setup
+    assert '@{ Name = "py"; Args = @("-3") }' in setup
+
+
+def test_unix_installer_verifies_the_installed_distribution() -> None:
+    installer = _read("install.sh")
+
+    assert "set -euo pipefail" in installer
+    assert 'version("tonesoul52")' in installer
+    assert "package_version = tonesoul.__version__" in installer
+    assert '|| echo "ToneSoul core installed"' not in installer
+    assert "curl -sSL" not in installer
+
+
+def test_unix_installer_has_valid_bash_syntax() -> None:
+    bash = shutil.which("bash")
+    if bash is None:
+        return
+
+    subprocess.run([bash, "-n", str(ROOT / "install.sh")], check=True)
+
+
+def test_dashboard_launcher_fails_closed_on_missing_inputs() -> None:
+    launcher = _read("start_dashboard.ps1")
+
+    assert "Set-Location $PSScriptRoot" in launcher
+    assert "Test-Path $VenvPython" in launcher
+    assert "Test-Path $AppPath" in launcher
+    assert '$ErrorActionPreference = "Continue"' not in launcher
+    assert "Blind Trust" not in launcher
+    assert "Blind Mode" not in launcher
+
+
+def test_windows_workflow_checks_out_and_runs_the_exact_pr_head() -> None:
+    workflow = _read(".github/workflows/windows-local-entrypoints.yml")
+
+    assert "runs-on: windows-latest" in workflow
+    assert "timeout-minutes: 30" in workflow
+    assert "github.event.pull_request.head.sha || github.sha" in workflow
+    assert "verify_windows_entrypoints.ps1" in workflow
+    assert "actions/upload-artifact@v4" in workflow
+    assert "if-no-files-found: error" in workflow
+
+
+def test_windows_runtime_harness_covers_success_failure_and_cleanup() -> None:
+    harness = _read("scripts/ci/verify_windows_entrypoints.ps1")
+
+    assert "setup_env.ps1" in harness
+    assert "start_dashboard.ps1" in harness
+    assert "launcher-missing-venv" in harness
+    assert "launcher-missing-app" in harness
+    assert "launcher-missing-streamlit" in harness
+    assert "/_stcore/health" in harness
+    assert "dashboard_root_status" in harness
+    assert "Stop-DashboardProcessTree" in harness
+    assert "DASHBOARD_PROCESS_STOPPED=YES" in harness
+    assert "summary.json" in harness

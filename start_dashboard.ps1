@@ -1,31 +1,37 @@
 $ErrorActionPreference = "Stop"
-
-# 1. Setup
-$ErrorActionPreference = "Continue" # Don't stop on minor errors
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$env:PYTHONUTF8 = "1"
+$env:PYTHONIOENCODING = "utf-8"
 
-Write-Host "[ToneSoul] Dashboard Launcher (Blind Mode)" -ForegroundColor Cyan
-$CurrentDir = Get-Location
-Write-Host "Working Dir: $CurrentDir" -ForegroundColor Gray
+Set-Location $PSScriptRoot
 
-# 2. Define Python Path (Root Relative)
-# Since we flattened the repo, .venv is in the same folder!
-$VenvPython = ".\.venv\Scripts\python.exe"
+Write-Host "[ToneSoul] Dashboard Launcher" -ForegroundColor Cyan
+Write-Host "Repository Root: $PSScriptRoot" -ForegroundColor Gray
 
-Write-Host "Target Python: $VenvPython" -ForegroundColor Gray
-Write-Host "Mode: Clean Root Structure" -ForegroundColor Green
-Write-Host "Skipping specific path checks to avoid unicode issues (Blind Trust)" -ForegroundColor Yellow
+$VenvPython = Join-Path $PSScriptRoot ".venv\Scripts\python.exe"
+$AppPath = Join-Path $PSScriptRoot "apps\dashboard\frontend\app.py"
 
-# 3. Launch
-$AppPath = "apps\dashboard\frontend\app.py"
-Write-Host "Launching..." -ForegroundColor Green
+if (-not (Test-Path $VenvPython)) {
+    Write-Host "[Error] Virtual environment is missing: $VenvPython" -ForegroundColor Red
+    Write-Host "Run .\setup_env.bat first." -ForegroundColor Yellow
+    exit 1
+}
 
-# Invoke directly
+if (-not (Test-Path $AppPath)) {
+    Write-Host "[Error] Dashboard entrypoint is missing: $AppPath" -ForegroundColor Red
+    exit 1
+}
+
+& $VenvPython -c "import streamlit"
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "[Error] Streamlit is not installed in .venv." -ForegroundColor Red
+    Write-Host "Run .\setup_env.bat to restore the declared dashboard extras." -ForegroundColor Yellow
+    exit 1
+}
+
+Write-Host "Launching dashboard..." -ForegroundColor Green
 & $VenvPython -m streamlit run $AppPath
-
-if ($LastExitCode -ne 0) {
-    Write-Host "Exit Code: $LastExitCode" -ForegroundColor Red
-    Write-Host "If this failed, please manually run:"
-    Write-Host "..\.venv\Scripts\python.exe -m streamlit run apps\dashboard\frontend\app.py"
-    Read-Host "Press Enter to exit"
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "[Error] Dashboard exited with code $LASTEXITCODE." -ForegroundColor Red
+    exit $LASTEXITCODE
 }

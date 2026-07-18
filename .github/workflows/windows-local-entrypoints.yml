@@ -1,0 +1,58 @@
+name: Windows Local Entrypoint Validation
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/windows-local-entrypoints.yml"
+      - "scripts/ci/verify_windows_entrypoints.ps1"
+      - "setup_env.ps1"
+      - "setup_env.bat"
+      - "start_dashboard.ps1"
+      - "start_dashboard.bat"
+      - "pyproject.toml"
+      - "tests/test_local_entrypoint_contracts.py"
+      - "apps/dashboard/frontend/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-local-entrypoints-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows-entrypoints:
+    name: PowerShell and dashboard readback
+    runs-on: windows-latest
+    timeout-minutes: 30
+    env:
+      MTEL_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out the exact pull-request head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 1
+
+      - name: Configure Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Execute Windows entrypoint runtime readback
+        shell: pwsh
+        run: |
+          $artifactDirectory = Join-Path "${{ runner.temp }}" "windows-entrypoint-readback"
+          .\scripts\ci\verify_windows_entrypoints.ps1 -ArtifactDirectory $artifactDirectory
+
+      - name: Upload Windows entrypoint readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-entrypoint-readback-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/windows-entrypoint-readback
+          if-no-files-found: error
+          retention-days: 14
