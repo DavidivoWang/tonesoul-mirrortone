@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import re
+import shutil
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,6 +50,14 @@ def test_unix_installer_verifies_the_installed_distribution() -> None:
     assert "package_version = tonesoul.__version__" in installer
     assert '|| echo "ToneSoul core installed"' not in installer
     assert "curl -sSL" not in installer
+
+
+def test_unix_installer_has_valid_bash_syntax() -> None:
+    bash = shutil.which("bash")
+    if bash is None:
+        return
+
+    subprocess.run([bash, "-n", str(ROOT / "install.sh")], check=True)
 
 
 def test_dashboard_launcher_fails_closed_on_missing_inputs() -> None:
