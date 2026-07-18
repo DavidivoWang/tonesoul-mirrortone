@@ -27,12 +27,18 @@ $VenvPython = Join-Path $VenvDir "Scripts\python.exe"
 $AppPath = Join-Path $RepoRoot "apps\dashboard\frontend\app.py"
 $WindowsPowerShell = (Get-Command powershell.exe -ErrorAction Stop).Source
 $BasePython = (Get-Command python.exe -ErrorAction Stop).Source
+$CommitSha = if (-not [string]::IsNullOrWhiteSpace($env:MTEL_HEAD_SHA)) {
+    $env:MTEL_HEAD_SHA
+}
+else {
+    $env:GITHUB_SHA
+}
 
 $Summary = [ordered]@{
     schema_version = "1.0"
     status = "running"
     repository_root = $RepoRoot
-    commit = $env:GITHUB_SHA
+    commit = $CommitSha
     runner_os = $env:RUNNER_OS
     harness_powershell = $PSVersionTable.PSVersion.ToString()
     windows_powershell = $null
@@ -111,6 +117,35 @@ function Invoke-LauncherExpectedFailure {
     return $Result
 }
 
+function Stop-DashboardProcessTree {
+    param(
+        [Parameter(Mandatory = $true)][System.Diagnostics.Process]$Process
+    )
+
+    try {
+        $Process.Refresh()
+        if (-not $Process.HasExited) {
+            $Taskkill = (Get-Command taskkill.exe -ErrorAction Stop).Source
+            $TaskkillResult = Invoke-CapturedCommand -Name "dashboard-process-tree-stop" -FilePath $Taskkill -Arguments @(
+                "/PID", [string]$Process.Id,
+                "/T",
+                "/F"
+            )
+            if ($TaskkillResult.ExitCode -ne 0) {
+                Write-Warning "taskkill returned exit code $($TaskkillResult.ExitCode)."
+            }
+        }
+
+        $null = $Process.WaitForExit(15000)
+        $Process.Refresh()
+        return $Process.HasExited
+    }
+    catch {
+        Write-Warning "Unable to confirm dashboard process cleanup: $($_.Exception.Message)"
+        return $false
+    }
+}
+
 $DashboardProcess = $null
 $DashboardStdout = Join-Path $ArtifactDirectory "dashboard.stdout.log"
 $DashboardStderr = Join-Path $ArtifactDirectory "dashboard.stderr.log"
@@ -123,7 +158,7 @@ try {
     $WindowsPowerShellVersion = Invoke-CapturedCommand -Name "windows-powershell-version" -FilePath $WindowsPowerShell -Arguments @(
         "-NoLogo",
         "-NoProfile",
-        "-Command", "$PSVersionTable.PSVersion.ToString()"
+        "-Command", '$PSVersionTable.PSVersion.ToString()'
     )
     Assert-True -Condition ($WindowsPowerShellVersion.ExitCode -eq 0) -Message "Unable to read Windows PowerShell version."
     $Summary["windows_powershell"] = $WindowsPowerShellVersion.OutputText.Trim()
@@ -226,92 +261,75 @@ try {
         "-NoLogo",
         "-NoProfile",
         "-ExecutionPolicy", "Bypass",
-        "-File", $LauncherPath
+        "-File", ('"{0}"' -f $LauncherPath)
     ) -WorkingDirectory $RepoRoot -RedirectStandardOutput $DashboardStdout -RedirectStandardError $DashboardStderr -WindowStyle Hidden -PassThru
 
     $Summary["dashboard_process_started"] = $true
     Write-Host "[CI] Dashboard launcher PID: $($DashboardProcess.Id)"
 
-    $HealthUri = "http://127.0.0.1:8501/_stcore/health"
-    $RootUri = "http://127.0.0.1:8501/"
-    $Deadline = [DateTime]::UtcNow.AddSeconds(90)
-    $HealthResponse = $null
+    try {
+        $HealthUri = "http://127.0.0.1:8501/_stcore/health"
+        $RootUri = "http://127.0.0.1:8501/"
+        $Deadline = [DateTime]::UtcNow.AddSeconds(90)
+        $HealthResponse = $null
 
-    while ([DateTime]::UtcNow -lt $Deadline) {
-        $DashboardProcess.Refresh()
-        if ($DashboardProcess.HasExited) {
-            break
-        }
-
-        try {
-            $HealthResponse = Invoke-WebRequest -Uri $HealthUri -TimeoutSec 5
-            if ($HealthResponse.StatusCode -eq 200) {
+        while ([DateTime]::UtcNow -lt $Deadline) {
+            $DashboardProcess.Refresh()
+            if ($DashboardProcess.HasExited) {
                 break
             }
+
+            try {
+                $HealthResponse = Invoke-WebRequest -Uri $HealthUri -TimeoutSec 5
+                if ($HealthResponse.StatusCode -eq 200) {
+                    break
+                }
+            }
+            catch {
+                Start-Sleep -Seconds 2
+            }
         }
-        catch {
-            Start-Sleep -Seconds 2
+
+        $DashboardProcess.Refresh()
+        if ($null -eq $HealthResponse -or $HealthResponse.StatusCode -ne 200) {
+            $StdoutText = if (Test-Path $DashboardStdout) { Get-Content -LiteralPath $DashboardStdout -Raw } else { "" }
+            $StderrText = if (Test-Path $DashboardStderr) { Get-Content -LiteralPath $DashboardStderr -Raw } else { "" }
+            throw "Dashboard health endpoint did not become ready. HasExited=$($DashboardProcess.HasExited)`nSTDOUT:`n$StdoutText`nSTDERR:`n$StderrText"
         }
+
+        $Summary["dashboard_health_status"] = [int]$HealthResponse.StatusCode
+        $Summary["dashboard_health_body"] = ([string]$HealthResponse.Content).Trim()
+
+        $RootResponse = Invoke-WebRequest -Uri $RootUri -TimeoutSec 10
+        $Summary["dashboard_root_status"] = [int]$RootResponse.StatusCode
+        Assert-True -Condition ($RootResponse.StatusCode -eq 200) -Message "Dashboard root endpoint did not return HTTP 200."
+
+        Start-Sleep -Seconds 3
+        $DashboardProcess.Refresh()
+        Assert-True -Condition (-not $DashboardProcess.HasExited) -Message "Dashboard launcher exited immediately after reporting healthy."
+
+        Write-Host "DASHBOARD_PROCESS_STARTED=YES"
+        Write-Host "DASHBOARD_HEALTH_READY=YES"
+        Write-Host "DASHBOARD_HTTP_STATUS=$($HealthResponse.StatusCode)"
+    }
+    finally {
+        $Summary["dashboard_process_stopped"] = Stop-DashboardProcessTree -Process $DashboardProcess
     }
 
-    $DashboardProcess.Refresh()
-    if ($null -eq $HealthResponse -or $HealthResponse.StatusCode -ne 200) {
-        $StdoutText = if (Test-Path $DashboardStdout) { Get-Content -LiteralPath $DashboardStdout -Raw } else { "" }
-        $StderrText = if (Test-Path $DashboardStderr) { Get-Content -LiteralPath $DashboardStderr -Raw } else { "" }
-        throw "Dashboard health endpoint did not become ready. HasExited=$($DashboardProcess.HasExited)`nSTDOUT:`n$StdoutText`nSTDERR:`n$StderrText"
-    }
-
-    $Summary["dashboard_health_status"] = [int]$HealthResponse.StatusCode
-    $Summary["dashboard_health_body"] = $HealthResponse.Content.Trim()
-
-    $RootResponse = Invoke-WebRequest -Uri $RootUri -TimeoutSec 10
-    $Summary["dashboard_root_status"] = [int]$RootResponse.StatusCode
-    Assert-True -Condition ($RootResponse.StatusCode -eq 200) -Message "Dashboard root endpoint did not return HTTP 200."
-
-    Start-Sleep -Seconds 3
-    $DashboardProcess.Refresh()
-    Assert-True -Condition (-not $DashboardProcess.HasExited) -Message "Dashboard launcher exited immediately after reporting healthy."
-
-    Write-Host "DASHBOARD_PROCESS_STARTED=YES"
-    Write-Host "DASHBOARD_HEALTH_READY=YES"
-    Write-Host "DASHBOARD_HTTP_STATUS=$($HealthResponse.StatusCode)"
+    Assert-True -Condition ([bool]$Summary["dashboard_process_stopped"]) -Message "Dashboard process tree cleanup could not be confirmed."
+    Write-Host "DASHBOARD_PROCESS_STOPPED=YES"
 
     $Summary["status"] = "passed"
 }
 catch {
     $Summary["status"] = "failed"
     $Summary["failure_message"] = $_.Exception.Message
-    Write-Error $_
+    Write-Host "[CI] Failure: $($_.Exception.Message)" -ForegroundColor Red
     throw
 }
 finally {
-    if ($null -ne $DashboardProcess) {
-        try {
-            $DashboardProcess.Refresh()
-            if (-not $DashboardProcess.HasExited) {
-                $Taskkill = (Get-Command taskkill.exe -ErrorAction Stop).Source
-                $TaskkillResult = Invoke-CapturedCommand -Name "dashboard-process-tree-stop" -FilePath $Taskkill -Arguments @(
-                    "/PID", [string]$DashboardProcess.Id,
-                    "/T",
-                    "/F"
-                )
-                if ($TaskkillResult.ExitCode -ne 0) {
-                    Write-Warning "taskkill returned exit code $($TaskkillResult.ExitCode)."
-                }
-            }
-
-            $null = $DashboardProcess.WaitForExit(15000)
-            $DashboardProcess.Refresh()
-            $Summary["dashboard_process_stopped"] = $DashboardProcess.HasExited
-        }
-        catch {
-            Write-Warning "Unable to confirm dashboard process cleanup: $($_.Exception.Message)"
-            $Summary["dashboard_process_stopped"] = $false
-        }
-    }
-
-    if ($Summary["dashboard_process_started"] -and $Summary["dashboard_process_stopped"]) {
-        Write-Host "DASHBOARD_PROCESS_STOPPED=YES"
+    if ($null -ne $DashboardProcess -and -not [bool]$Summary["dashboard_process_stopped"]) {
+        $Summary["dashboard_process_stopped"] = Stop-DashboardProcessTree -Process $DashboardProcess
     }
 
     $Summary["finished_at_utc"] = [DateTime]::UtcNow.ToString("o")
